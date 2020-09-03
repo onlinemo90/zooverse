@@ -32,7 +32,6 @@ public class ScanTicketActivity extends AppCompatActivity implements ActivityCom
     private TextView textView;
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
-    private PermissionHandler permissionHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +42,13 @@ public class ScanTicketActivity extends AppCompatActivity implements ActivityCom
         textView = findViewById(R.id.textView);
         barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.QR_CODE).build(); //makes sure it ONLY scans QR-codes
         cameraSource = new CameraSource.Builder(this,barcodeDetector).setRequestedPreviewSize(640,480).build();
-        permissionHandler = new PermissionHandler();
 
         surfaceCamera.getHolder().addCallback(new SurfaceHolder.Callback() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void surfaceCreated(@NonNull SurfaceHolder surfaceHolder) {
                 //ask user for Camera permission
-                if(permissionHandler.checkGrantedCameraPermission(getApplicationContext(), getActivity())){
+                if(checkGrantedCameraPermission(getApplicationContext())){
                     try {
                         cameraSource.start(surfaceHolder);
                     } catch (IOException e) {
@@ -91,7 +89,33 @@ public class ScanTicketActivity extends AppCompatActivity implements ActivityCom
         });
     }
 
-    public Activity getActivity(){
-        return this;
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public boolean checkGrantedCameraPermission(Context context){
+        //Is access permission already given?
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
+            return true;
+        }
+        else { //permission not defined yet, then prompt popup to request user permission
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, 1);
+            return false;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        //Pop up answered
+        if (requestCode == 1) {
+            //User granted permission, reload the screen
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                finish();
+                startActivity(getIntent());
+                //User denied permission, show sad message
+            } else {
+                Toast.makeText(getApplicationContext(), "Camera is required to scan zoo ticket.", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else{
+            super.onRequestPermissionsResult(requestCode,permissions,grantResults);
+        }
     }
 }
