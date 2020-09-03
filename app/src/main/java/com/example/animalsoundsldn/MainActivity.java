@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     }
 //open screen for ticket scan
     public void openScanTicket(View view) {
+
         Intent intent = new Intent(getApplicationContext(), ScanTicketActivity.class);
         startActivity(intent);
     }
