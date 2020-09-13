@@ -1,4 +1,4 @@
-package com.example.animalsoundsldn;
+package com.animalsoundsldn;
 
 import org.junit.Test;
 

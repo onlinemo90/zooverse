@@ -1,4 +1,4 @@
-package com.example.animalsoundsldn;
+package com.animalsoundsldn.activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -12,6 +12,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.TextView;
 
+import com.animalsoundsldn.R;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;

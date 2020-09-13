@@ -1,7 +1,7 @@
-package com.example.animalsoundsldn;
+package com.animalsoundsldn.model;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
+
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 public class DatabaseHelper extends SQLiteAssetHelper {

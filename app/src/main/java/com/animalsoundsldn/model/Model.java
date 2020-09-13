@@ -1,4 +1,4 @@
-package com.example.animalsoundsldn;
+package com.animalsoundsldn.model;
 
 
 import android.content.Context;
