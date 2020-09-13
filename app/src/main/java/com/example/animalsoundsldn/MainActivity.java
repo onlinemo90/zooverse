@@ -8,23 +8,20 @@ import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
+    Model model;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-    //DB test only
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
-        databaseAccess.open();
-        ArrayList<String> species = databaseAccess.getSpecies();
+        //DB test only
+        model = Model.getInstance(getApplicationContext());
+        ArrayList<String> species = model.getSpecies();
         for (String dbentry : species) {
             Log.d("dbtest", dbentry);
         }
-        databaseAccess.close();
     }//test end
 
 //open screen for ticket scan

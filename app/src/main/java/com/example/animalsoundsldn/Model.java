@@ -4,38 +4,26 @@ package com.example.animalsoundsldn;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+
 import java.util.ArrayList;
-import java.util.List;
 
-public class DatabaseAccess {
-    private DatabaseHelper dbHelper;
+public class Model {
+
     private SQLiteDatabase database;
-    private static DatabaseAccess instance;
+    private static Model instance;
 
 
-    private DatabaseAccess(Context context) {
-        this.dbHelper = new DatabaseHelper(context);
-    }
-
-    //return db instance
-    public static DatabaseAccess getInstance(Context context) {
-        if (instance == null) {
-            instance = new DatabaseAccess(context);
-        }
-        return instance;
-    }
-
-     //Open the database connection (read only)
-    public void open() {
+    private Model(Context context) {
+        DatabaseHelper dbHelper = new DatabaseHelper(context);
         this.database = dbHelper.getReadableDatabase();
     }
 
-    //Close the database connection.
-    public void close() {
-        if (database != null) {
-            this.database.close();
+    //return db instance
+    public static Model getInstance(Context context) {
+        if (instance == null) {
+            instance = new Model(context);
         }
+        return instance;
     }
 
   //add db entries for species to arraylist... currently only for returning the names
