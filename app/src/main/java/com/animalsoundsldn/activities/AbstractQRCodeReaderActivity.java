@@ -29,8 +29,7 @@ import java.io.IOException;
 public abstract class AbstractQRCodeReaderActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback{
     String lastQRCodeDetection = null;
     String newQRCodeDetection = null;
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
+    
     public boolean checkGrantedCameraPermission(Context context){
         //Is access permission already given?
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
@@ -60,7 +59,7 @@ public abstract class AbstractQRCodeReaderActivity extends AppCompatActivity imp
         }
     }
 
-    public void assignCamera (SurfaceView surfaceView, final TextView textView){
+    public void assignCamera (SurfaceView surfaceView){
         final Handler handler = new Handler();
         final BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.QR_CODE).build(); //makes sure it ONLY scans QR-codes
         final CameraSource cameraSource = new CameraSource.Builder(this,barcodeDetector).setRequestedPreviewSize(640,480).build();

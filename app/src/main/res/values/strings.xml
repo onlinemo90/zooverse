@@ -7,10 +7,14 @@
     <string name="main_logo">Zoo logo</string>
     <string name="main_ticket_scan">Scan ticket</string>
 
+    <!--activity_scan_ticket-->
+    <string name="scan_ticket_header">Please scan your zoo ticket</string>
+
     <!--toast messages-->
     <string name="e_invalid_qr">Invalid QR code</string>
     <string name="e_wrong_zoo">You have a ticket for a different zoo.</string>
     <string name="e_past_ticket">Your ticket date is in the past.</string>
     <string name="e_future_ticket">Your ticket date is in the future, just wait a little longer.</string>
     <string name="e_camera_access">Camera is required to scan zoo ticket.</string>
+
 </resources>
