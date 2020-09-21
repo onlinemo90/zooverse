@@ -20,6 +20,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -30,10 +34,14 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-// dependencies for barcode detection
+    // dependencies for barcode detection
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.google.android.gms:play-services:7.8+'
-// dependencies for DB import
+
+    // dependencies for DB import
     implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
+
+    // dependencies for AES encryption (to run Javascript code)
+    implementation 'org.mozilla:rhino:1.7.13'
 }
 

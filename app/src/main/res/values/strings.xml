@@ -1,20 +1,21 @@
 <resources>
     <string name="app_name">ZSL London Audio Guide</string>
     <string name="zoo_id">ZSL</string>
-
+    <string name="encryption_key">k3byWoG3plPow3FuvZ5p1IWlZv1g3uob</string>
+    
     <!--activity_main-->
     <string name="main_title">Audio Guide</string>
     <string name="main_logo">Zoo logo</string>
     <string name="main_ticket_scan">Scan ticket</string>
-
+    
     <!--activity_scan_ticket-->
     <string name="scan_ticket_header">Please scan your zoo ticket</string>
-
-    <!--toast messages-->
-    <string name="e_invalid_qr">Invalid QR code</string>
-    <string name="e_wrong_zoo">You have a ticket for a different zoo.</string>
-    <string name="e_past_ticket">Your ticket date is in the past.</string>
-    <string name="e_future_ticket">Your ticket date is in the future, just wait a little longer.</string>
-    <string name="e_camera_access">Camera is required to scan zoo ticket.</string>
+    
+    <!--QR Code Reader error messages-->
+    <string name="ticket_reader_error_camera_access_denied">Camera is required to scan zoo ticket.</string>
+    <string name="ticket_reader_error_invalid_qr">Invalid QR code</string>
+    <string name="ticket_reader_error_wrong_zoo">You have a ticket for a different zoo.</string>
+    <string name="ticket_reader_error_past_ticket">Your ticket date is in the past.</string>
+    <string name="ticket_reader_error_future_ticket">Your ticket date is in the future, just wait a little longer.</string>
 
 </resources>
