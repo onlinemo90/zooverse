@@ -11,7 +11,7 @@ import java.util.Date;
 
 public class Ticket {
 	private static final String FIELD_SEPARATOR = "\\|"; // pipe character, escaped because regex
-	private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMdd");
+	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMdd");
 	
 	private boolean isValid;
 	private String zooID;
@@ -46,6 +46,10 @@ public class Ticket {
 	public Date getDate() {
 		return this.date;
 	}
+	public String getFormattedDate() {
+		return Ticket.DATE_FORMAT.format(this.date);
+	}
+	
 	
 	private <T> T parseField(String field, Class cls, int length) throws IllegalArgumentException, ParseException {
 		if (field.length() == length) {

@@ -11,11 +11,11 @@
     <!--activity_scan_ticket-->
     <string name="scan_ticket_header">Please scan your zoo ticket</string>
     
-    <!--QR Code Reader error messages-->
-    <string name="ticket_reader_error_camera_access_denied">Camera is required to scan zoo ticket.</string>
-    <string name="ticket_reader_error_invalid_qr">Invalid QR code</string>
-    <string name="ticket_reader_error_wrong_zoo">You have a ticket for a different zoo.</string>
-    <string name="ticket_reader_error_past_ticket">Your ticket date is in the past.</string>
-    <string name="ticket_reader_error_future_ticket">Your ticket date is in the future, just wait a little longer.</string>
+    <!--ScanTicketActivity-->
+    <string name="scan_ticket_error_camera_access_denied">Camera is required to scan zoo ticket.</string>
+    <string name="scan_ticket_error_invalid_qr">Invalid QR code</string>
+    <string name="scan_ticket_error_wrong_zoo">You have a ticket for a different zoo.</string>
+    <string name="scan_ticket_error_past_ticket">Your ticket date is in the past.</string>
+    <string name="scan_ticket_error_future_ticket">Your ticket date is in the future, just wait a little longer.</string>
 
 </resources>

@@ -34,20 +34,20 @@ public class ScanTicketActivity extends AbstractQRCodeReaderActivity {
 					//save ticket date for shortcut access to menu
 					SharedPreferences preferences = getSharedPreferences("tickets", Context.MODE_PRIVATE);
 					SharedPreferences.Editor preferenceEditor = preferences.edit();
-					preferenceEditor.putString("lastTicketDate", ticket.getDate().toString());
+					preferenceEditor.putString("lastTicketDate", ticket.getFormattedDate());
 					preferenceEditor.apply();
 					Toast.makeText(MainApplication.getContext(), "you're going to the Zoo", Toast.LENGTH_SHORT).show();
 					//TODO: @Pedro to call main menu here and remove above toast
 				} else if (ticket.getDate().before(today)) {
-					Toast.makeText(MainApplication.getContext(), getString(R.string.ticket_reader_error_past_ticket), Toast.LENGTH_SHORT).show();
+					Toast.makeText(MainApplication.getContext(), getString(R.string.scan_ticket_error_past_ticket), Toast.LENGTH_SHORT).show();
 				} else {
-					Toast.makeText(MainApplication.getContext(), getString(R.string.ticket_reader_error_future_ticket), Toast.LENGTH_SHORT).show();
+					Toast.makeText(MainApplication.getContext(), getString(R.string.scan_ticket_error_future_ticket), Toast.LENGTH_SHORT).show();
 				}
 			} else {
-				Toast.makeText(MainApplication.getContext(), getString(R.string.ticket_reader_error_wrong_zoo), Toast.LENGTH_SHORT).show();
+				Toast.makeText(MainApplication.getContext(), getString(R.string.scan_ticket_error_wrong_zoo), Toast.LENGTH_SHORT).show();
 			}
 		} else {
-			Toast.makeText(MainApplication.getContext(), getString(R.string.ticket_reader_error_invalid_qr), Toast.LENGTH_SHORT).show();
+			Toast.makeText(MainApplication.getContext(), getString(R.string.scan_ticket_error_invalid_qr), Toast.LENGTH_SHORT).show();
 		}
 	}
 }
