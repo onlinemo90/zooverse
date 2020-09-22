@@ -26,8 +26,8 @@ public class Ticket {
 			this.isValid = true;
 			Log.d("decrypted ticket->", EncryptionHelper.decrypt(encryptedTicketString));
 			String[] fields = EncryptionHelper.decrypt(encryptedTicketString).split(Ticket.FIELD_SEPARATOR);
-			this.zooID = this.parseField(fields[0], String.class, 3);
-			this.date = this.parseField(fields[1], Date.class, 8);
+			this.zooID = fields[0];
+			this.date = DATE_FORMAT.parse(fields[1]);
 		} catch (Exception e) {
 			this.isValid = false;
 			this.zooID = null;
@@ -49,17 +49,4 @@ public class Ticket {
 	public String getFormattedDate() {
 		return Ticket.DATE_FORMAT.format(this.date);
 	}
-	
-	
-	private <T> T parseField(String field, Class cls, int length) throws IllegalArgumentException, ParseException {
-		if (field.length() == length) {
-			if (String.class.equals(cls)) {
-				return (T) field;
-			} else if (Date.class.equals(cls)) {
-				return (T) Ticket.DATE_FORMAT.parse(field);
-			}
-		}
-		throw new IllegalArgumentException();
-	}
-	
 }
