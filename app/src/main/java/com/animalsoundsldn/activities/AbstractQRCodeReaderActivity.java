@@ -49,7 +49,7 @@ public abstract class AbstractQRCodeReaderActivity extends AppCompatActivity imp
 				finish();
 				startActivity(getIntent());
 			} else { //User denied permission, show sad message
-				Toast.makeText(MainApplication.getContext(), getString(R.string.ticket_reader_error_camera_access_denied), Toast.LENGTH_SHORT).show();
+				Toast.makeText(MainApplication.getContext(), getString(R.string.scan_ticket_error_camera_access_denied), Toast.LENGTH_SHORT).show();
 			}
 		} else {
 			super.onRequestPermissionsResult(requestCode, permissions, grantResults);
