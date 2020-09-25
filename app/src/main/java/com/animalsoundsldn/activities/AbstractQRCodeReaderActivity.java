@@ -32,10 +32,10 @@ public abstract class AbstractQRCodeReaderActivity extends AppCompatActivity imp
 	
 	public boolean hasCameraPermission(Context context) {
 		// Is access permission already given?
-		if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+		if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
 			return true;
 		} else { //permission not defined yet, then prompt popup to request user permission
-			requestPermissions(new String[]{Manifest.permission.CAMERA}, 1);
+			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
 			return false;
 		}
 	}
@@ -50,6 +50,7 @@ public abstract class AbstractQRCodeReaderActivity extends AppCompatActivity imp
 				startActivity(getIntent());
 			} else { //User denied permission, show sad message
 				Toast.makeText(MainApplication.getContext(), getString(R.string.scan_ticket_error_camera_access_denied), Toast.LENGTH_SHORT).show();
+				finish();
 			}
 		} else {
 			super.onRequestPermissionsResult(requestCode, permissions, grantResults);
