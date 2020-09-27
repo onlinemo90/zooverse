@@ -1,4 +1,4 @@
-package com.animalsoundsldn.activities;
+package com.zooverse.activities;
 
 import android.Manifest;
 import android.content.Context;
@@ -15,10 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import com.animalsoundsldn.MainApplication;
-import com.animalsoundsldn.R;
+import com.zooverse.MainApplication;
+import com.zooverse.R;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;

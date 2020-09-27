@@ -1,4 +1,4 @@
-package com.animalsoundsldn.activities;
+package com.zooverse.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,29 +9,26 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.animalsoundsldn.MainApplication;
-import com.animalsoundsldn.model.Model;
-import com.animalsoundsldn.R;
+import com.zooverse.MainApplication;
+import com.zooverse.model.Model;
+import com.zooverse.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-	Model model;
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
 		//DB test only
-		model = Model.getInstance();
-		ArrayList<String> species = model.getSpecies();
+		ArrayList<String> species = Model.getInstance().getSpecies();
 		for (String dbentry : species) {
 			Log.d("dbtesting", dbentry);
 		}
-	}//test end
+	}
 	
 	//open screen for ticket scan
 	public void openScanTicket(View view) {

@@ -249,12 +249,11 @@ Utf8.decode = function(strUtf) {
 	});
 	return strUni;
 };
+
 encrypt=function(plaintext, password, nBits){
 	return Aes.Ctr.encrypt(plaintext, password, nBits);
 };
-encrypt=function(plaintext, password, nBits){
-	return Aes.Ctr.encrypt(plaintext, password, nBits);
-};
+
 decrypt=function(ciphertext, password, nBits){
 	return Aes.Ctr.decrypt(ciphertext, password, nBits);
 };

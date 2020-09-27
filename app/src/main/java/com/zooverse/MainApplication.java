@@ -1,4 +1,4 @@
-package com.animalsoundsldn;
+package com.zooverse;
 
 import android.app.Application;
 import android.content.Context;
@@ -10,6 +10,7 @@ public class MainApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		appContext = this;
+		AssetManager.init();
 	}
 	
 	public static Context getContext() {

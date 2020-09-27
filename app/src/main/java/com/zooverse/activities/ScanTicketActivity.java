@@ -1,4 +1,4 @@
-package com.animalsoundsldn.activities;
+package com.zooverse.activities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -7,9 +7,9 @@ import android.text.format.DateUtils;
 import android.view.SurfaceView;
 import android.widget.Toast;
 
-import com.animalsoundsldn.MainApplication;
-import com.animalsoundsldn.R;
-import com.animalsoundsldn.ticket.Ticket;
+import com.zooverse.MainApplication;
+import com.zooverse.R;
+import com.zooverse.ticket.Ticket;
 
 import java.util.Date;
 

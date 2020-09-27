@@ -1,4 +1,4 @@
-package com.animalsoundsldn;
+package com.zooverse;
 
 import org.junit.Test;
 

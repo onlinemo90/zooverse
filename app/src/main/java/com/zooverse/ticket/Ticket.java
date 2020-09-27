@@ -1,11 +1,9 @@
-package com.animalsoundsldn.ticket;
+package com.zooverse.ticket;
 
 import android.util.Log;
 
-import com.animalsoundsldn.utils.EncryptionHelper;
+import com.zooverse.utils.EncryptionHelper;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -46,6 +44,7 @@ public class Ticket {
 	public Date getDate() {
 		return this.date;
 	}
+	
 	public String getFormattedDate() {
 		return Ticket.DATE_FORMAT.format(this.date);
 	}

@@ -1,4 +1,4 @@
-package com.animalsoundsldn.model;
+package com.zooverse.model;
 
 
 import android.database.Cursor;
