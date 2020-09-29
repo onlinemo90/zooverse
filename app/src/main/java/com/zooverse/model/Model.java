@@ -11,7 +11,6 @@ public class Model {
 	private SQLiteDatabase database;
 	private static Model instance;
 	
-	
 	private Model() {
 		DatabaseHelper dbHelper = new DatabaseHelper();
 		this.database = dbHelper.getReadableDatabase();
@@ -27,7 +26,16 @@ public class Model {
 	// add db entries for species to arraylist... currently only for returning the names
 	public ArrayList<String> getSpecies() {
 		ArrayList<String> list = new ArrayList<>();
-		Cursor cursor = database.rawQuery("SELECT name FROM species", null);
+		String[] columnNames = {"NAME"};
+		Cursor cursor = database.query(
+				"SPECIES",
+				columnNames,
+				null,
+				null,
+				null,
+				null,
+				null
+		);
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
 			list.add(cursor.getString(0));

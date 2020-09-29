@@ -13,7 +13,7 @@ public class EncryptionHelper {
 	private static final String ENCRYPTION_KEY = MainApplication.getContext().getString(R.string.encryption_key);
 	
 	// Rhino initialisation - http://old.brionmario.com/mozilla-rhino-javascript-engine/
-	private static final Context RHINO_CONTEXT = Context.enter();
+	private static final Context RHINO_CONTEXT = org.mozilla.javascript.Context.enter();
 	private static final Scriptable RHINO_SCOPE = RHINO_CONTEXT.initStandardObjects();
 	
 	private static final Function ENCRYPTION_FUNCTION = getEncryptionFunction("encrypt");
