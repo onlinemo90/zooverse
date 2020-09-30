@@ -22,15 +22,15 @@ public class Model {
 		return instance;
 	}
 	
-	public Cursor getAllSpecies() {
+	public Cursor getAllSpecies(String searchCriterion) {
 		return database.query(
-				"SPECIES",
-				null,
-				null,
-				null,
-				null,
-				null,
-				null
-		);
+			   "SPECIES",
+			   null,
+			   "name LIKE '%"+searchCriterion+"%'",
+			   null,
+			   null,
+			   null,
+			   null
+	   );
 	}
 }

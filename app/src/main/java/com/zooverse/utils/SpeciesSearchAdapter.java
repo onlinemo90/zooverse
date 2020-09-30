@@ -16,7 +16,7 @@ import com.zooverse.R;
 import com.zooverse.model.Model;
 
 public class SpeciesSearchAdapter extends RecyclerView.Adapter<SpeciesSearchAdapter.SpeciesSearchViewHolder> {
-	private Cursor speciesCursor = Model.getInstance().getAllSpecies();
+	private Cursor speciesCursor = Model.getInstance().getAllSpecies("");
 	
 	// inner class for view holder
 	public static class SpeciesSearchViewHolder extends RecyclerView.ViewHolder{
@@ -51,5 +51,9 @@ public class SpeciesSearchAdapter extends RecyclerView.Adapter<SpeciesSearchAdap
 	@Override
 	public int getItemCount() {
 		return speciesCursor.getCount();
+	}
+	
+	public void updateCursor(String searchCriterion){
+		speciesCursor = Model.getInstance().getAllSpecies(searchCriterion);
 	}
 }
