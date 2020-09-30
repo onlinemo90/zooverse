@@ -5,9 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:backgroundTint="@android:color/background_light"
     tools:context=".activities.MainActivity">
-
+    
     <TextView
         android:id="@+id/txtview_title"
         android:layout_width="wrap_content"
@@ -19,7 +18,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
+    
     <ImageView
         android:id="@+id/img_logo"
         android:layout_width="wrap_content"
@@ -29,7 +28,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
-
+    
     <Button
         android:id="@+id/btn_ticket_scan"
         android:layout_width="0dp"
@@ -43,6 +42,22 @@
         android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+    
+    <Button
+        android:id="@+id/start_visit_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:onClick="startVisit"
+        android:text="@string/main_start_visit"
+        android:textColor="@android:color/background_light"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/btn_ticket_scan"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

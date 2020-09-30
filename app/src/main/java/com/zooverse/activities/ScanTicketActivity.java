@@ -1,6 +1,7 @@
 package com.zooverse.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -34,10 +35,12 @@ public class ScanTicketActivity extends AbstractQRCodeReaderActivity {
 					//save ticket date for shortcut access to menu
 					SharedPreferences preferences = getSharedPreferences("tickets", Context.MODE_PRIVATE);
 					SharedPreferences.Editor preferenceEditor = preferences.edit();
-					preferenceEditor.putString("lastTicketDate", ticket.getFormattedDate());
+					preferenceEditor.putString("scannedTicket", qrContent);
 					preferenceEditor.apply();
-					Toast.makeText(MainApplication.getContext(), "you're going to the Zoo", Toast.LENGTH_SHORT).show();
-					//TODO: @Pedro to call main menu here and remove above toast
+					
+					// Open Zoo Menu
+					Intent intent = new Intent(MainApplication.getContext(), ZooMenuActivity.class);
+					startActivity(intent);
 				} else if (ticket.getDate().before(today)) {
 					Toast.makeText(MainApplication.getContext(), getString(R.string.scan_ticket_error_past_ticket), Toast.LENGTH_SHORT).show();
 				} else {

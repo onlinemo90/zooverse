@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="#FFFFFF"
+	tools:context=".activities.ZooMenuActivity">
+	
+	<ImageView
+		android:id="@+id/img_logo"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:contentDescription="@string/main_logo"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/logo" />
+	
+	<Button
+		android:id="@+id/tour_btn"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:backgroundTint="@color/colorPrimary"
+		android:onClick="goOnTour"
+		android:text="@string/zoo_menu_tour_button"
+		android:textColor="#FFFFFF"
+		app:layout_constraintEnd_toStartOf="@+id/guideline3"
+		app:layout_constraintStart_toStartOf="@+id/guideline2"
+		app:layout_constraintTop_toBottomOf="@+id/img_logo" />
+	
+	<Button
+		android:id="@+id/animal_search_btn"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="24dp"
+		android:backgroundTint="@color/colorPrimary"
+		android:onClick="searchAnimal"
+		android:text="@string/zoo_menu_animal_search"
+		android:textColor="#FFFFFF"
+		app:layout_constraintEnd_toStartOf="@+id/guideline3"
+		app:layout_constraintStart_toStartOf="@+id/guideline2"
+		app:layout_constraintTop_toBottomOf="@+id/tour_btn" />
+	
+	<Button
+		android:id="@+id/scan_enslosure_btn"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="24dp"
+		android:backgroundTint="@color/colorPrimary"
+		android:onClick="scanEnclosure"
+		android:text="@string/zoo_menu_scan_enclosure_button"
+		android:textColor="#FFFFFF"
+		app:layout_constraintEnd_toStartOf="@+id/guideline3"
+		app:layout_constraintStart_toStartOf="@+id/guideline2"
+		app:layout_constraintTop_toBottomOf="@+id/animal_search_btn" />
+	
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/guideline2"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintGuide_percent="0.15" />
+	
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/guideline3"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintGuide_percent="0.85" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
