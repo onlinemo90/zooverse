@@ -9,7 +9,7 @@
     tools:context=".activities.MainActivity">
 
     <TextView
-        android:id="@+id/txtview_title"
+        android:id="@+id/mainScreenTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/main_title"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/img_logo"
+        android:id="@+id/mainScreenLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/main_logo"
@@ -31,7 +31,7 @@
         app:srcCompat="@drawable/logo" />
 
     <Button
-        android:id="@+id/btn_ticket_scan"
+        android:id="@+id/scanTicketButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

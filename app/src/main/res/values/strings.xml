@@ -1,21 +1,24 @@
 <resources>
-    <string name="app_name">ZSL London Audio Guide</string>
-    <string name="zoo_id">ZSL</string>
-    <string name="encryption_key">k3byWoG3plPow3FuvZ5p1IWlZv1g3uob</string>
-    
-    <!--activity_main-->
-    <string name="main_title">Audio Guide</string>
-    <string name="main_logo">Zoo logo</string>
-    <string name="main_ticket_scan">Scan ticket</string>
-    
-    <!--activity_scan_ticket-->
-    <string name="scan_ticket_header">Please scan your zoo ticket</string>
-    
-    <!--ScanTicketActivity-->
-    <string name="scan_ticket_error_camera_access_denied">Camera is required to scan zoo ticket.</string>
-    <string name="scan_ticket_error_invalid_qr">Invalid QR code</string>
-    <string name="scan_ticket_error_wrong_zoo">You have a ticket for a different zoo.</string>
-    <string name="scan_ticket_error_past_ticket">Your ticket date is in the past.</string>
-    <string name="scan_ticket_error_future_ticket">Your ticket date is in the future, just wait a little longer.</string>
+	<string name="app_name">ZSL London Audio Guide</string>
+	<string name="zoo_id">ZSL</string>
+	<string name="encryption_key">k3byWoG3plPow3FuvZ5p1IWlZv1g3uob</string>
+
+	<!--activity_main-->
+	<string name="main_title">Audio Guide</string>
+	<string name="main_logo">Zoo logo</string>
+	<string name="main_ticket_scan">Scan ticket</string>
+
+	<!--activity_scan_ticket-->
+	<string name="scan_ticket_header">Please scan your zoo ticket</string>
+
+	<!--activity_species_search-->
+	<string name="species_search_criterion_hint">What animals are you looking for?</string>
+
+	<!--ScanTicketActivity.class-->
+	<string name="scan_ticket_error_camera_access_denied">Camera is required to scan zoo ticket.</string>
+	<string name="scan_ticket_error_invalid_qr">Invalid QR code</string>
+	<string name="scan_ticket_error_wrong_zoo">You have a ticket for a different zoo.</string>
+	<string name="scan_ticket_error_past_ticket">Your ticket date is in the past.</string>
+	<string name="scan_ticket_error_future_ticket">Your ticket date is in the future, just wait a little longer.</string>
 
 </resources>

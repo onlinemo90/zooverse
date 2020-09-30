@@ -20,7 +20,7 @@ public class ScanTicketActivity extends AbstractQRCodeReaderActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_scan_ticket);
 		
-		SurfaceView surfaceCamera = findViewById(R.id.surface_camera);
+		SurfaceView surfaceCamera = findViewById(R.id.cameraSurface);
 		assignCamera(surfaceCamera);
 	}
 	
