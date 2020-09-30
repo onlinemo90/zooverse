@@ -2,10 +2,12 @@ package com.zooverse.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.zooverse.MainApplication;
 import com.zooverse.R;
 
 public class ZooMenuActivity extends AppCompatActivity {
@@ -21,7 +23,7 @@ public class ZooMenuActivity extends AppCompatActivity {
 	}
 	
 	public void searchAnimal(View view){
-		Log.d("zoo menu", "'Search for an Animal' button pressed");
+		startActivity(new Intent(MainApplication.getContext(), SpeciesSearchActivity.class));
 	}
 	
 	public void scanEnclosure(View view){
