@@ -11,8 +11,8 @@
 	
 	<!--activity_scan_ticket-->
 	<string name="scan_ticket_header">Please scan your zoo ticket</string>
-	
-	<!--ScanTicketActivity-->
+ 
+	<!--ScanTicketActivity.class-->
 	<string name="scan_ticket_error_camera_access_denied">Camera is required to scan zoo ticket.</string>
 	<string name="scan_ticket_error_invalid_qr">Invalid QR code</string>
 	<string name="scan_ticket_error_wrong_zoo">You have a ticket for a different zoo.</string>
@@ -23,4 +23,8 @@
 	<string name="zoo_menu_tour_button">Go on a tour</string>
 	<string name="zoo_menu_animal_search">Search for an animal</string>
 	<string name="zoo_menu_scan_enclosure_button">Scan enclosure sign</string>
+    
+    <!--activity_species_search-->
+    <string name="species_search_criterion_hint">What animals are you looking for?</string>
+    
 </resources>
