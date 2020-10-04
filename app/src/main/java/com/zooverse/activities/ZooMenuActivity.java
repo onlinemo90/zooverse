@@ -27,6 +27,6 @@ public class ZooMenuActivity extends AppCompatActivity {
 	}
 	
 	public void scanEnclosure(View view){
-		Log.d("zoo menu", "'Go on a Tour' button pressed");
+		Log.d("zoo menu", "'Scan enclosure' button pressed");
 	}
 }
