@@ -11,32 +11,39 @@ import android.widget.Button;
 
 import com.zooverse.MainApplication;
 import com.zooverse.R;
-import com.zooverse.ticket.Ticket;
+import com.zooverse.model.Model;
+import com.zooverse.model.Ticket;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		// Go directly to Zoo Menu if a ticket for today is stored
+		Button startVisitButton = (Button)findViewById(R.id.startVisitButton);
+		boolean ticketForTodayStored = false;
+		List<Ticket> storedTickets = Model.getInstance().getStoredTickets();
+		for (Ticket ticket : storedTickets){
+			if (ticket.isForToday()){
+				ticketForTodayStored = true;
+				break;
+			}
+		}
+		if (ticketForTodayStored){
+			startActivity(new Intent(MainApplication.getContext(), ZooMenuActivity.class));
+			startVisitButton.setVisibility(View.VISIBLE);
+		}
+		else{
+			startVisitButton.setVisibility(View.INVISIBLE);
+		}
 	}
 	
 	@Override
 	protected void onStart() {
 		super.onStart();
-		// Check if valid saved ticket in preferences
-		Button startVisitButton = (Button)findViewById(R.id.startVisitButton);
-		Button scanTicketButton = (Button)findViewById(R.id.scanTicketButton);
-		String storedTicketString = MainApplication.getLastTicketPreference();
-		Log.d("Loading saved ticket", storedTicketString);
-		Ticket storedTicket = new Ticket(storedTicketString);
-		if (storedTicket.isValid() && DateUtils.isToday(storedTicket.getDate().getTime())){
-			startVisitButton.setVisibility(View.VISIBLE);
-			scanTicketButton.setVisibility(View.GONE);
-		}
-		else{
-			startVisitButton.setVisibility(View.INVISIBLE);
-			scanTicketButton.setVisibility(View.VISIBLE);
-		}
 	}
 	
 	public void openScanTicket(View view) {

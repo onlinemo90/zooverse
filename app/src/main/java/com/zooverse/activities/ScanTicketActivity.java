@@ -9,7 +9,8 @@ import android.widget.Toast;
 
 import com.zooverse.MainApplication;
 import com.zooverse.R;
-import com.zooverse.ticket.Ticket;
+import com.zooverse.model.Model;
+import com.zooverse.model.Ticket;
 
 import java.util.Date;
 
@@ -29,17 +30,25 @@ public class ScanTicketActivity extends AbstractQRCodeReaderActivity {
 		Ticket ticket = new Ticket(qrContent);
 		if (ticket.isValid()) {
 			if (ticket.getZooID().equals(getString(R.string.zoo_id))) {
-				Date today = new Date();
-				if (DateUtils.isToday(ticket.getDate().getTime())) { //ticket date is today
-					//save ticket date for shortcut access to menu
-					MainApplication.setLastTicketPreference(qrContent);
-					// Open Zoo Menu
-					finish();
-					startActivity(new Intent(MainApplication.getContext(), ZooMenuActivity.class));
-				} else if (ticket.getDate().before(today)) {
+				if (ticket.isExpired()) {
 					Toast.makeText(MainApplication.getContext(), getString(R.string.scan_ticket_error_past_ticket), Toast.LENGTH_SHORT).show();
-				} else {
-					Toast.makeText(MainApplication.getContext(), getString(R.string.scan_ticket_error_future_ticket), Toast.LENGTH_SHORT).show();
+				}
+				else {
+					if (ticket.isForToday()) {
+						if (!Model.getInstance().getStoredTickets().contains(ticket)){
+							Model.getInstance().storeTicket(ticket);
+						}
+						finish();
+						startActivity(new Intent(MainApplication.getContext(), ZooMenuActivity.class));
+					}
+					else { // Future Ticket
+						if (Model.getInstance().getStoredTickets().contains(ticket)){
+							Toast.makeText(MainApplication.getContext(), getString(R.string.scan_ticket_error_already_stored), Toast.LENGTH_SHORT).show();
+						} else {
+							Model.getInstance().storeTicket(ticket);
+							Toast.makeText(MainApplication.getContext(), getString(R.string.scan_ticket_future_ticket_stored), Toast.LENGTH_SHORT).show();
+						}
+					}
 				}
 			} else {
 				Toast.makeText(MainApplication.getContext(), getString(R.string.scan_ticket_error_wrong_zoo), Toast.LENGTH_SHORT).show();
