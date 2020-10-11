@@ -1,7 +1,5 @@
 package com.zooverse.utils;
 
-import android.database.Cursor;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.zooverse.MainApplication;
 import com.zooverse.R;
 import com.zooverse.model.Model;
+import com.zooverse.model.Species;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SpeciesSearchAdapter extends RecyclerView.Adapter<SpeciesSearchAdapter.SpeciesSearchViewHolder> {
-	private Cursor speciesCursor = Model.getInstance().getAllSpecies("");
+	private List<Species> filteredSpeciesList = Model.getInstance().getSpeciesList();
 	
 	// inner class for view holder
-	public static class SpeciesSearchViewHolder extends RecyclerView.ViewHolder{
+	public static class SpeciesSearchViewHolder extends RecyclerView.ViewHolder {
 		TextView speciesNameTextView = itemView.findViewById(R.id.speciesNameTextView);
 		ImageView speciesImageView = itemView.findViewById(R.id.speciesImageView);
+		
 		public SpeciesSearchViewHolder(@NonNull View itemView) {
 			super(itemView);
 		}
@@ -37,23 +40,23 @@ public class SpeciesSearchAdapter extends RecyclerView.Adapter<SpeciesSearchAdap
 	
 	@Override
 	public void onBindViewHolder(@NonNull SpeciesSearchViewHolder viewHolder, int position) {
-		// check if cursor can move further on db entries
-		if (!speciesCursor.moveToPosition(position)){
-			return;
-		}
-		viewHolder.speciesNameTextView.setText(speciesCursor.getString(speciesCursor.getColumnIndex("name")));
-		byte[] imgBlob = speciesCursor.getBlob(speciesCursor.getColumnIndex("image"));
-		if (imgBlob != null) {
-			viewHolder.speciesImageView.setImageBitmap(BitmapFactory.decodeByteArray(imgBlob, 0, imgBlob.length));
+		viewHolder.speciesNameTextView.setText(this.filteredSpeciesList.get(position).getName());
+		if (this.filteredSpeciesList.get(position).getImage() != null) {
+			viewHolder.speciesImageView.setImageBitmap(this.filteredSpeciesList.get(position).getImage());
 		}
 	}
 	
 	@Override
 	public int getItemCount() {
-		return speciesCursor.getCount();
+		return this.filteredSpeciesList.size();
 	}
 	
-	public void updateCursor(String searchCriterion){
-		speciesCursor = Model.getInstance().getAllSpecies(searchCriterion);
+	public void updateCursor(String searchCriterion) {
+		this.filteredSpeciesList = new ArrayList<>();
+		for (Species species : Model.getInstance().getSpeciesList()) {
+			if (species.getName().toLowerCase().startsWith(searchCriterion.toLowerCase())) {
+				this.filteredSpeciesList.add(species);
+			}
+		}
 	}
 }

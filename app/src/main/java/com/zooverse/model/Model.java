@@ -13,12 +13,14 @@ public class Model {
 	private SQLiteDatabase database;
 	
 	private List<Ticket> storedTickets;
+	private List<Species> speciesList;
 	
 	private Model() {
 		DatabaseHelper dbHelper = new DatabaseHelper();
 		dbHelper.setForcedUpgrade();
 		this.database = dbHelper.getReadableDatabase();
 		this.storedTickets = this.initStoredTickets();
+		this.speciesList = this.initSpeciesList();
 	}
 	
 	public static Model getInstance() {
@@ -58,8 +60,32 @@ public class Model {
 		return ticketList;
 	}
 	
+	private List<Species> initSpeciesList() {
+		Cursor cursor = database.query(
+				"SPECIES",
+				new String[]{"NAME", "DESCRIPTION", "IMAGE", "AUDIO"},
+				null, null, null, null,
+				"NAME ASC"
+		);
+		List<Species> speciesList = new ArrayList<>();
+		while (cursor.moveToNext()) {
+			speciesList.add(new Species(
+							cursor.getString(cursor.getColumnIndex("NAME")),
+							cursor.getString(cursor.getColumnIndex("DESCRIPTION")),
+							cursor.getBlob(cursor.getColumnIndex("IMAGE")),
+							cursor.getBlob(cursor.getColumnIndex("AUDIO"))
+					)
+			);
+		}
+		return speciesList;
+	}
+	
 	public List<Ticket> getStoredTickets() {
 		return this.storedTickets;
+	}
+	
+	public List<Species> getSpeciesList() {
+		return this.speciesList;
 	}
 	
 	public void storeTicket(Ticket ticket) {
@@ -72,18 +98,6 @@ public class Model {
 				insertValues
 		);
 		this.storedTickets.add(ticket);
-	}
-	
-	public Cursor getAllSpecies(String searchCriterion) {
-		return database.query(
-				"SPECIES",
-				null,
-				"name LIKE '%" + searchCriterion + "%'", //TODO: VULNERABLE TO SQL INJECTION!!!
-				null,
-				null,
-				null,
-				null
-		);
 	}
 	
 }
