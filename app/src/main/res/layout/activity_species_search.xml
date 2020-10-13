@@ -18,7 +18,7 @@
 		app:layout_constraintEnd_toEndOf="@+id/searchCriterionEditText"
 		app:layout_constraintStart_toStartOf="@+id/searchCriterionEditText"
 		app:layout_constraintTop_toBottomOf="@+id/searchCriterionEditText" />
-
+	
 	<EditText
 		android:id="@+id/searchCriterionEditText"
 		android:layout_width="0dp"
@@ -29,6 +29,7 @@
 		android:ems="10"
 		android:hint="@string/species_search_criterion_hint"
 		android:inputType="textPersonName"
+		android:textAppearance="@style/TextAppearance.AppCompat.Body1"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />

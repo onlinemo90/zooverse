@@ -23,20 +23,19 @@ public class MainActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_main);
 		
 		// Go directly to Zoo Menu if a ticket for today is stored
-		Button startVisitButton = (Button)findViewById(R.id.startVisitButton);
+		Button startVisitButton = (Button) findViewById(R.id.startVisitButton);
 		boolean ticketForTodayStored = false;
 		List<Ticket> storedTickets = Model.getInstance().getStoredTickets();
-		for (Ticket ticket : storedTickets){
-			if (ticket.isForToday()){
+		for (Ticket ticket : storedTickets) {
+			if (ticket.isForToday()) {
 				ticketForTodayStored = true;
 				break;
 			}
 		}
-		if (ticketForTodayStored){
+		if (ticketForTodayStored) {
 			startActivity(new Intent(MainApplication.getContext(), ZooMenuActivity.class));
 			startVisitButton.setVisibility(View.VISIBLE);
-		}
-		else{
+		} else {
 			startVisitButton.setVisibility(View.INVISIBLE);
 		}
 	}
@@ -46,11 +45,15 @@ public class MainActivity extends AppCompatActivity {
 		super.onStart();
 	}
 	
+	public void openSettings(View view) {
+		startActivity(new Intent(MainApplication.getContext(), SettingsActivity.class));
+	}
+	
 	public void openScanTicket(View view) {
 		startActivity(new Intent(MainApplication.getContext(), ScanTicketActivity.class));
 	}
 	
-	public void startVisit(View view){
+	public void openStartVisit(View view) {
 		startActivity(new Intent(MainApplication.getContext(), ZooMenuActivity.class));
 	}
 }

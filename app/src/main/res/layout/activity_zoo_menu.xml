@@ -4,7 +4,6 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="#FFFFFF"
 	tools:context=".activities.ZooMenuActivity">
 	
 	<ImageView
@@ -21,10 +20,8 @@
 		android:id="@+id/tourButton"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
-		android:backgroundTint="@color/colorPrimary"
 		android:onClick="goOnTour"
 		android:text="@string/zoo_menu_tour_button"
-		android:textColor="#FFFFFF"
 		app:layout_constraintEnd_toStartOf="@+id/guideline3"
 		app:layout_constraintStart_toStartOf="@+id/guideline2"
 		app:layout_constraintTop_toBottomOf="@+id/menuScreenLogo" />
@@ -34,10 +31,8 @@
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="24dp"
-		android:backgroundTint="@color/colorPrimary"
 		android:onClick="searchAnimal"
 		android:text="@string/zoo_menu_animal_search"
-		android:textColor="#FFFFFF"
 		app:layout_constraintEnd_toStartOf="@+id/guideline3"
 		app:layout_constraintStart_toStartOf="@+id/guideline2"
 		app:layout_constraintTop_toBottomOf="@+id/tourButton" />
@@ -47,10 +42,8 @@
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="24dp"
-		android:backgroundTint="@color/colorPrimary"
 		android:onClick="scanEnclosure"
 		android:text="@string/zoo_menu_scan_enclosure_button"
-		android:textColor="#FFFFFF"
 		app:layout_constraintEnd_toStartOf="@+id/guideline3"
 		app:layout_constraintStart_toStartOf="@+id/guideline2"
 		app:layout_constraintTop_toBottomOf="@+id/animalSearchButton" />
