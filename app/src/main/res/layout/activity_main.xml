@@ -5,30 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
-    
-    <TextView
-        android:id="@+id/mainScreenTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/main_title"
-        android:textAllCaps="false"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    
+
     <ImageView
         android:id="@+id/mainScreenLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/main_logo"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
-    
+
     <Button
         android:id="@+id/scanTicketButton"
         android:layout_width="0dp"
@@ -42,32 +31,36 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-    
-    <Button
-        android:id="@+id/startVisitButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ticketList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:onClick="openStartVisit"
-        android:text="@string/main_start_visit"
-        android:textColor="@color/colorBackground"
-        android:visibility="visible"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/scanTicketButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/mainScreenLogo"
-        app:layout_constraintVertical_bias="0.988" />
-    
-    <Button
-        android:id="@+id/tmpSettingsBtn"
-        android:layout_width="387dp"
-        android:layout_height="49dp"
-        android:layout_marginBottom="13dp"
-        android:onClick="openSettings"
-        android:text="SETTINGS (TEMPORARY)"
-        app:layout_constraintBottom_toTopOf="@+id/startVisitButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/upcomingTicketsTextView" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="224dp" />
+
+    <TextView
+        android:id="@+id/upcomingTicketsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/main_upcoming_tickets"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="@+id/ticketList"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

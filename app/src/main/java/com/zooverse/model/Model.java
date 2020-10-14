@@ -97,7 +97,7 @@ public class Model {
 				null,
 				insertValues
 		);
-		this.storedTickets.add(ticket);
+		this.storedTickets.add(0, ticket);
 	}
 	
 }

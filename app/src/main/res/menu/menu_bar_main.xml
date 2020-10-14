@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+
+	<item
+		android:id="@+id/scanTicketMenuItem"
+		android:title="Scan another ticket"
+		app:showAsAction="ifRoom"
+		android:icon="@drawable/icon_scan_qr_code" />
+	<item
+	android:id="@+id/settingsMenuItem"
+	android:title="Settings"
+	app:showAsAction="always"
+	android:icon="@drawable/icon_settings"/>
+</menu>

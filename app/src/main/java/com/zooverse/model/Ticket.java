@@ -3,8 +3,14 @@ package com.zooverse.model;
 import android.text.format.DateUtils;
 import android.util.Log;
 
+import com.zooverse.MainApplication;
+import com.zooverse.R;
 import com.zooverse.utils.EncryptionHelper;
 
+import org.mozilla.javascript.tools.jsc.Main;
+
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
@@ -22,6 +28,7 @@ public class Ticket {
 	}
 	
 	public Ticket(String encryptedTicketString) {
+		DATE_FORMAT.setLenient(false);
 		try {
 			this.isValid = true;
 			Log.d("decrypted ticket->", EncryptionHelper.decrypt(encryptedTicketString));
@@ -36,6 +43,7 @@ public class Ticket {
 	}
 	
 	public Ticket(String zooID, String date) {
+		DATE_FORMAT.setLenient(false);
 		try {
 			this.isValid = true;
 			this.zooID = zooID;
@@ -47,9 +55,7 @@ public class Ticket {
 		}
 	}
 	
-	public boolean isValid() {
-		return this.isValid;
-	}
+	public boolean isValid() { return this.isValid; }
 	
 	public String getZooID() {
 		return this.zooID;
@@ -63,6 +69,8 @@ public class Ticket {
 		return Ticket.DATE_FORMAT.format(this.date);
 	}
 	
+	public String getReadableDate() { return new SimpleDateFormat(MainApplication.getContext().getString(R.string.local_date_format)).format(this.date); }
+	
 	public boolean isForToday() {
 		return this.isValid && DateUtils.isToday(this.date.getTime());
 	}
@@ -75,6 +83,7 @@ public class Ticket {
 		return DATE_FORMAT.format(new Date());
 	}
 	
+	@Override
 	public boolean equals(Object other) {
 		if (other instanceof Ticket) {
 			Ticket otherTicket = (Ticket) other;
