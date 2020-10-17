@@ -24,7 +24,7 @@ public class Ticket {
 	private Date date;
 	
 	private Ticket() {
-		boolean isValid;
+		// Prevent initialisation without arguments
 	}
 	
 	public Ticket(String encryptedTicketString) {
@@ -55,7 +55,9 @@ public class Ticket {
 		}
 	}
 	
-	public boolean isValid() { return this.isValid; }
+	public boolean isValid() {
+		return this.isValid;
+	}
 	
 	public String getZooID() {
 		return this.zooID;
@@ -69,7 +71,9 @@ public class Ticket {
 		return Ticket.DATE_FORMAT.format(this.date);
 	}
 	
-	public String getReadableDate() { return new SimpleDateFormat(MainApplication.getContext().getString(R.string.local_date_format)).format(this.date); }
+	public String getReadableDate() {
+		return new SimpleDateFormat(MainApplication.getContext().getString(R.string.local_date_format)).format(this.date);
+	}
 	
 	public boolean isForToday() {
 		return this.isValid && DateUtils.isToday(this.date.getTime());

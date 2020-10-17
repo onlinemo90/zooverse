@@ -1,4 +1,4 @@
-package com.zooverse.utils;
+package com.zooverse.activities.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;

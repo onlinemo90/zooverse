@@ -4,13 +4,12 @@ package com.zooverse.activities;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.zooverse.MainApplication;
 import com.zooverse.R;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AbstractBaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,7 +29,8 @@ public class SettingsActivity extends AppCompatActivity {
 			this.setPreferencesFromResource(R.xml.root_preferences, rootKey);
 			preferenceChangeListener = (sharedPreferences, key) -> {
 				if (MainApplication.getContext().getResources().getString(R.string.theme_pref_key).equals(key)) {
-					MainApplication.initTheme();
+					MainApplication.updateTheme();
+					requireActivity().recreate();
 				}
 			};
 		}

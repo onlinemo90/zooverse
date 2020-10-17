@@ -1,9 +1,13 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 	
-	<SwitchPreferenceCompat
+	<ListPreference
 		app:key="@string/theme_pref_key"
-		app:summaryOff="@string/theme_summary_off"
-		app:summaryOn="@string/theme_summary_on"
-		app:title="@string/theme_title" />
-
+		app:title="@string/theme_title"
+		app:entries="@array/Themes"
+		app:entryValues="@array/Themes"
+		app:dialogTitle="@string/theme_dialog"
+		app:useSimpleSummaryProvider="true"
+		app:defaultValue="@string/theme_default"
+		/>
+	
 </PreferenceScreen>

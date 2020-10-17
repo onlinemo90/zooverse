@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.zooverse.MainApplication;
@@ -25,7 +24,7 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
 
-public abstract class AbstractQRCodeReaderActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
+public abstract class AbstractQRCodeReaderActivity extends AbstractBaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
 	private String lastQRCodeDetection = null;
 	private String newQRCodeDetection = null;
 	

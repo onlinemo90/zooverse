@@ -1,10 +1,10 @@
 package com.zooverse.activities;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,11 +17,11 @@ import com.zooverse.MainApplication;
 import com.zooverse.R;
 import com.zooverse.model.Model;
 import com.zooverse.model.Ticket;
-import com.zooverse.utils.TicketListAdapter;
+import com.zooverse.activities.adapters.TicketListAdapter;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements TicketListAdapter.OnClickTicketListener{
+public class MainActivity extends AbstractBaseActivity implements TicketListAdapter.OnClickTicketListener {
 	private TicketListAdapter ticketListAdapter;
 	
 	@Override
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements TicketListAdapter
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		//Loading RecyclerView with stored tickets
+		// Loading RecyclerView with stored tickets
 		ticketListAdapter = new TicketListAdapter(this);
 		RecyclerView ticketList = findViewById(R.id.ticketList);
 		ticketList.setAdapter(ticketListAdapter);
@@ -41,25 +41,22 @@ public class MainActivity extends AppCompatActivity implements TicketListAdapter
 		super.onStart();
 		ticketListAdapter.notifyDataSetChanged();
 		
-		Button scanTicketButton = (Button)findViewById(R.id.scanTicketButton);
+		Button scanTicketButton = findViewById(R.id.scanTicketButton);
 		TextView upComingTickets = findViewById(R.id.upcomingTicketsTextView);
 		
-		boolean ticketForTodayStored = false;
 		List<Ticket> storedTickets = Model.getInstance().getStoredTickets();
+		if (storedTickets.isEmpty()) {
+			upComingTickets.setVisibility(View.GONE);
+		} else {
+			upComingTickets.setVisibility(View.VISIBLE);
+		}
+		scanTicketButton.setVisibility(View.VISIBLE);
 		for (Ticket ticket : storedTickets) {
 			if (ticket.isForToday()) {
-				ticketForTodayStored = true;
+				scanTicketButton.setVisibility(View.GONE);
 				break;
 			}
 		}
-		if (storedTickets.isEmpty())
-			upComingTickets.setVisibility(View.GONE);
-		else
-			upComingTickets.setVisibility(View.VISIBLE);
-		if (ticketForTodayStored)
-			scanTicketButton.setVisibility(View.GONE);
-		else
-			scanTicketButton.setVisibility(View.VISIBLE);
 	}
 	
 	public void openScanTicket(View view) {
@@ -72,9 +69,10 @@ public class MainActivity extends AppCompatActivity implements TicketListAdapter
 		return true;
 	}
 	
+	@SuppressLint("NonConstantResourceId")
 	@Override
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-		switch (item.getItemId()){
+		switch (item.getItemId()) {
 			case R.id.settingsMenuItem:
 				startActivity(new Intent(MainApplication.getContext(), SettingsActivity.class));
 				break;
@@ -85,9 +83,8 @@ public class MainActivity extends AppCompatActivity implements TicketListAdapter
 		return true;
 	}
 	
-	@Override // on click method for individual recycler view item
+	@Override
 	public void onTicketClick(int position) {
-		// if ticket for today then let user open zoo menu
 		if (Model.getInstance().getStoredTickets().get(position).isForToday()) {
 			startActivity(new Intent(MainApplication.getContext(), ZooMenuActivity.class));
 		}

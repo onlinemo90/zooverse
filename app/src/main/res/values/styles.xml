@@ -1,28 +1,51 @@
 <resources>
-	
-	<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-		<item name="colorPrimary">@color/colorPrimary</item>
-		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-		<item name="colorAccent">@color/colorPrimary</item>
+	<!-- Base Theme -->
+	<style name="AppTheme" parent="Theme.AppCompat">
+		<item name="colorPrimary">?attr/themeColorPrimary</item>
+		<item name="colorPrimaryDark">?attr/themeColorPrimaryDark</item>
+		<item name="colorAccent">?attr/themeColorPrimary</item>
 		
-		<item name="android:colorForeground">@color/colorForeground</item>
-		<item name="android:colorBackground">@color/colorBackground</item>
+		<item name="android:colorForeground">?attr/themeColorForeground</item>
+		<item name="android:colorBackground">?attr/themeColorBackground</item>
 		
-		<item name="android:textColor">@color/colorForeground</item>
-		<item name="android:textColorHint">@color/colorForeground</item>
-		<item name="android:colorButtonNormal">@color/colorPrimary</item>
+		<item name="android:textColor">?attr/themeColorForeground</item>
+		<item name="android:textColorHint">?attr/themeColorForeground</item>
+		<item name="android:colorButtonNormal">?attr/themeColorPrimary</item>
 		
 		<item name="actionBarTheme">@style/AppTheme.AppBar</item>
 		<item name="android:buttonStyle">@style/AppTheme.Button</item>
 	</style>
 	
 	<style name="AppTheme.AppBar" parent="@style/Widget.AppCompat.ActionBar">
-		<item name="android:colorForeground">@color/colorBackground</item>
+		<item name="android:colorForeground">?attr/themeColorBackground</item>
 	</style>
 	
 	<style name="AppTheme.Button" parent="@style/Widget.AppCompat.Button">
-		<item name="android:textColor">@color/colorBackground</item>
-		<item name="background">@color/colorPrimary</item>
+		<item name="android:textColor">?attr/themeColorBackground</item>
+		<item name="background">?attr/themeColorPrimary</item>
 	</style>
-
+	
+	<!-- Light Theme -->
+	<style name="AppTheme.Light" parent="AppTheme">
+		<item name="themeColorPrimary">@color/colorPrimary</item>
+		<item name="themeColorPrimaryDark">@color/colorPrimaryDark</item>
+		<item name="themeColorBackground">@color/colorBackground</item>
+		<item name="themeColorForeground">@color/colorForeground</item>
+	</style>
+	
+	<!-- Dark Theme -->
+	<style name="AppTheme.Dark" parent="AppTheme">
+		<item name="themeColorPrimary">@color/colorPrimary_dark</item>
+		<item name="themeColorPrimaryDark">@color/colorPrimaryDark_dark</item>
+		<item name="themeColorBackground">@color/colorBackground_dark</item>
+		<item name="themeColorForeground">@color/colorForeground_dark</item>
+	</style>
+	
+	<!-- Madness Theme -->
+	<style name="AppTheme.Madness" parent="AppTheme">
+		<item name="themeColorPrimary">#F65932</item>
+		<item name="themeColorPrimaryDark">#D5F8A9</item>
+		<item name="themeColorBackground">#B7BAF3</item>
+		<item name="themeColorForeground">#EE69A7</item>
+	</style>
 </resources>

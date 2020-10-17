@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-	<color name="colorPrimary">@color/colorPrimary_night</color>
-	<color name="colorPrimaryDark">@color/colorPrimaryDark_night</color>
-	<color name="colorForeground">@color/colorForeground_night</color>
-	<color name="colorBackground">@color/colorBackground_night</color>
-</resources>

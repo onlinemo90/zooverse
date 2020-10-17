@@ -1,17 +1,18 @@
 package com.zooverse.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+
 import com.zooverse.MainApplication;
 import com.zooverse.R;
-import com.zooverse.utils.SpeciesSearchAdapter;
+import com.zooverse.activities.adapters.SpeciesSearchAdapter;
 
-public class SpeciesSearchActivity extends AppCompatActivity {
+public class SpeciesSearchActivity extends AbstractBaseActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +27,13 @@ public class SpeciesSearchActivity extends AppCompatActivity {
 		EditText searchCriterionEditText = findViewById(R.id.searchCriterionEditText);
 		searchCriterionEditText.addTextChangedListener(new TextWatcher() {
 			@Override
-			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+				speciesSearchAdapter.updateCursor(charSequence.toString());
+				speciesSearchAdapter.notifyDataSetChanged();
 			}
 			
 			@Override
-			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-					speciesSearchAdapter.updateCursor(charSequence.toString());
-					speciesSearchAdapter.notifyDataSetChanged();
+			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 			}
 			
 			@Override

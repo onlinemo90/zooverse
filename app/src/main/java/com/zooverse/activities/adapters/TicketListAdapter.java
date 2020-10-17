@@ -1,4 +1,4 @@
-package com.zooverse.utils;
+package com.zooverse.activities.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +29,6 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
 	public static class TicketListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 		TextView ticketDateTextView = itemView.findViewById(R.id.ticketDateTextView);
 		TextView ticketLabelTextView = itemView.findViewById(R.id.ticketLabelTextView);
-		CardView cardView = itemView.findViewById(R.id.ticketCardView);
 		OnClickTicketListener onClickTicketListener;
 		
 		public TicketListViewHolder(@NonNull View itemView, OnClickTicketListener onClickTicketListener) {
@@ -54,23 +53,15 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
 	
 	@Override
 	public void onBindViewHolder(@NonNull TicketListViewHolder viewHolder, int position) {
+		CardView cardView = (CardView) ticketListLayout;
 		if (this.ticketList.get(position).isForToday()){ // highlight if it is a ticket for today
-			if (MainApplication.isDarkThemeActivated()) {
-				viewHolder.cardView.setCardBackgroundColor(MainApplication.getContext().getColor(R.color.colorPrimary_night));
-				viewHolder.ticketLabelTextView.setTextColor(MainApplication.getContext().getColor(R.color.colorBackground_night));
-			} else {
-				viewHolder.cardView.setCardBackgroundColor(MainApplication.getContext().getColor(R.color.colorPrimary));
-				viewHolder.ticketLabelTextView.setTextColor(MainApplication.getContext().getColor(R.color.colorBackground));
-			}
+			cardView.setCardBackgroundColor(MainApplication.getThemeColor(R.attr.themeColorPrimary));
+			viewHolder.ticketLabelTextView.setTextColor(MainApplication.getThemeColor(R.attr.themeColorBackground));
 			viewHolder.ticketLabelTextView.setText(MainApplication.getContext().getString(R.string.main_ticket_today));
 			viewHolder.ticketDateTextView.setText("");
-		} else {
-			if (MainApplication.isDarkThemeActivated())
-				viewHolder.cardView.setCardBackgroundColor(MainApplication.getContext().getColor(R.color.colorBackground_night));
-			else
-				viewHolder.cardView.setCardBackgroundColor(MainApplication.getContext().getColor(R.color.colorBackground));
-			viewHolder.ticketLabelTextView.setTextColor(MainApplication.getContext().getColor(R.color.colorForeground));
-			viewHolder.ticketLabelTextView.setText(MainApplication.getContext().getString(R.string.main_ticket_date));
+		}
+		else {
+			cardView.setCardBackgroundColor(MainApplication.getThemeColor(R.attr.themeColorBackground));
 			viewHolder.ticketDateTextView.setText(this.ticketList.get(position).getReadableDate());
 		}
 	}
@@ -80,7 +71,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
 		return this.ticketList.size();
 	}
 	
-	public interface OnClickTicketListener {
+	public interface OnClickTicketListener{
 		void onTicketClick(int position);
 	}
 }

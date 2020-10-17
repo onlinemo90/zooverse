@@ -3,7 +3,6 @@ package com.zooverse.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.DateUtils;
 import android.view.SurfaceView;
 import android.widget.Toast;
 
@@ -11,8 +10,6 @@ import com.zooverse.MainApplication;
 import com.zooverse.R;
 import com.zooverse.model.Model;
 import com.zooverse.model.Ticket;
-
-import java.util.Date;
 
 public class ScanTicketActivity extends AbstractQRCodeReaderActivity {
 	
@@ -32,17 +29,15 @@ public class ScanTicketActivity extends AbstractQRCodeReaderActivity {
 			if (ticket.getZooID().equals(getString(R.string.zoo_id))) {
 				if (ticket.isExpired()) {
 					Toast.makeText(MainApplication.getContext(), getString(R.string.scan_ticket_error_past_ticket), Toast.LENGTH_SHORT).show();
-				}
-				else {
+				} else {
 					if (ticket.isForToday()) {
-						if (!Model.getInstance().getStoredTickets().contains(ticket)){
+						if (!Model.getInstance().getStoredTickets().contains(ticket)) {
 							Model.getInstance().storeTicket(ticket);
 						}
 						finish();
 						startActivity(new Intent(MainApplication.getContext(), ZooMenuActivity.class));
-					}
-					else { // Future Ticket
-						if (Model.getInstance().getStoredTickets().contains(ticket)){
+					} else { // Future Ticket
+						if (Model.getInstance().getStoredTickets().contains(ticket)) {
 							Toast.makeText(MainApplication.getContext(), getString(R.string.scan_ticket_error_already_stored), Toast.LENGTH_SHORT).show();
 						} else {
 							Model.getInstance().storeTicket(ticket);
