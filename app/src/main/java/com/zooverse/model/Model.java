@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Model {
@@ -97,7 +98,8 @@ public class Model {
 				null,
 				insertValues
 		);
-		this.storedTickets.add(0, ticket);
+		this.storedTickets.add(ticket);
+		Collections.sort(this.storedTickets, (Ticket t1, Ticket t2) -> t1.getDate().compareTo(t2.getDate()));
 	}
 	
 }

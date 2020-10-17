@@ -26,11 +26,15 @@ public class MainApplication extends Application {
 	}
 	
 	public static void initTheme(){
-		if (appPreferences.getBoolean(MainApplication.getContext().getResources().getString(R.string.theme_pref_key), false)) {
+		if (appPreferences.getBoolean(getContext().getResources().getString(R.string.theme_pref_key), false)) {
 			AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 		} else {
 			AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 		}
+	}
+	
+	public static boolean isDarkThemeActivated () {
+		return appPreferences.getBoolean(getContext().getResources().getString(R.string.theme_pref_key), false);
 	}
 }
 

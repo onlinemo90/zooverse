@@ -4,4 +4,9 @@
 	<color name="colorPrimaryDark">#528F29</color>
 	<color name="colorForeground">#808080</color>
 	<color name="colorBackground">#FFFFFF</color>
+
+	<color name="colorPrimary_night">#528F29</color>
+	<color name="colorPrimaryDark_night">#497f26</color>
+	<color name="colorForeground_night">#808080</color>
+	<color name="colorBackground_night">#262626</color>
 </resources>
