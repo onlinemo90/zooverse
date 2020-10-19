@@ -2,7 +2,7 @@ package com.zooverse.model.database;
 
 import android.provider.BaseColumns;
 
-public class DatabaseContract {
+public final class DatabaseContract {
 	// Note: all table and column names must be in uppercase
 	public static final class TicketEntry implements BaseColumns{
 		public static final String TABLE_NAME = "TICKET";

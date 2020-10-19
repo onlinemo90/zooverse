@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -66,6 +68,13 @@ public class MainActivity extends AbstractBaseActivity implements TicketListAdap
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_bar_main, menu);
+		for(int i = 0; i < menu.size(); i++){
+			Drawable drawable = menu.getItem(i).getIcon();
+			if(drawable != null) {
+				drawable.mutate();
+				drawable.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorBackground), PorterDuff.Mode.SRC_ATOP);
+			}
+		}
 		return true;
 	}
 	

@@ -1,11 +1,11 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 	<string name="app_name">ZooVerse</string>
 	<string name="zoo_id">ZSL</string>
 	<string name="encryption_key">k3byWoG3plPow3FuvZ5p1IWlZv1g3uob</string>
 	<string name="local_date_format">dd/MM/yyyy</string>
 	
 	<!--activity_main-->
-	<string name="main_logo">Zoo logo</string>
+	<string name="main_logo">Zoo Logo</string>
 	<string name="main_ticket_scan">Scan ticket</string>
 	<string name="main_start_visit">Start your visit</string>
 	<string name="main_ticket_date">Ticket Date:</string>
