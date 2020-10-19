@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SpeciesSearchAdapter extends RecyclerView.Adapter<SpeciesSearchAdapter.SpeciesSearchViewHolder> {
-	private List<Species> filteredSpeciesList = Model.getInstance().getSpeciesList();
+	private List<Species> filteredSpeciesList = Model.getSpeciesList();
 	
 	// inner class for view holder
 	public static class SpeciesSearchViewHolder extends RecyclerView.ViewHolder {
@@ -53,7 +53,7 @@ public class SpeciesSearchAdapter extends RecyclerView.Adapter<SpeciesSearchAdap
 	
 	public void updateCursor(String searchCriterion) {
 		this.filteredSpeciesList = new ArrayList<>();
-		for (Species species : Model.getInstance().getSpeciesList()) {
+		for (Species species : Model.getSpeciesList()) {
 			if (species.getName().toLowerCase().startsWith(searchCriterion.toLowerCase())) {
 				this.filteredSpeciesList.add(species);
 			}

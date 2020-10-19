@@ -44,7 +44,7 @@ public class MainActivity extends AbstractBaseActivity implements TicketListAdap
 		Button scanTicketButton = findViewById(R.id.scanTicketButton);
 		TextView upComingTickets = findViewById(R.id.upcomingTicketsTextView);
 		
-		List<Ticket> storedTickets = Model.getInstance().getStoredTickets();
+		List<Ticket> storedTickets = Model.getStoredTickets();
 		if (storedTickets.isEmpty()) {
 			upComingTickets.setVisibility(View.GONE);
 		} else {
@@ -85,7 +85,7 @@ public class MainActivity extends AbstractBaseActivity implements TicketListAdap
 	
 	@Override
 	public void onTicketClick(int position) {
-		if (Model.getInstance().getStoredTickets().get(position).isForToday()) {
+		if (Model.getStoredTickets().get(position).isForToday()) {
 			startActivity(new Intent(MainApplication.getContext(), ZooMenuActivity.class));
 		}
 	}

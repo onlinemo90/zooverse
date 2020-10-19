@@ -17,7 +17,7 @@ import com.zooverse.model.Ticket;
 import java.util.List;
 
 public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.TicketListViewHolder> {
-	private List<Ticket> ticketList = Model.getInstance().getStoredTickets();
+	private List<Ticket> ticketList = Model.getStoredTickets();
 	private View ticketListLayout;
 	private OnClickTicketListener onClickTicketListener;
 	
