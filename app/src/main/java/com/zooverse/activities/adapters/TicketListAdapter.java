@@ -53,7 +53,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
 	
 	@Override
 	public void onBindViewHolder(@NonNull TicketListViewHolder viewHolder, int position) {
-		CardView cardView = (CardView) ticketListLayout;
+		CardView cardView = ticketListLayout.findViewById(R.id.ticketCardView);
 		if (this.ticketList.get(position).isForToday()){ // highlight if it is a ticket for today
 			cardView.setCardBackgroundColor(MainApplication.getThemeColor(R.attr.themeColorPrimary));
 			viewHolder.ticketLabelTextView.setTextColor(MainApplication.getThemeColor(R.attr.themeColorBackground));

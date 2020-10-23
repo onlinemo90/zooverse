@@ -19,14 +19,27 @@ import java.util.List;
 
 public class SpeciesSearchAdapter extends RecyclerView.Adapter<SpeciesSearchAdapter.SpeciesSearchViewHolder> {
 	private List<Species> filteredSpeciesList = Model.getSpeciesList();
+	private OnClickSpeciesListener onClickSpeciesListener;
+	
+	public SpeciesSearchAdapter(OnClickSpeciesListener onClickSpeciesListener) {
+		this.onClickSpeciesListener = onClickSpeciesListener;
+	}
 	
 	// inner class for view holder
-	public static class SpeciesSearchViewHolder extends RecyclerView.ViewHolder {
+	public static class SpeciesSearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 		TextView speciesNameTextView = itemView.findViewById(R.id.speciesNameTextView);
 		ImageView speciesImageView = itemView.findViewById(R.id.speciesImageView);
+		OnClickSpeciesListener onClickSpeciesListener;
 		
-		public SpeciesSearchViewHolder(@NonNull View itemView) {
+		public SpeciesSearchViewHolder(@NonNull View itemView, OnClickSpeciesListener onClickSpeciesListener) {
 			super(itemView);
+			this.onClickSpeciesListener = onClickSpeciesListener;
+			itemView.setOnClickListener(this);
+		}
+		
+		@Override //on click method references interface for on click implementation
+		public void onClick(View v) {
+			onClickSpeciesListener.onSpeciesClick(getAdapterPosition());
 		}
 	}
 	
@@ -35,7 +48,7 @@ public class SpeciesSearchAdapter extends RecyclerView.Adapter<SpeciesSearchAdap
 	public SpeciesSearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 		// assign layout file which is used for each row in recycler view
 		View speciesListLayout = LayoutInflater.from(MainApplication.getContext()).inflate(R.layout.layout_recyclerview_species, parent, false);
-		return new SpeciesSearchViewHolder(speciesListLayout);
+		return new SpeciesSearchViewHolder(speciesListLayout, onClickSpeciesListener);
 	}
 	
 	@Override
@@ -51,6 +64,10 @@ public class SpeciesSearchAdapter extends RecyclerView.Adapter<SpeciesSearchAdap
 		return this.filteredSpeciesList.size();
 	}
 	
+	public Species getSelectedSpecies(int position) {
+		return this.filteredSpeciesList.get(position);
+	}
+	
 	public void updateCursor(String searchCriterion) {
 		this.filteredSpeciesList = new ArrayList<>();
 		for (Species species : Model.getSpeciesList()) {
@@ -59,4 +76,10 @@ public class SpeciesSearchAdapter extends RecyclerView.Adapter<SpeciesSearchAdap
 			}
 		}
 	}
+	
+	public interface OnClickSpeciesListener {
+		void onSpeciesClick(int position);
+	}
+	
+	
 }

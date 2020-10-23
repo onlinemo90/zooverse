@@ -3,6 +3,7 @@ package com.zooverse.activities;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,15 +12,19 @@ import android.widget.EditText;
 import com.zooverse.MainApplication;
 import com.zooverse.R;
 import com.zooverse.activities.adapters.SpeciesSearchAdapter;
+import com.zooverse.model.Species;
+import com.zooverse.activities.adapters.SpeciesSearchAdapter;
 
-public class SpeciesSearchActivity extends AbstractBaseActivity {
+public class SpeciesSearchActivity extends AbstractBaseActivity implements SpeciesSearchAdapter.OnClickSpeciesListener{
+
+	private SpeciesSearchAdapter speciesSearchAdapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_species_search);
 		
-		SpeciesSearchAdapter speciesSearchAdapter = new SpeciesSearchAdapter();
+		speciesSearchAdapter = new SpeciesSearchAdapter(this);
 		RecyclerView searchResults = findViewById(R.id.searchResults);
 		searchResults.setAdapter(speciesSearchAdapter);
 		searchResults.setLayoutManager(new LinearLayoutManager(MainApplication.getContext()));
@@ -40,5 +45,14 @@ public class SpeciesSearchActivity extends AbstractBaseActivity {
 			public void afterTextChanged(Editable editable) {
 			}
 		});
+	}
+	
+	
+	@Override
+	public void onSpeciesClick(int position) {
+		Species selectedSpecies = speciesSearchAdapter.getSelectedSpecies(position);
+		Intent intent = new Intent(MainApplication.getContext(), SpeciesDetailsActivity.class);
+		intent.putExtra("SPECIES_NAME", selectedSpecies.getName());
+		startActivity(intent);
 	}
 }

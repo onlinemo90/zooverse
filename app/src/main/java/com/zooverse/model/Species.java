@@ -7,13 +7,13 @@ public class Species {
 	private String name;
 	private String description;
 	Bitmap image;
-	private byte[] audio; //TODO: Audio of what? This doesn't read well as a property of a species
+	private byte[] audioDescription;
 	
-	public Species(String name, String description, byte[] imgBlob, byte[] audio) {
+	public Species(String name, String description, byte[] imgBlob, byte[] audioDescription) {
 		this.name = name;
 		this.description = description;
 		this.image = BitmapFactory.decodeByteArray(imgBlob, 0, imgBlob.length);
-		this.audio = audio;
+		this.audioDescription = audioDescription;
 	}
 	
 	public String getName() {
@@ -28,7 +28,7 @@ public class Species {
 		return this.image;
 	}
 	
-	public byte[] getAudio() {
-		return this.audio;
+	public byte[] getAudioDescription() {
+		return this.audioDescription;
 	}
 }

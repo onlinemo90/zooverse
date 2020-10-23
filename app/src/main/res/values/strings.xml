@@ -22,7 +22,7 @@
 	<string name="scan_ticket_error_wrong_zoo">You have a ticket for a different zoo.</string>
 	<string name="scan_ticket_error_past_ticket">Your ticket is expired.</string>
 	<string name="scan_ticket_error_already_stored">You have already scanned that ticket.</string>
-	
+
 	<!--Zoo Menu-->
 	<string name="zoo_menu_tour_button">Go on a tour</string>
 	<string name="zoo_menu_animal_search">Search for an animal</string>
