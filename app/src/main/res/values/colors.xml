@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- Light Theme -->
-	<color name="colorPrimary">#69B834</color>
+	<color name="colorPrimary">#68b733</color>
 	<color name="colorPrimaryDark">#528F29</color>
 	<color name="colorForeground">#808080</color>
 	<color name="colorBackground">#FFFFFF</color>
 	
 	<!-- Dark Theme -->
-	<color name="colorPrimary_dark">#528F29</color>
+	<color name="colorPrimary_dark">@color/colorPrimaryDark</color>
 	<color name="colorPrimaryDark_dark">#497f26</color>
-	<color name="colorForeground_dark">#808080</color>
+	<color name="colorForeground_dark">@color/colorForeground</color>
 	<color name="colorBackground_dark">#262626</color>
 </resources>
