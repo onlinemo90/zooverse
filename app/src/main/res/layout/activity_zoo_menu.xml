@@ -6,18 +6,18 @@
 	android:layout_height="match_parent"
 	android:padding="8dp"
 	tools:context=".activities.ZooMenuActivity">
-
+	
 	<ImageView
 		android:id="@+id/menuScreenLogo"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:contentDescription="@string/main_logo"
 		android:scaleType="fitCenter"
+		app:layout_constraintBottom_toTopOf="@+id/guideline4"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
-		app:layout_constraintBottom_toTopOf="@+id/guideline4"
-		app:srcCompat="@drawable/logo" />
+		app:srcCompat="?attr/themeLogo" />
 
 	<Button
 		android:id="@+id/tourButton"

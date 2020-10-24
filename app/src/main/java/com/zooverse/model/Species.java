@@ -4,9 +4,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 public class Species {
-	private int id;
-	private String name;
-	private String description;
+	private final int id;
+	private final String name;
+	private final String description;
 	
 	public Species(int id, String name, String description) {
 		this.id = id;

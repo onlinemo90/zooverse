@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="8dp"
     tools:context=".activities.MainActivity">
-
+    
     <ImageView
         android:id="@+id/mainScreenLogo"
         android:layout_width="wrap_content"
@@ -19,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="?attr/themeLogo" />
 
     <Button
         android:id="@+id/scanTicketButton"

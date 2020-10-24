@@ -19,27 +19,27 @@ import java.util.List;
 
 public class SpeciesSearchAdapter extends RecyclerView.Adapter<SpeciesSearchAdapter.SpeciesSearchViewHolder> {
 	private List<Species> filteredSpeciesList = Model.getSpeciesList();
-	private OnClickSpeciesListener onClickSpeciesListener;
+	private final speciesOnClickListener speciesOnClickListener;
 	
-	public SpeciesSearchAdapter(OnClickSpeciesListener onClickSpeciesListener) {
-		this.onClickSpeciesListener = onClickSpeciesListener;
+	public SpeciesSearchAdapter(speciesOnClickListener speciesOnClickListener) {
+		this.speciesOnClickListener = speciesOnClickListener;
 	}
 	
 	// inner class for view holder
 	public static class SpeciesSearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 		TextView speciesNameTextView = itemView.findViewById(R.id.speciesNameTextView);
 		ImageView speciesImageView = itemView.findViewById(R.id.speciesImageView);
-		OnClickSpeciesListener onClickSpeciesListener;
+		speciesOnClickListener speciesOnClickListener;
 		
-		public SpeciesSearchViewHolder(@NonNull View itemView, OnClickSpeciesListener onClickSpeciesListener) {
+		public SpeciesSearchViewHolder(@NonNull View itemView, speciesOnClickListener speciesOnClickListener) {
 			super(itemView);
-			this.onClickSpeciesListener = onClickSpeciesListener;
+			this.speciesOnClickListener = speciesOnClickListener;
 			itemView.setOnClickListener(this);
 		}
 		
 		@Override //on click method references interface for on click implementation
 		public void onClick(View v) {
-			onClickSpeciesListener.onSpeciesClick(getAdapterPosition());
+			speciesOnClickListener.onSpeciesClick(getAdapterPosition());
 		}
 	}
 	
@@ -48,7 +48,7 @@ public class SpeciesSearchAdapter extends RecyclerView.Adapter<SpeciesSearchAdap
 	public SpeciesSearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 		// assign layout file which is used for each row in recycler view
 		View speciesListLayout = LayoutInflater.from(MainApplication.getContext()).inflate(R.layout.layout_recyclerview_species, parent, false);
-		return new SpeciesSearchViewHolder(speciesListLayout, onClickSpeciesListener);
+		return new SpeciesSearchViewHolder(speciesListLayout, speciesOnClickListener);
 	}
 	
 	@Override
@@ -77,7 +77,7 @@ public class SpeciesSearchAdapter extends RecyclerView.Adapter<SpeciesSearchAdap
 		}
 	}
 	
-	public interface OnClickSpeciesListener {
+	public interface speciesOnClickListener {
 		void onSpeciesClick(int position);
 	}
 	
