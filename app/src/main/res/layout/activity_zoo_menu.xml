@@ -4,28 +4,32 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:padding="8dp"
 	tools:context=".activities.ZooMenuActivity">
-	
+
 	<ImageView
 		android:id="@+id/menuScreenLogo"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:contentDescription="@string/main_logo"
+		android:scaleType="fitCenter"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toTopOf="@+id/guideline4"
 		app:srcCompat="@drawable/logo" />
-	
+
 	<Button
 		android:id="@+id/tourButton"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
+		android:layout_marginTop="128dp"
 		android:onClick="goOnTour"
 		android:text="@string/zoo_menu_tour_button"
 		app:layout_constraintEnd_toStartOf="@+id/guideline3"
 		app:layout_constraintStart_toStartOf="@+id/guideline2"
-		app:layout_constraintTop_toBottomOf="@+id/menuScreenLogo" />
-	
+		app:layout_constraintTop_toBottomOf="@+id/guideline4" />
+
 	<Button
 		android:id="@+id/animalSearchButton"
 		android:layout_width="0dp"
@@ -36,7 +40,7 @@
 		app:layout_constraintEnd_toStartOf="@+id/guideline3"
 		app:layout_constraintStart_toStartOf="@+id/guideline2"
 		app:layout_constraintTop_toBottomOf="@+id/tourButton" />
-	
+
 	<Button
 		android:id="@+id/scanEnclosureButton"
 		android:layout_width="0dp"
@@ -47,19 +51,26 @@
 		app:layout_constraintEnd_toStartOf="@+id/guideline3"
 		app:layout_constraintStart_toStartOf="@+id/guideline2"
 		app:layout_constraintTop_toBottomOf="@+id/animalSearchButton" />
-	
+
 	<androidx.constraintlayout.widget.Guideline
 		android:id="@+id/guideline2"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:orientation="vertical"
 		app:layout_constraintGuide_percent="0.15" />
-	
+
 	<androidx.constraintlayout.widget.Guideline
 		android:id="@+id/guideline3"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:orientation="vertical"
 		app:layout_constraintGuide_percent="0.85" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/guideline4"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		app:layout_constraintGuide_percent="0.4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
