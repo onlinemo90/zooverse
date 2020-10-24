@@ -13,7 +13,7 @@
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme.Light">
-		<activity android:name=".activities.SpeciesDetailsActivity"></activity>
+		<activity android:name=".activities.SpeciesActivity"/>
 		<activity
 			android:name=".activities.SettingsActivity"
 			android:label="@string/title_activity_settings"

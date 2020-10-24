@@ -12,6 +12,8 @@ public class MainApplication extends Application {
 	private static SharedPreferences appPreferences;
 	private static int themeResourceId;
 	
+	public static final String INTENT_EXTRA_SPECIES = "species_index";
+	
 	@Override
 	public void onCreate() {
 		super.onCreate();

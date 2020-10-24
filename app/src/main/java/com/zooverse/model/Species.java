@@ -4,16 +4,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 public class Species {
+	private int id;
 	private String name;
 	private String description;
-	Bitmap image;
-	private byte[] audioDescription;
 	
-	public Species(String name, String description, byte[] imgBlob, byte[] audioDescription) {
+	public Species(int id, String name, String description) {
+		this.id = id;
 		this.name = name;
 		this.description = description;
-		this.image = BitmapFactory.decodeByteArray(imgBlob, 0, imgBlob.length);
-		this.audioDescription = audioDescription;
 	}
 	
 	public String getName() {
@@ -25,10 +23,11 @@ public class Species {
 	}
 	
 	public Bitmap getImage() {
-		return this.image;
+		return Model.getSpeciesImage(this.id);
 	}
 	
 	public byte[] getAudioDescription() {
-		return this.audioDescription;
+		return Model.getSpeciesAudioDescription(this.id);
 	}
+	
 }

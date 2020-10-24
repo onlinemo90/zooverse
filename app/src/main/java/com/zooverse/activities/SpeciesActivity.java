@@ -12,12 +12,12 @@ import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.ui.PlayerControlView;
 import com.google.android.exoplayer2.upstream.ByteArrayDataSource;
 import com.google.android.exoplayer2.upstream.DataSource;
+import com.zooverse.MainApplication;
 import com.zooverse.R;
 import com.zooverse.model.Model;
 import com.zooverse.model.Species;
 
-public class SpeciesDetailsActivity extends AbstractBaseActivity {
-	
+public class SpeciesActivity extends AbstractBaseActivity {
 	private PlayerControlView playerview;
 	private SimpleExoPlayer simpleplayer;
 	
@@ -29,23 +29,16 @@ public class SpeciesDetailsActivity extends AbstractBaseActivity {
 		playerview = findViewById(R.id.exoAudioPlayer);
 		simpleplayer = new SimpleExoPlayer.Builder(this).build();
 		playerview.setPlayer(simpleplayer);
-		byte[] speciesAudio = null;
 		
 		TextView speciesDescriptionTextView = findViewById(R.id.speciesDescriptionTextView);
 		speciesDescriptionTextView.setMovementMethod(new ScrollingMovementMethod());
 		ImageView speciesImage = findViewById(R.id.speciesImage);
 		
-		String speciesTitle = getIntent().getStringExtra("SPECIES_NAME");
-		setTitle(speciesTitle);
-		
-		for (Species species : Model.getSpeciesList()) {
-			if (species.getName().toLowerCase().startsWith(speciesTitle.toLowerCase())) {
-				speciesImage.setImageBitmap(species.getImage());
-				speciesDescriptionTextView.setText(species.getDescription());
-				speciesAudio = species.getAudioDescription();
-				break;
-			}
-		}
+		Species species = Model.getSpeciesList().get(getIntent().getIntExtra(MainApplication.INTENT_EXTRA_SPECIES, 0));
+		setTitle(species.getName());
+		speciesImage.setImageBitmap(species.getImage());
+		speciesDescriptionTextView.setText(species.getDescription());
+		byte[] speciesAudio = species.getAudioDescription();
 		
 		if (speciesAudio != null) {
 			final ByteArrayDataSource dataSource = new ByteArrayDataSource(speciesAudio);

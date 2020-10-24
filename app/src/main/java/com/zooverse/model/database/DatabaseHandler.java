@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHandler extends SQLiteAssetHelper {
-	private static final int DATABASE_VERSION = 7;
+	private static final int DATABASE_VERSION = 9;
 	
 	private final SQLiteDatabase database;
 	
@@ -25,7 +25,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		this.database = getReadableDatabase();
 	}
 	
-	public List<Ticket> getStoredTickets(String afterDate){
+	public List<Ticket> getStoredTickets(String afterDate) {
 		String[] columns = {
 				DatabaseContract.TicketEntry.COLUMN_ZOO_ID,
 				DatabaseContract.TicketEntry.COLUMN_DATE
@@ -53,12 +53,11 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 				ticketList.add(tmpTicket);
 			}
 		}
-		
 		cursor.close();
 		return ticketList;
 	}
 	
-	public void storeTicket(Ticket ticket){
+	public void storeTicket(Ticket ticket) {
 		ContentValues insertValues = new ContentValues();
 		insertValues.put(DatabaseContract.TicketEntry.COLUMN_ZOO_ID, ticket.getZooID());
 		insertValues.put(DatabaseContract.TicketEntry.COLUMN_DATE, ticket.getFormattedDate());
@@ -69,30 +68,49 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		);
 	}
 	
-	public List<Species> getAllSpecies(){
+	public List<Species> getAllSpecies() {
 		Cursor cursor = database.query(
 				DatabaseContract.SpeciesEntry.TABLE_NAME,
 				new String[]{
+						DatabaseContract.SpeciesEntry._ID,
 						DatabaseContract.SpeciesEntry.COLUMN_NAME,
-						DatabaseContract.SpeciesEntry.COLUMN_DESCRIPTION,
-						DatabaseContract.SpeciesEntry.COLUMN_IMAGE,
-						DatabaseContract.SpeciesEntry.COLUMN_AUDIO
+						DatabaseContract.SpeciesEntry.COLUMN_DESCRIPTION
 				},
 				null, null, null, null,
 				DatabaseContract.SpeciesEntry.COLUMN_NAME + " ASC"
 		);
-		
 		List<Species> speciesList = new ArrayList<>();
 		while (cursor.moveToNext()) {
 			speciesList.add(new Species(
+							cursor.getInt(cursor.getColumnIndex(DatabaseContract.SpeciesEntry._ID)),
 							cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_NAME)),
-							cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_DESCRIPTION)),
-							cursor.getBlob(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_IMAGE)),
-							cursor.getBlob(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_AUDIO))
+							cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_DESCRIPTION))
 					)
 			);
 		}
 		cursor.close();
 		return speciesList;
+	}
+	
+	public byte[] getSpeciesImage(int speciesID) {
+		return this.getBlobBySpeciesId(speciesID, DatabaseContract.SpeciesEntry.COLUMN_IMAGE);
+	}
+	
+	public byte[] getSpeciesAudioDescription(int speciesID) {
+		return this.getBlobBySpeciesId(speciesID, DatabaseContract.SpeciesEntry.COLUMN_AUDIO);
+	}
+	
+	private byte[] getBlobBySpeciesId(int id, String blobColumnName) {
+		Cursor cursor = database.query(
+				DatabaseContract.SpeciesEntry.TABLE_NAME,
+				new String[]{blobColumnName},
+				DatabaseContract.SpeciesEntry._ID + " = ?",
+				new String[]{String.valueOf(id)},
+				null, null, null
+		);
+		cursor.moveToNext();
+		byte[] blob = cursor.getBlob(cursor.getColumnIndex(blobColumnName));
+		cursor.close();
+		return blob;
 	}
 }

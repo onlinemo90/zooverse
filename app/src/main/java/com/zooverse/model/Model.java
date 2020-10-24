@@ -1,13 +1,17 @@
 package com.zooverse.model;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import com.zooverse.model.database.DatabaseHandler;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Model {
-	private static final DatabaseHandler dbHelper = new DatabaseHandler();
+	private static final DatabaseHandler dbHandler = new DatabaseHandler();
 	
 	private static final List<Ticket> storedTickets = initStoredTickets();
 	private static final List<Species> speciesList = initSpeciesList();
@@ -17,11 +21,11 @@ public class Model {
 	}
 	
 	private static List<Ticket> initStoredTickets() {
-		return dbHelper.getStoredTickets(Ticket.getTodayFormattedDate());
+		return dbHandler.getStoredTickets(Ticket.getTodayFormattedDate());
 	}
 	
 	private static List<Species> initSpeciesList() {
-		return dbHelper.getAllSpecies();
+		return dbHandler.getAllSpecies();
 	}
 	
 	public static List<Ticket> getStoredTickets() {
@@ -33,9 +37,17 @@ public class Model {
 	}
 	
 	public static void storeTicket(Ticket ticket) {
-		dbHelper.storeTicket(ticket);
+		dbHandler.storeTicket(ticket);
 		storedTickets.add(ticket);
 		Collections.sort(storedTickets, (Ticket t1, Ticket t2) -> t1.getDate().compareTo(t2.getDate()));
 	}
 	
+	public static Bitmap getSpeciesImage(int speciesID){
+		byte[] imgBlob = dbHandler.getSpeciesImage(speciesID);
+		return BitmapFactory.decodeByteArray(imgBlob, 0, imgBlob.length);
+	}
+	
+	public static byte[] getSpeciesAudioDescription(int speciesID){
+		return dbHandler.getSpeciesAudioDescription(speciesID);
+	}
 }
