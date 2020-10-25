@@ -38,8 +38,6 @@ public class MainApplication extends Application {
 			themeResourceId = R.style.AppTheme_Light;
 		} else if (theme.equals(appContext.getString(R.string.theme_dark))) {
 			themeResourceId = R.style.AppTheme_Dark;
-		} else if (theme.equals(appContext.getString(R.string.theme_madness))) {
-			themeResourceId = R.style.AppTheme_Madness;
 		} else {
 			resetTheme();
 		}

@@ -19,9 +19,9 @@ import java.util.List;
 
 public class SpeciesSearchAdapter extends RecyclerView.Adapter<SpeciesSearchAdapter.SpeciesSearchViewHolder> {
 	private List<Species> filteredSpeciesList = Model.getSpeciesList();
-	private final speciesOnClickListener speciesOnClickListener;
+	private final SpeciesOnClickListener speciesOnClickListener;
 	
-	public SpeciesSearchAdapter(speciesOnClickListener speciesOnClickListener) {
+	public SpeciesSearchAdapter(SpeciesOnClickListener speciesOnClickListener) {
 		this.speciesOnClickListener = speciesOnClickListener;
 	}
 	
@@ -29,9 +29,9 @@ public class SpeciesSearchAdapter extends RecyclerView.Adapter<SpeciesSearchAdap
 	public static class SpeciesSearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 		TextView speciesNameTextView = itemView.findViewById(R.id.speciesNameTextView);
 		ImageView speciesImageView = itemView.findViewById(R.id.speciesImageView);
-		speciesOnClickListener speciesOnClickListener;
+		SpeciesOnClickListener speciesOnClickListener;
 		
-		public SpeciesSearchViewHolder(@NonNull View itemView, speciesOnClickListener speciesOnClickListener) {
+		public SpeciesSearchViewHolder(@NonNull View itemView, SpeciesOnClickListener speciesOnClickListener) {
 			super(itemView);
 			this.speciesOnClickListener = speciesOnClickListener;
 			itemView.setOnClickListener(this);
@@ -77,7 +77,7 @@ public class SpeciesSearchAdapter extends RecyclerView.Adapter<SpeciesSearchAdap
 		}
 	}
 	
-	public interface speciesOnClickListener {
+	public interface SpeciesOnClickListener {
 		void onSpeciesClick(int position);
 	}
 	

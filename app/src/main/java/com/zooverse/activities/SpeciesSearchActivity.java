@@ -15,7 +15,7 @@ import com.zooverse.activities.adapters.SpeciesSearchAdapter;
 import com.zooverse.model.Model;
 import com.zooverse.model.Species;
 
-public class SpeciesSearchActivity extends AbstractBaseActivity implements SpeciesSearchAdapter.speciesOnClickListener {
+public class SpeciesSearchActivity extends AbstractBaseActivity implements SpeciesSearchAdapter.SpeciesOnClickListener {
 	
 	private SpeciesSearchAdapter speciesSearchAdapter;
 	

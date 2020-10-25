@@ -21,7 +21,7 @@ import com.zooverse.activities.adapters.TicketListAdapter;
 
 import java.util.List;
 
-public class MainActivity extends AbstractBaseActivity implements TicketListAdapter.OnClickTicketListener {
+public class MainActivity extends AbstractBaseActivity implements TicketListAdapter.TicketOnClickListener {
 	private TicketListAdapter ticketListAdapter;
 	
 	@Override
