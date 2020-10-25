@@ -12,16 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.zooverse.MainApplication;
 import com.zooverse.R;
 import com.zooverse.model.Model;
-import com.zooverse.model.Ticket;
 
-import java.util.List;
 
 public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.TicketListViewHolder> {
-	private List<Ticket> ticketList = Model.getStoredTickets();
 	private View ticketListLayout;
-	private TicketOnClickListener ticketOnClickListener;
+	private final TicketOnClickListener ticketOnClickListener;
 	
-	public TicketListAdapter(TicketOnClickListener ticketOnClickListener){
+	public TicketListAdapter(TicketOnClickListener ticketOnClickListener) {
 		this.ticketOnClickListener = ticketOnClickListener;
 	}
 	
@@ -54,21 +51,20 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
 	@Override
 	public void onBindViewHolder(@NonNull TicketListViewHolder viewHolder, int position) {
 		CardView cardView = ticketListLayout.findViewById(R.id.ticketCardView);
-		if (this.ticketList.get(position).isForToday()){ // highlight if it is a ticket for today
+		if (Model.getStoredTickets().get(position).isForToday()) { // highlight if it is a ticket for today
 			cardView.setCardBackgroundColor(MainApplication.getThemeColor(R.attr.themeColorPrimary));
 			viewHolder.ticketLabelTextView.setTextColor(MainApplication.getThemeColor(R.attr.themeColorBackground));
 			viewHolder.ticketLabelTextView.setText(MainApplication.getContext().getString(R.string.main_ticket_today));
 			viewHolder.ticketDateTextView.setText("");
-		}
-		else {
+		} else {
 			cardView.setCardBackgroundColor(MainApplication.getThemeColor(R.attr.themeColorCardBackground));
-			viewHolder.ticketDateTextView.setText(this.ticketList.get(position).getReadableDate());
+			viewHolder.ticketDateTextView.setText(Model.getStoredTickets().get(position).getReadableDate());
 		}
 	}
 	
 	@Override
 	public int getItemCount() {
-		return this.ticketList.size();
+		return Model.getStoredTickets().size();
 	}
 	
 	public interface TicketOnClickListener {

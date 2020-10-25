@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHandler extends SQLiteAssetHelper {
-	private static final int DATABASE_VERSION = 11;
+	private static final int DATABASE_VERSION = 14;
 	
 	private final SQLiteDatabase database;
 	
