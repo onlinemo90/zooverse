@@ -8,69 +8,86 @@
 	tools:context=".activities.ZooMenuActivity">
 	
 	<ImageView
-		android:id="@+id/menuScreenLogo"
+		android:id="@+id/logoImageView"
 		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
+		android:layout_height="0dp"
 		android:contentDescription="@string/main_logo"
 		android:scaleType="fitCenter"
-		app:layout_constraintBottom_toTopOf="@+id/guideline4"
+		app:layout_constraintBottom_toTopOf="@+id/logoGuideline"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
 		app:srcCompat="?attr/themeLogo" />
-
-	<Button
-		android:id="@+id/tourButton"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="128dp"
-		android:onClick="goOnTour"
-		android:text="@string/zoo_menu_tour_button"
-		app:layout_constraintEnd_toStartOf="@+id/guideline3"
-		app:layout_constraintStart_toStartOf="@+id/guideline2"
-		app:layout_constraintTop_toBottomOf="@+id/guideline4" />
-
-	<Button
-		android:id="@+id/animalSearchButton"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="24dp"
-		android:onClick="searchAnimal"
-		android:text="@string/zoo_menu_animal_search"
-		app:layout_constraintEnd_toStartOf="@+id/guideline3"
-		app:layout_constraintStart_toStartOf="@+id/guideline2"
-		app:layout_constraintTop_toBottomOf="@+id/tourButton" />
-
-	<Button
-		android:id="@+id/scanEnclosureButton"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="24dp"
-		android:onClick="scanEnclosure"
-		android:text="@string/zoo_menu_scan_enclosure_button"
-		app:layout_constraintEnd_toStartOf="@+id/guideline3"
-		app:layout_constraintStart_toStartOf="@+id/guideline2"
-		app:layout_constraintTop_toBottomOf="@+id/animalSearchButton" />
-
+	
 	<androidx.constraintlayout.widget.Guideline
-		android:id="@+id/guideline2"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:orientation="vertical"
-		app:layout_constraintGuide_percent="0.15" />
-
-	<androidx.constraintlayout.widget.Guideline
-		android:id="@+id/guideline3"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:orientation="vertical"
-		app:layout_constraintGuide_percent="0.85" />
-
-	<androidx.constraintlayout.widget.Guideline
-		android:id="@+id/guideline4"
+		android:id="@+id/logoGuideline"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
 		app:layout_constraintGuide_percent="0.4" />
+	
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/logoGuideline"
+		tools:layout_editor_absoluteX="-106dp">
+		
+		<androidx.constraintlayout.widget.Guideline
+			android:id="@+id/guidelineTop"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			app:layout_constraintGuide_percent="0.1" />
+		
+		<androidx.constraintlayout.widget.Guideline
+			android:id="@+id/guidelineLeft"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			app:layout_constraintGuide_percent="0.85" />
+		
+		<androidx.constraintlayout.widget.Guideline
+			android:id="@+id/guidelineRight"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			app:layout_constraintGuide_percent="0.15" />
+		
+		<Button
+			android:id="@+id/tourButton"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:onClick="goOnTour"
+			android:text="@string/zoo_menu_tour_button"
+			app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+			app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+			app:layout_constraintTop_toTopOf="@+id/guidelineTop" />
+		
+		<Button
+			android:id="@+id/animalSearchButton"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="16dp"
+			android:onClick="searchAnimal"
+			android:text="@string/zoo_menu_animal_search"
+			app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+			app:layout_constraintHorizontal_bias="1.0"
+			app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+			app:layout_constraintTop_toBottomOf="@+id/tourButton" />
+		
+		<Button
+			android:id="@+id/scanEnclosureButton"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="16dp"
+			android:onClick="scanEnclosure"
+			android:text="@string/zoo_menu_scan_enclosure_button"
+			app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
+			app:layout_constraintHorizontal_bias="0.0"
+			app:layout_constraintStart_toStartOf="@+id/guidelineRight"
+			app:layout_constraintTop_toBottomOf="@+id/animalSearchButton" />
+	
+	</androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

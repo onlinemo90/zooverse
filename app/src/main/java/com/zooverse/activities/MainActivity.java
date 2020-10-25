@@ -12,8 +12,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.zooverse.MainApplication;
 import com.zooverse.R;
@@ -43,21 +41,16 @@ public class MainActivity extends AbstractBaseActivity implements TicketListAdap
 		super.onStart();
 		ticketListAdapter.notifyDataSetChanged();
 		
-		Button scanTicketButton = findViewById(R.id.scanTicketButton);
-		TextView upComingTickets = findViewById(R.id.upcomingTicketsTextView);
+		View noTicketLayoutView = findViewById(R.id.noTicketLayout);
+		View ticketListLayoutView = findViewById(R.id.ticketListLayout);
 		
 		List<Ticket> storedTickets = Model.getStoredTickets();
 		if (storedTickets.isEmpty()) {
-			upComingTickets.setVisibility(View.GONE);
+			noTicketLayoutView.setVisibility(View.VISIBLE);
+			ticketListLayoutView.setVisibility(View.GONE);
 		} else {
-			upComingTickets.setVisibility(View.VISIBLE);
-		}
-		scanTicketButton.setVisibility(View.VISIBLE);
-		for (Ticket ticket : storedTickets) {
-			if (ticket.isForToday()) {
-				scanTicketButton.setVisibility(View.GONE);
-				break;
-			}
+			noTicketLayoutView.setVisibility(View.GONE);
+			ticketListLayoutView.setVisibility(View.VISIBLE);
 		}
 	}
 	
@@ -68,9 +61,9 @@ public class MainActivity extends AbstractBaseActivity implements TicketListAdap
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_bar_main, menu);
-		for(int i = 0; i < menu.size(); i++){
+		for (int i = 0; i < menu.size(); i++) {
 			Drawable drawable = menu.getItem(i).getIcon();
-			if(drawable != null) {
+			if (drawable != null) {
 				drawable.mutate();
 				drawable.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorBackground), PorterDuff.Mode.SRC_ATOP);
 			}

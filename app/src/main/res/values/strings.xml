@@ -11,6 +11,8 @@
 	<string name="main_ticket_date">Ticket Date:</string>
 	<string name="main_ticket_today">You have a ticket for today! ></string>
 	<string name="main_upcoming_tickets">Your upcoming tickets:</string>
+	<string name="main_no_tickets">You currently have no tickets to this zoo</string>
+	<string name="main_scan_ticket_instructions">Scan your ticket QR code to register it and use the app</string>
 	
 	<!--activity_scan_ticket-->
 	<string name="scan_ticket_header">Please scan your zoo ticket</string>
