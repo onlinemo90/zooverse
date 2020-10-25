@@ -19,27 +19,27 @@ import java.util.List;
 public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.TicketListViewHolder> {
 	private List<Ticket> ticketList = Model.getStoredTickets();
 	private View ticketListLayout;
-	private OnClickTicketListener onClickTicketListener;
+	private TicketOnClickListener ticketOnClickListener;
 	
-	public TicketListAdapter(OnClickTicketListener onClickTicketListener){
-		this.onClickTicketListener = onClickTicketListener;
+	public TicketListAdapter(TicketOnClickListener ticketOnClickListener){
+		this.ticketOnClickListener = ticketOnClickListener;
 	}
 	
 	// inner class for view holder
 	public static class TicketListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 		TextView ticketDateTextView = itemView.findViewById(R.id.ticketDateTextView);
 		TextView ticketLabelTextView = itemView.findViewById(R.id.ticketLabelTextView);
-		OnClickTicketListener onClickTicketListener;
+		TicketOnClickListener ticketOnClickListener;
 		
-		public TicketListViewHolder(@NonNull View itemView, OnClickTicketListener onClickTicketListener) {
+		public TicketListViewHolder(@NonNull View itemView, TicketOnClickListener ticketOnClickListener) {
 			super(itemView);
-			this.onClickTicketListener = onClickTicketListener;
+			this.ticketOnClickListener = ticketOnClickListener;
 			itemView.setOnClickListener(this);
 		}
 		
 		@Override //on click method references interface for on click implementation
 		public void onClick(View v) {
-			onClickTicketListener.onTicketClick(getAdapterPosition());
+			ticketOnClickListener.onTicketClick(getAdapterPosition());
 		}
 	}
 	
@@ -48,7 +48,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
 	public TicketListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 		// assign layout file which is used for each row in recycler view
 		ticketListLayout = LayoutInflater.from(MainApplication.getContext()).inflate(R.layout.layout_recyclerview_tickets, parent, false);
-		return new TicketListViewHolder(ticketListLayout, onClickTicketListener);
+		return new TicketListViewHolder(ticketListLayout, ticketOnClickListener);
 	}
 	
 	@Override
@@ -71,7 +71,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
 		return this.ticketList.size();
 	}
 	
-	public interface OnClickTicketListener{
+	public interface TicketOnClickListener {
 		void onTicketClick(int position);
 	}
 }

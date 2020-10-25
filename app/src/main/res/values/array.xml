@@ -3,13 +3,11 @@
 	<string-array name="Themes">
 		<item>@string/theme_light</item>
 		<item>@string/theme_dark</item>
-		<item>@string/theme_madness</item>
 	</string-array>
 	
 	<string-array name="Theme_values"> <!-- order must match Themes array -->
 		<item>@style/AppTheme.Light</item>
 		<item>@style/AppTheme.Dark</item>
-		<item>@style/AppTheme.Madness</item>
 	</string-array>
 
 </resources>

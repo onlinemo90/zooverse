@@ -37,7 +37,6 @@
 	<string name="theme_dialog">Choose your Theme</string>
 	<string name="theme_light">Light</string>
 	<string name="theme_dark">Dark</string>
-	<string name="theme_madness">Madness</string>
 	
 	<string name="theme_pref_key">theme_pref_key</string>
 	<string name="theme_default">@string/theme_light</string>

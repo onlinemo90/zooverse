@@ -47,12 +47,4 @@
 		<item name="themeColorBackground">@color/colorBackground_dark</item>
 		<item name="themeColorForeground">@color/colorForeground_dark</item>
 	</style>
-	
-	<!-- Madness Theme -->
-	<style name="AppTheme.Madness" parent="AppTheme">
-		<item name="themeColorPrimary">#F65932</item>
-		<item name="themeColorPrimaryDark">#D5F8A9</item>
-		<item name="themeColorBackground">#B7BAF3</item>
-		<item name="themeColorForeground">#EE69A7</item>
-	</style>
 </resources>
