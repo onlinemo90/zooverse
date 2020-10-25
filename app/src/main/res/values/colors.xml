@@ -8,7 +8,7 @@
 	
 	<!-- Dark Theme -->
 	<color name="colorPrimary_dark">@color/colorPrimaryDark</color>
-	<color name="colorPrimaryDark_dark">#497f26</color>
+	<color name="colorPrimaryDark_dark">#3b661e</color>
 	<color name="colorForeground_dark">@color/colorForeground</color>
 	<color name="colorBackground_dark">#262626</color>
 </resources>
