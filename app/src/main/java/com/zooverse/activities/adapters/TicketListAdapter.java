@@ -61,7 +61,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
 			viewHolder.ticketDateTextView.setText("");
 		}
 		else {
-			cardView.setCardBackgroundColor(MainApplication.getThemeColor(R.attr.themeColorBackground));
+			cardView.setCardBackgroundColor(MainApplication.getThemeColor(R.attr.themeColorCardBackground));
 			viewHolder.ticketDateTextView.setText(this.ticketList.get(position).getReadableDate());
 		}
 	}

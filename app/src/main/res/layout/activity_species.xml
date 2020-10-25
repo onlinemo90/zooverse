@@ -5,7 +5,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	tools:context=".activities.SpeciesActivity">
-
+	
 	<ImageView
 		android:id="@+id/speciesImage"
 		android:layout_width="0dp"
@@ -16,21 +16,21 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
 		tools:srcCompat="@tools:sample/avatars" />
-
+	
 	<androidx.constraintlayout.widget.Guideline
 		android:id="@+id/SpeciesguidelineTop"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
 		app:layout_constraintGuide_percent="0.3" />
-
+	
 	<androidx.constraintlayout.widget.Guideline
 		android:id="@+id/speciesGuidelineBottom"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
 		app:layout_constraintGuide_percent="0.85" />
-
+	
 	<TextView
 		android:id="@+id/speciesDescriptionTextView"
 		android:layout_width="0dp"
@@ -47,14 +47,24 @@
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="@+id/SpeciesguidelineTop" />
-
+	
 	<com.google.android.exoplayer2.ui.PlayerControlView
 		android:id="@+id/exoAudioPlayer"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
+		android:layout_height="0dp"
+		app:background="?attr/themeColorPrimary"
+		app:buffered_color="?attr/themeColorForeground"
+		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="parent"
-		app:show_timeout="0"/>
+		app:layout_constraintTop_toBottomOf="@+id/speciesGuidelineBottom"
+		app:played_color="?attr/themeColorPrimary"
+		app:scrubber_color="?attr/themeColorPrimary"
+		app:show_buffering="always"
+		app:show_fastforward_button="false"
+		app:show_rewind_button="false"
+		app:show_shuffle_button="false"
+		app:show_timeout="0"
+		app:unplayed_color="?attr/themeColorBackground"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

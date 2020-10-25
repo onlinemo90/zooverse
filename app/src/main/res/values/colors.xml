@@ -5,10 +5,12 @@
 	<color name="colorPrimaryDark">#528F29</color>
 	<color name="colorForeground">#808080</color>
 	<color name="colorBackground">#FFFFFF</color>
+	<color name="colorCardBackground">#EFEFEF</color>
 	
 	<!-- Dark Theme -->
 	<color name="colorPrimary_dark">@color/colorPrimaryDark</color>
 	<color name="colorPrimaryDark_dark">#3b661e</color>
 	<color name="colorForeground_dark">@color/colorForeground</color>
 	<color name="colorBackground_dark">#262626</color>
+	<color name="colorCardBackground_dark">#2B2B2B</color>
 </resources>

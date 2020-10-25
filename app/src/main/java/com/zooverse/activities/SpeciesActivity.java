@@ -24,7 +24,7 @@ public class SpeciesActivity extends AbstractBaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_species_details);
+		setContentView(R.layout.activity_species);
 		
 		playerview = findViewById(R.id.exoAudioPlayer);
 		simpleplayer = new SimpleExoPlayer.Builder(this).build();

@@ -13,6 +13,7 @@
 		<item name="android:colorButtonNormal">?attr/themeColorPrimary</item>
 		
 		<item name="android:statusBarColor">?attr/themeColorPrimaryDark</item>
+		<item name="android:navigationBarColor">?attr/themeColorBackground</item>
 		<item name="actionBarTheme">@style/AppTheme.AppBar</item>
 		<item name="android:buttonStyle">@style/AppTheme.Button</item>
 	</style>
@@ -30,6 +31,7 @@
 		<item name="android:windowBackground">@drawable/splash_screen</item>
 		<item name="android:windowNoTitle">true</item>
 		<item name="android:statusBarColor">@android:color/transparent</item>
+		<item name="android:navigationBarColor">@color/colorBackground_dark</item>
 	</style>
 	
 	<!-- Light Theme -->
@@ -39,6 +41,8 @@
 		<item name="themeColorPrimaryDark">@color/colorPrimaryDark</item>
 		<item name="themeColorBackground">@color/colorBackground</item>
 		<item name="themeColorForeground">@color/colorForeground</item>
+		
+		<item name="themeColorCardBackground">@color/colorCardBackground</item>
 	</style>
 	
 	<!-- Dark Theme -->
@@ -48,5 +52,7 @@
 		<item name="themeColorPrimaryDark">@color/colorPrimaryDark_dark</item>
 		<item name="themeColorBackground">@color/colorBackground_dark</item>
 		<item name="themeColorForeground">@color/colorForeground_dark</item>
+		
+		<item name="themeColorCardBackground">@color/colorCardBackground_dark</item>
 	</style>
 </resources>
