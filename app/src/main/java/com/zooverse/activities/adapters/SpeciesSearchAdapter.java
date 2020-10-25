@@ -81,5 +81,4 @@ public class SpeciesSearchAdapter extends RecyclerView.Adapter<SpeciesSearchAdap
 		void onSpeciesClick(int position);
 	}
 	
-	
 }
