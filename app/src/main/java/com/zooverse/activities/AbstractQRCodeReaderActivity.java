@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.util.SparseArray;
@@ -27,6 +28,15 @@ import java.io.IOException;
 public abstract class AbstractQRCodeReaderActivity extends AbstractBaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
 	private String lastQRCodeDetection = null;
 	private String newQRCodeDetection = null;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_scan_qr_code);
+		
+		SurfaceView surfaceCamera = findViewById(R.id.cameraSurface);
+		assignCamera(surfaceCamera);
+	}
 	
 	public boolean hasCameraPermission(Context context) {
 		// Is access permission already given?

@@ -31,7 +31,6 @@ public class Ticket {
 		DATE_FORMAT.setLenient(false);
 		try {
 			this.isValid = true;
-			Log.d("decrypted ticket->", EncryptionHelper.decrypt(encryptedTicketString));
 			String[] fields = EncryptionHelper.decrypt(encryptedTicketString).split(Pattern.quote(Ticket.FIELD_SEPARATOR));
 			this.zooID = fields[0];
 			this.date = DATE_FORMAT.parse(fields[1]);

@@ -24,8 +24,7 @@ public class EncryptionHelper {
 	}
 	
 	public static String decrypt(String cipherText) {
-		return cipherText;
-		//return runEncryptionFunction(DECRYPTION_FUNCTION, cipherText);
+		return runEncryptionFunction(DECRYPTION_FUNCTION, cipherText);
 	}
 	
 	private EncryptionHelper() {

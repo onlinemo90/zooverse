@@ -25,6 +25,6 @@ public class ZooMenuActivity extends AbstractBaseActivity {
 	}
 	
 	public void scanEnclosure(View view) {
-		Log.d("zoo menu", "'Scan enclosure' button pressed");
+		startActivity(new Intent(MainApplication.getContext(), ScanEnclosureActivity.class));
 	}
 }

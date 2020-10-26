@@ -3,9 +3,10 @@
 	<string name="zoo_id">ZSL</string>
 	<string name="encryption_key">k3byWoG3plPow3FuvZ5p1IWlZv1g3uob</string>
 	<string name="local_date_format">dd/MM/yyyy</string>
-	
+
 	<!--activity_main-->
-	<string name="main_logo">Zoo Logo</string>
+	<string name="logoImageView">Zoo Logo</string>
+	<string name="qrCodeImageView">Example QR Code"</string>
 	<string name="main_ticket_scan">Scan ticket</string>
 	<string name="main_start_visit">Start your visit</string>
 	<string name="main_ticket_date">Ticket Date:</string>
@@ -13,10 +14,11 @@
 	<string name="main_upcoming_tickets">Your upcoming tickets:</string>
 	<string name="main_no_tickets">You currently have no tickets to this zoo</string>
 	<string name="main_scan_ticket_instructions">Scan your ticket QR code to register it and use the app</string>
-	
-	<!--activity_scan_ticket-->
+
+	<!--activity_scan_qr_code-->
 	<string name="scan_ticket_header">Please scan your zoo ticket</string>
-	
+	<string name="scan_enclosure_header">Please scan the enclosure sign</string>
+
 	<!--ScanTicketActivity.class-->
 	<string name="scan_ticket_future_ticket_stored">Your ticket has been stored.</string>
 	<string name="scan_ticket_error_camera_access_denied">Camera is required to scan zoo ticket.</string>
@@ -25,21 +27,24 @@
 	<string name="scan_ticket_error_past_ticket">Your ticket is expired.</string>
 	<string name="scan_ticket_error_already_stored">You have already scanned that ticket.</string>
 
+	<!--ScanEnclosure.class-->
+	<string name="scan_enclosure_error_invalid_qr">Invalid QR code</string>
+
 	<!--Zoo Menu-->
 	<string name="zoo_menu_tour_button">Go on a tour</string>
 	<string name="zoo_menu_animal_search">Search for an animal</string>
 	<string name="zoo_menu_scan_enclosure_button">Scan enclosure sign</string>
-	
+
 	<!--activity_species_search-->
 	<string name="species_search_criterion_hint">Search for an animal…</string>
-	
+
 	<!-- Settings Activity -->
 	<string name="title_activity_settings">Settings</string>
 	<string name="theme_title">Theme</string>
 	<string name="theme_dialog">Choose your Theme</string>
 	<string name="theme_light">Light</string>
 	<string name="theme_dark">Dark</string>
-	
+
 	<string name="theme_pref_key">theme_pref_key</string>
 	<string name="theme_default">@string/theme_light</string>
 
