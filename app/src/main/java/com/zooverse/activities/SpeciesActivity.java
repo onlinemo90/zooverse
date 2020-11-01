@@ -3,6 +3,7 @@ package com.zooverse.activities;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,6 +33,8 @@ public class SpeciesActivity extends AbstractBaseActivity {
 		
 		TextView speciesDescriptionTextView = findViewById(R.id.speciesDescriptionTextView);
 		speciesDescriptionTextView.setMovementMethod(new ScrollingMovementMethod());
+		speciesDescriptionTextView.setOnClickListener(v -> { playerview.hide(); });
+		
 		ImageView speciesImage = findViewById(R.id.speciesImage);
 		
 		Species species = Model.getSpeciesList().get(getIntent().getIntExtra(MainApplication.INTENT_EXTRA_SPECIES, 0));
@@ -45,6 +48,7 @@ public class SpeciesActivity extends AbstractBaseActivity {
 			DataSource.Factory factory = () -> dataSource;
 			simpleplayer.setMediaSource(new ProgressiveMediaSource.Factory(factory).createMediaSource(MediaItem.fromUri(Uri.EMPTY)));
 			simpleplayer.prepare();
+			playerview.hide();
 		}
 	}
 	
@@ -54,5 +58,23 @@ public class SpeciesActivity extends AbstractBaseActivity {
 		simpleplayer.release();
 		simpleplayer = null;
 		super.onDestroy();
+	}
+	
+	public void playAudio (View view){
+		if (!playerview.isVisible()){
+			simpleplayer.play();
+			playerview.show();
+		}
+		else
+			playerview.hide();
+		
+	}
+	
+	public void openSpeciesLocation (View view){
+		//TODO: implement locator screen/logic
+	}
+	
+	public void openSpeciesIndividuals (View view){
+		//TODO: implement individuals screen/logic
 	}
 }

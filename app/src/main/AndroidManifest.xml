@@ -42,7 +42,7 @@
 			android:name=".activities.SpeciesSearchActivity"
 			android:screenOrientation="portrait" />
 		<activity
-			android:name=".activities.ScanEnclosureActivity"
+			android:name=".activities.ScanInfoPointActivity"
 			android:label="@string/scan_enclosure_header"
 			android:screenOrientation="portrait" />
 		<activity

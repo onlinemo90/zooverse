@@ -10,7 +10,7 @@
 	<string name="main_ticket_scan">Scan ticket</string>
 	<string name="main_start_visit">Start your visit</string>
 	<string name="main_ticket_date">Ticket Date:</string>
-	<string name="main_ticket_today">You have a ticket for today! ></string>
+	<string name="main_ticket_today">You have a ticket for today!</string>
 	<string name="main_upcoming_tickets">Your upcoming tickets:</string>
 	<string name="main_no_tickets">You currently have no tickets to this zoo</string>
 	<string name="main_scan_ticket_instructions">Scan your ticket QR code to register it and use the app</string>
@@ -18,6 +18,15 @@
 	<!--activity_scan_qr_code-->
 	<string name="scan_ticket_header">Please scan your zoo ticket</string>
 	<string name="scan_enclosure_header">Please scan the enclosure sign</string>
+
+	<!--activity_species-->
+	<string name="species_image">Species Image</string>
+	<string name="individuals_image_view">species individuals icon</string>
+	<string name="audio_image_view">species audio icon</string>
+	<string name="location_image_view">species location icon</string>
+
+	<!--activity_species_search-->
+	<string name="species_search_criterion_hint">Search for an animal…</string>
 
 	<!--ScanTicketActivity.class-->
 	<string name="scan_ticket_future_ticket_stored">Your ticket has been stored.</string>
@@ -34,9 +43,6 @@
 	<string name="zoo_menu_tour_button">Go on a tour</string>
 	<string name="zoo_menu_animal_search">Search for an animal</string>
 	<string name="zoo_menu_scan_enclosure_button">Scan enclosure sign</string>
-
-	<!--activity_species_search-->
-	<string name="species_search_criterion_hint">Search for an animal…</string>
 
 	<!-- Settings Activity -->
 	<string name="title_activity_settings">Settings</string>

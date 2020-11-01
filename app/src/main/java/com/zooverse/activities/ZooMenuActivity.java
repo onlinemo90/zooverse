@@ -25,6 +25,6 @@ public class ZooMenuActivity extends AbstractBaseActivity {
 	}
 	
 	public void scanEnclosure(View view) {
-		startActivity(new Intent(MainApplication.getContext(), ScanEnclosureActivity.class));
+		startActivity(new Intent(MainApplication.getContext(), ScanInfoPointActivity.class));
 	}
 }

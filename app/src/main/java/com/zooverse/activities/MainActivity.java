@@ -64,8 +64,7 @@ public class MainActivity extends AbstractBaseActivity implements TicketListAdap
 		for (int i = 0; i < menu.size(); i++) {
 			Drawable drawable = menu.getItem(i).getIcon();
 			if (drawable != null) {
-				drawable.mutate();
-				drawable.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorBackground), PorterDuff.Mode.SRC_ATOP);
+				drawable.mutate().setColorFilter(MainApplication.getThemeColor(R.attr.themeColorBackground), PorterDuff.Mode.SRC_ATOP);
 			}
 		}
 		return true;

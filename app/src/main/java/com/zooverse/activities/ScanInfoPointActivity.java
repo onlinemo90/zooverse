@@ -9,7 +9,7 @@ import com.zooverse.R;
 import com.zooverse.model.Model;
 import com.zooverse.model.Species;
 
-public class ScanEnclosureActivity extends AbstractQRCodeReaderActivity {
+public class ScanInfoPointActivity extends AbstractQRCodeReaderActivity {
 	
 	
 	@Override

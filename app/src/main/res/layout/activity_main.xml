@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
+    android:padding="10dp"
     tools:context=".activities.MainActivity">
     
     <ImageView
@@ -49,9 +49,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/main_no_tickets"
+            android:clickable="true"
+            android:onClick="openScanTicket"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/noTicketGuideline" />
+            app:layout_constraintTop_toTopOf="@id/noTicketGuideline"
+            android:focusable="true" />
     
         <TextView
             android:id="@+id/scanTicketExplanationTextView"
@@ -63,7 +66,8 @@
             android:onClick="openScanTicket"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/noTicketTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/noTicketTextView"
+            android:focusable="true" />
     
         <ImageView
             android:id="@+id/qrCodeImageView"
@@ -72,11 +76,12 @@
             android:layout_marginTop="32dp"
             android:onClick="openScanTicket"
             android:clickable="true"
+            android:focusable="true"
             android:contentDescription="@string/qrCodeImageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/scanTicketExplanationTextView"
-            app:srcCompat="@drawable/qrcode"
+            app:srcCompat="@drawable/icon_qrcode"
             app:tint="?attr/themeColorForeground" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

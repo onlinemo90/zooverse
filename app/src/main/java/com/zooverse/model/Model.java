@@ -42,12 +42,12 @@ public class Model {
 		Collections.sort(storedTickets, (Ticket t1, Ticket t2) -> t1.getDate().compareTo(t2.getDate()));
 	}
 	
-	public static Bitmap getSpeciesImage(int speciesID){
+	public static Bitmap getSpeciesImage(int speciesID) {
 		byte[] imgBlob = dbHandler.getSpeciesImage(speciesID);
 		return BitmapFactory.decodeByteArray(imgBlob, 0, imgBlob.length);
 	}
 	
-	public static byte[] getSpeciesAudioDescription(int speciesID){
+	public static byte[] getSpeciesAudioDescription(int speciesID) {
 		return dbHandler.getSpeciesAudioDescription(speciesID);
 	}
 }
