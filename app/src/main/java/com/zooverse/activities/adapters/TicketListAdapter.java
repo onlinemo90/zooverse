@@ -28,6 +28,8 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
 		TextView ticketDateTextView = itemView.findViewById(R.id.ticketDateTextView);
 		TextView ticketLabelTextView = itemView.findViewById(R.id.ticketLabelTextView);
 		TicketOnClickListener ticketOnClickListener;
+		CardView cardView = itemView.findViewById(R.id.ticketCardView);
+		ImageView ticketIcon = itemView.findViewById(R.id.ticketIcon);
 		
 		public TicketListViewHolder(@NonNull View itemView, TicketOnClickListener ticketOnClickListener) {
 			super(itemView);
@@ -51,21 +53,19 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
 	
 	@Override
 	public void onBindViewHolder(@NonNull TicketListViewHolder viewHolder, int position) {
-		CardView cardView = ticketListLayout.findViewById(R.id.ticketCardView);
-		ImageView ticketIcon = ticketListLayout.findViewById(R.id.ticketIcon);
 
 		if (Model.getStoredTickets().get(position).isForToday()) { // highlight if it is a ticket for today
-			cardView.setCardBackgroundColor(MainApplication.getThemeColor(R.attr.themeColorPrimary));
+			viewHolder.cardView.setCardBackgroundColor(MainApplication.getThemeColor(R.attr.themeColorPrimary));
 			viewHolder.ticketLabelTextView.setTextColor(MainApplication.getThemeColor(R.attr.themeColorBackground));
 			viewHolder.ticketLabelTextView.setText(MainApplication.getContext().getString(R.string.main_ticket_today));
 			viewHolder.ticketDateTextView.setText("");
-			ticketIcon.setImageDrawable(MainApplication.getContext().getDrawable(R.drawable.icon_walking));
-			ticketIcon.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorBackground));
+			viewHolder.ticketIcon.setImageDrawable(MainApplication.getContext().getDrawable(R.drawable.icon_walking));
+			viewHolder.ticketIcon.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorBackground));
 		} else {
-			cardView.setCardBackgroundColor(MainApplication.getThemeColor(R.attr.themeColorCardBackground));
+			viewHolder.cardView.setCardBackgroundColor(MainApplication.getThemeColor(R.attr.themeColorCardBackground));
 			viewHolder.ticketDateTextView.setText(Model.getStoredTickets().get(position).getReadableDate());
-			ticketIcon.setImageDrawable(MainApplication.getContext().getDrawable(R.drawable.icon_calendar));
-			ticketIcon.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorForeground));
+			viewHolder.ticketIcon.setImageDrawable(MainApplication.getContext().getDrawable(R.drawable.icon_calendar));
+			viewHolder.ticketIcon.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorForeground));
 		}
 	}
 	

@@ -16,8 +16,9 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 	}
 	
+	
 	@Override
-	public void onResume() {
+	protected void onResume() {
 		super.onResume();
 		if (themeResourceId != MainApplication.getThemeResourceId()) {
 			recreate();
