@@ -16,7 +16,6 @@ import com.zooverse.model.Model;
 
 
 public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.TicketListViewHolder> {
-	private View ticketListLayout;
 	private final TicketOnClickListener ticketOnClickListener;
 	
 	public TicketListAdapter(TicketOnClickListener ticketOnClickListener) {
@@ -25,11 +24,11 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
 	
 	// inner class for view holder
 	public static class TicketListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-		TextView ticketDateTextView = itemView.findViewById(R.id.ticketDateTextView);
-		TextView ticketLabelTextView = itemView.findViewById(R.id.ticketLabelTextView);
-		TicketOnClickListener ticketOnClickListener;
-		CardView cardView = itemView.findViewById(R.id.ticketCardView);
-		ImageView ticketIcon = itemView.findViewById(R.id.ticketIcon);
+		private TextView ticketDateTextView = itemView.findViewById(R.id.ticketDateTextView);
+		private TextView ticketLabelTextView = itemView.findViewById(R.id.ticketLabelTextView);
+		private TicketOnClickListener ticketOnClickListener;
+		private CardView cardView = itemView.findViewById(R.id.ticketCardView);
+		private ImageView ticketIcon = itemView.findViewById(R.id.ticketIcon);
 		
 		public TicketListViewHolder(@NonNull View itemView, TicketOnClickListener ticketOnClickListener) {
 			super(itemView);
@@ -47,7 +46,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
 	@Override
 	public TicketListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 		// assign layout file which is used for each row in recycler view
-		ticketListLayout = LayoutInflater.from(MainApplication.getContext()).inflate(R.layout.layout_recyclerview_tickets, parent, false);
+		View ticketListLayout = LayoutInflater.from(MainApplication.getContext()).inflate(R.layout.layout_recyclerview_tickets, parent, false);
 		return new TicketListViewHolder(ticketListLayout, ticketOnClickListener);
 	}
 	

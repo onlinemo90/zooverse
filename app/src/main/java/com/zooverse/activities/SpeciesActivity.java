@@ -19,21 +19,21 @@ import com.zooverse.model.Model;
 import com.zooverse.model.Species;
 
 public class SpeciesActivity extends AbstractBaseActivity {
-	private PlayerControlView playerview;
-	private SimpleExoPlayer simpleplayer;
+	private PlayerControlView playerView;
+	private SimpleExoPlayer simplePlayer;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_species);
 		
-		playerview = findViewById(R.id.exoAudioPlayer);
-		simpleplayer = new SimpleExoPlayer.Builder(this).build();
-		playerview.setPlayer(simpleplayer);
+		playerView = findViewById(R.id.exoAudioPlayer);
+		simplePlayer = new SimpleExoPlayer.Builder(this).build();
+		playerView.setPlayer(simplePlayer);
 		
 		TextView speciesDescriptionTextView = findViewById(R.id.speciesDescriptionTextView);
 		speciesDescriptionTextView.setMovementMethod(new ScrollingMovementMethod());
-		speciesDescriptionTextView.setOnClickListener(v -> { playerview.hide(); });
+		speciesDescriptionTextView.setOnClickListener(v -> { playerView.hide(); });
 		
 		ImageView speciesImage = findViewById(R.id.speciesImage);
 		
@@ -46,27 +46,27 @@ public class SpeciesActivity extends AbstractBaseActivity {
 		if (speciesAudio != null) {
 			final ByteArrayDataSource dataSource = new ByteArrayDataSource(speciesAudio);
 			DataSource.Factory factory = () -> dataSource;
-			simpleplayer.setMediaSource(new ProgressiveMediaSource.Factory(factory).createMediaSource(MediaItem.fromUri(Uri.EMPTY)));
-			simpleplayer.prepare();
-			playerview.hide();
+			simplePlayer.setMediaSource(new ProgressiveMediaSource.Factory(factory).createMediaSource(MediaItem.fromUri(Uri.EMPTY)));
+			simplePlayer.prepare();
+			playerView.hide();
 		}
 	}
 	
 	@Override
 	protected void onDestroy() {
-		playerview.setPlayer(null);
-		simpleplayer.release();
-		simpleplayer = null;
+		playerView.setPlayer(null);
+		simplePlayer.release();
+		simplePlayer = null;
 		super.onDestroy();
 	}
 	
 	public void playAudio (View view){
-		if (!playerview.isVisible()){
-			simpleplayer.play();
-			playerview.show();
+		if (!playerView.isVisible()){
+			simplePlayer.play();
+			playerView.show();
 		}
 		else
-			playerview.hide();
+			playerView.hide();
 		
 	}
 	

@@ -16,15 +16,15 @@ public class ZooMenuActivity extends AbstractBaseActivity {
 		setContentView(R.layout.activity_zoo_menu);
 	}
 	
-	public void goOnTour(View view) {
+	public void openTour(View view) {
 		Log.d("zoo menu", "'Go on a Tour' button pressed");
 	}
 	
-	public void searchAnimal(View view) {
+	public void openSpeciesSearch(View view) {
 		startActivity(new Intent(MainApplication.getContext(), SpeciesSearchActivity.class));
 	}
 	
-	public void scanEnclosure(View view) {
+	public void openInfoPointScan(View view) {
 		startActivity(new Intent(MainApplication.getContext(), ScanInfoPointActivity.class));
 	}
 }
