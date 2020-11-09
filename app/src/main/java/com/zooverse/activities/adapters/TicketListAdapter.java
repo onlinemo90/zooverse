@@ -8,10 +8,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zooverse.MainApplication;
+import static com.zooverse.MainApplication.getContext;
 import com.zooverse.R;
 import com.zooverse.model.Model;
 
@@ -61,12 +61,12 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
 			viewHolder.ticketLabelTextView.setTextColor(MainApplication.getThemeColor(R.attr.themeColorBackground));
 			viewHolder.ticketLabelTextView.setText(getContext().getString(R.string.main_ticket_today));
 			viewHolder.ticketDateTextView.setText("");
-			viewHolder.ticketIcon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.icon_walking));
+			viewHolder.ticketIcon.setImageDrawable(getContext().getDrawable(R.drawable.icon_walking));
 			viewHolder.ticketIcon.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorBackground));
 		} else {
 			viewHolder.cardView.setCardBackgroundColor(MainApplication.getThemeColor(R.attr.themeColorCardBackground));
 			viewHolder.ticketDateTextView.setText(Model.getStoredTickets().get(position).getReadableDate());
-			viewHolder.ticketIcon.setImageDrawable(ContextCompat.getDrawable(MainApplication.getContext(), R.drawable.icon_calendar));
+			viewHolder.ticketIcon.setImageDrawable(getContext().getDrawable(R.drawable.icon_calendar));
 			viewHolder.ticketIcon.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorForeground));
 		}
 	}
