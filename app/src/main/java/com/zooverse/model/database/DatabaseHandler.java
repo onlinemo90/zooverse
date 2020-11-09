@@ -74,7 +74,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 				new String[]{
 						DatabaseContract.SpeciesEntry._ID,
 						DatabaseContract.SpeciesEntry.COLUMN_NAME,
-						DatabaseContract.SpeciesEntry.COLUMN_DESCRIPTION
+						DatabaseContract.SpeciesEntry.COLUMN_IMAGE
 				},
 				null, null, null, null,
 				DatabaseContract.SpeciesEntry.COLUMN_NAME + " ASC"
@@ -84,7 +84,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 			speciesList.add(new Species(
 							cursor.getInt(cursor.getColumnIndex(DatabaseContract.SpeciesEntry._ID)),
 							cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_NAME)),
-							cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_DESCRIPTION))
+							cursor.getBlob(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_IMAGE))
 					)
 			);
 		}
@@ -92,25 +92,31 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		return speciesList;
 	}
 	
-	public byte[] getSpeciesImage(int speciesID) {
-		return this.getBlobBySpeciesId(speciesID, DatabaseContract.SpeciesEntry.COLUMN_IMAGE);
-	}
-	
-	public byte[] getSpeciesAudioDescription(int speciesID) {
-		return this.getBlobBySpeciesId(speciesID, DatabaseContract.SpeciesEntry.COLUMN_AUDIO);
-	}
-	
-	private byte[] getBlobBySpeciesId(int id, String blobColumnName) {
+	public String getSpeciesDescription(int speciesID) {
 		Cursor cursor = database.query(
 				DatabaseContract.SpeciesEntry.TABLE_NAME,
-				new String[]{blobColumnName},
+				new String[]{DatabaseContract.SpeciesEntry.COLUMN_DESCRIPTION},
 				DatabaseContract.SpeciesEntry._ID + " = ?",
-				new String[]{String.valueOf(id)},
+				new String[]{String.valueOf(speciesID)},
 				null, null, null
 		);
 		cursor.moveToNext();
-		byte[] blob = cursor.getBlob(cursor.getColumnIndex(blobColumnName));
+		String description = cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_DESCRIPTION));
 		cursor.close();
-		return blob;
+		return description;
+	}
+	
+	public byte[] getSpeciesAudioDescription(int speciesID) {
+		Cursor cursor = database.query(
+				DatabaseContract.SpeciesEntry.TABLE_NAME,
+				new String[]{DatabaseContract.SpeciesEntry.COLUMN_AUDIO},
+				DatabaseContract.SpeciesEntry._ID + " = ?",
+				new String[]{String.valueOf(speciesID)},
+				null, null, null
+		);
+		cursor.moveToNext();
+		byte[] audioBlob = cursor.getBlob(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_AUDIO));
+		cursor.close();
+		return audioBlob;
 	}
 }

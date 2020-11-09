@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 
 import com.zooverse.model.database.DatabaseHandler;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -18,6 +17,10 @@ public class Model {
 	
 	private Model() {
 		// prevent class initialisation
+	}
+	
+	public static void init() {
+		// Empty method to initialise constants
 	}
 	
 	private static List<Ticket> initStoredTickets() {
@@ -42,9 +45,8 @@ public class Model {
 		Collections.sort(storedTickets, (Ticket t1, Ticket t2) -> t1.getDate().compareTo(t2.getDate()));
 	}
 	
-	public static Bitmap getSpeciesImage(int speciesID) {
-		byte[] imgBlob = dbHandler.getSpeciesImage(speciesID);
-		return BitmapFactory.decodeByteArray(imgBlob, 0, imgBlob.length);
+	public static String getSpeciesDescription(int speciesID) {
+		return dbHandler.getSpeciesDescription(speciesID);
 	}
 	
 	public static byte[] getSpeciesAudioDescription(int speciesID) {

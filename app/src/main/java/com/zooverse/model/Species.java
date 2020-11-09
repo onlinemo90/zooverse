@@ -6,24 +6,24 @@ import android.graphics.BitmapFactory;
 public class Species {
 	private final int id;
 	private final String name;
-	private final String description;
+	private final Bitmap image;
 	
-	public Species(int id, String name, String description) {
+	public Species(int id, String name, byte[] imgBlob) {
 		this.id = id;
 		this.name = name;
-		this.description = description;
+		this.image = BitmapFactory.decodeByteArray(imgBlob, 0, imgBlob.length);
 	}
 	
 	public String getName() {
 		return this.name;
 	}
 	
-	public String getDescription() {
-		return this.description;
+	public Bitmap getImage() {
+		return this.image;
 	}
 	
-	public Bitmap getImage() {
-		return Model.getSpeciesImage(this.id);
+	public String getDescription() {
+		return Model.getSpeciesDescription(this.id);
 	}
 	
 	public byte[] getAudioDescription() {

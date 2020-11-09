@@ -8,11 +8,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zooverse.MainApplication;
 import com.zooverse.R;
 import com.zooverse.model.Model;
+
+import static com.zooverse.MainApplication.getContext;
 
 
 public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.TicketListViewHolder> {
@@ -24,11 +27,11 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
 	
 	// inner class for view holder
 	public static class TicketListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-		private TextView ticketDateTextView = itemView.findViewById(R.id.ticketDateTextView);
-		private TextView ticketLabelTextView = itemView.findViewById(R.id.ticketLabelTextView);
-		private TicketOnClickListener ticketOnClickListener;
-		private CardView cardView = itemView.findViewById(R.id.ticketCardView);
-		private ImageView ticketIcon = itemView.findViewById(R.id.ticketIcon);
+		private final TextView ticketDateTextView = itemView.findViewById(R.id.ticketDateTextView);
+		private final TextView ticketLabelTextView = itemView.findViewById(R.id.ticketLabelTextView);
+		private final TicketOnClickListener ticketOnClickListener;
+		private final CardView cardView = itemView.findViewById(R.id.ticketCardView);
+		private final ImageView ticketIcon = itemView.findViewById(R.id.ticketIcon);
 		
 		public TicketListViewHolder(@NonNull View itemView, TicketOnClickListener ticketOnClickListener) {
 			super(itemView);
@@ -46,7 +49,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
 	@Override
 	public TicketListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 		// assign layout file which is used for each row in recycler view
-		View ticketListLayout = LayoutInflater.from(MainApplication.getContext()).inflate(R.layout.layout_recyclerview_tickets, parent, false);
+		View ticketListLayout = LayoutInflater.from(getContext()).inflate(R.layout.layout_recyclerview_tickets, parent, false);
 		return new TicketListViewHolder(ticketListLayout, ticketOnClickListener);
 	}
 	
@@ -56,14 +59,14 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
 		if (Model.getStoredTickets().get(position).isForToday()) { // highlight if it is a ticket for today
 			viewHolder.cardView.setCardBackgroundColor(MainApplication.getThemeColor(R.attr.themeColorPrimary));
 			viewHolder.ticketLabelTextView.setTextColor(MainApplication.getThemeColor(R.attr.themeColorBackground));
-			viewHolder.ticketLabelTextView.setText(MainApplication.getContext().getString(R.string.main_ticket_today));
+			viewHolder.ticketLabelTextView.setText(getContext().getString(R.string.main_ticket_today));
 			viewHolder.ticketDateTextView.setText("");
-			viewHolder.ticketIcon.setImageDrawable(MainApplication.getContext().getDrawable(R.drawable.icon_walking));
+			viewHolder.ticketIcon.setImageDrawable(ContextCompat.getDrawable(MainApplication.getContext(), R.drawable.icon_walking));
 			viewHolder.ticketIcon.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorBackground));
 		} else {
 			viewHolder.cardView.setCardBackgroundColor(MainApplication.getThemeColor(R.attr.themeColorCardBackground));
 			viewHolder.ticketDateTextView.setText(Model.getStoredTickets().get(position).getReadableDate());
-			viewHolder.ticketIcon.setImageDrawable(MainApplication.getContext().getDrawable(R.drawable.icon_calendar));
+			viewHolder.ticketIcon.setImageDrawable(ContextCompat.getDrawable(MainApplication.getContext(), R.drawable.icon_calendar));
 			viewHolder.ticketIcon.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorForeground));
 		}
 	}
