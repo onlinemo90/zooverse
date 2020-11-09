@@ -19,7 +19,7 @@ import com.zooverse.model.Model;
 import com.zooverse.model.Species;
 
 public class SpeciesActivity extends AbstractBaseActivity {
-	private Species species;
+	
 	private PlayerControlView playerView;
 	private SimpleExoPlayer simplePlayer;
 	
@@ -45,7 +45,7 @@ public class SpeciesActivity extends AbstractBaseActivity {
 			playerView.hide();
 		});
 		
-		this.species = Model.getSpeciesList().get(getIntent().getIntExtra(MainApplication.INTENT_EXTRA_SPECIES, 0));
+		Species species = Model.getSpeciesList().get(getIntent().getIntExtra(MainApplication.INTENT_EXTRA_SPECIES, 0));
 		setTitle(species.getName());
 		ImageView speciesImage = findViewById(R.id.speciesImage);
 		speciesImage.setImageBitmap(species.getImage());

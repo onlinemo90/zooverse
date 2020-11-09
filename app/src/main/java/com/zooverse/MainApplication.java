@@ -7,6 +7,8 @@ import android.util.TypedValue;
 
 import androidx.preference.PreferenceManager;
 
+import com.zooverse.model.Model;
+
 public class MainApplication extends Application {
 	private static Context appContext;
 	private static SharedPreferences appPreferences;
@@ -21,6 +23,7 @@ public class MainApplication extends Application {
 		appPreferences = PreferenceManager.getDefaultSharedPreferences(appContext);
 		
 		AssetManager.init();
+		Model.init();
 		updateTheme();
 	}
 	

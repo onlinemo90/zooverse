@@ -61,7 +61,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
 			viewHolder.ticketLabelTextView.setTextColor(MainApplication.getThemeColor(R.attr.themeColorBackground));
 			viewHolder.ticketLabelTextView.setText(getContext().getString(R.string.main_ticket_today));
 			viewHolder.ticketDateTextView.setText("");
-			viewHolder.ticketIcon.setImageDrawable(ContextCompat.getDrawable(MainApplication.getContext(), R.drawable.icon_walking));
+			viewHolder.ticketIcon.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.icon_walking));
 			viewHolder.ticketIcon.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorBackground));
 		} else {
 			viewHolder.cardView.setCardBackgroundColor(MainApplication.getThemeColor(R.attr.themeColorCardBackground));
