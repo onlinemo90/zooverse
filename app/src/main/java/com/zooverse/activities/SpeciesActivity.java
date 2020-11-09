@@ -32,6 +32,13 @@ public class SpeciesActivity extends AbstractBaseActivity {
 		simplePlayer = new SimpleExoPlayer.Builder(this).build();
 		playerView.setPlayer(simplePlayer);
 		
+		ImageView playButton = playerView.findViewById(R.id.exo_play);
+		ImageView pauseButton = playerView.findViewById(R.id.exo_pause);
+		ImageView backButton = playerView.findViewById(R.id.exo_prev);
+		playButton.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorPrimary));
+		pauseButton.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorForeground));
+		backButton.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorForeground));
+		
 		TextView speciesDescriptionTextView = findViewById(R.id.speciesDescriptionTextView);
 		speciesDescriptionTextView.setMovementMethod(new ScrollingMovementMethod());
 		speciesDescriptionTextView.setOnClickListener(v -> {

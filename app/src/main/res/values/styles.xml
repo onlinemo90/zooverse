@@ -40,7 +40,8 @@
 		<item name="themeColorPrimaryDark">@color/colorPrimaryDark</item>
 		<item name="themeColorBackground">@color/colorBackground</item>
 		<item name="themeColorForeground">@color/colorForeground</item>
-		
+
+		<item name="android:windowLightStatusBar">false</item>
 		<item name="android:navigationBarColor">@color/colorNavigationBar</item>
 		<item name="themeColorCardBackground">@color/colorCardBackground</item>
 	</style>
@@ -52,7 +53,8 @@
 		<item name="themeColorPrimaryDark">@color/colorPrimaryDark_dark</item>
 		<item name="themeColorBackground">@color/colorBackground_dark</item>
 		<item name="themeColorForeground">@color/colorForeground_dark</item>
-		
+
+		<item name="android:windowLightStatusBar">true</item>
 		<item name="android:navigationBarColor">@color/colorNavigationBar_dark</item>
 		<item name="themeColorCardBackground">@color/colorCardBackground_dark</item>
 	</style>
