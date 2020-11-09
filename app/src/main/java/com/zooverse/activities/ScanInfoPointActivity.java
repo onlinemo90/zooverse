@@ -11,23 +11,18 @@ import com.zooverse.model.Species;
 
 public class ScanInfoPointActivity extends AbstractQRCodeReaderActivity {
 	
-	
 	@Override
 	public void processQRCode(String qrContent) {
 		int speciesListIndex = -1;
-		boolean isSpeciesFound = false;
-		for (Species scannedSpecies : Model.getSpeciesList()){
+		for (Species scannedSpecies : Model.getSpeciesList()) {
 			speciesListIndex++;
-			if (scannedSpecies.getName().equalsIgnoreCase(qrContent)){
-				isSpeciesFound = true;
-				break;
+			if (scannedSpecies.getName().equalsIgnoreCase(qrContent)) {
+				Intent intent = new Intent(MainApplication.getContext(), SpeciesActivity.class);
+				intent.putExtra(MainApplication.INTENT_EXTRA_SPECIES, speciesListIndex);
+				startActivity(intent);
+				return;
 			}
 		}
-		if (isSpeciesFound) {
-			Intent intent = new Intent(MainApplication.getContext(), SpeciesActivity.class);
-			intent.putExtra(MainApplication.INTENT_EXTRA_SPECIES, speciesListIndex);
-			startActivity(intent);
-		} else
-			Toast.makeText(MainApplication.getContext(), R.string.scan_enclosure_error_invalid_qr, Toast.LENGTH_SHORT).show();
+		Toast.makeText(MainApplication.getContext(), R.string.scan_enclosure_error_invalid_qr, Toast.LENGTH_SHORT).show();
 	}
 }

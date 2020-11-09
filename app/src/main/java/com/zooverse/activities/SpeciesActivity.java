@@ -19,6 +19,7 @@ import com.zooverse.model.Model;
 import com.zooverse.model.Species;
 
 public class SpeciesActivity extends AbstractBaseActivity {
+	private Species species;
 	private PlayerControlView playerView;
 	private SimpleExoPlayer simplePlayer;
 	
@@ -33,16 +34,17 @@ public class SpeciesActivity extends AbstractBaseActivity {
 		
 		TextView speciesDescriptionTextView = findViewById(R.id.speciesDescriptionTextView);
 		speciesDescriptionTextView.setMovementMethod(new ScrollingMovementMethod());
-		speciesDescriptionTextView.setOnClickListener(v -> { playerView.hide(); });
+		speciesDescriptionTextView.setOnClickListener(v -> {
+			playerView.hide();
+		});
 		
-		ImageView speciesImage = findViewById(R.id.speciesImage);
-		
-		Species species = Model.getSpeciesList().get(getIntent().getIntExtra(MainApplication.INTENT_EXTRA_SPECIES, 0));
+		this.species = Model.getSpeciesList().get(getIntent().getIntExtra(MainApplication.INTENT_EXTRA_SPECIES, 0));
 		setTitle(species.getName());
+		ImageView speciesImage = findViewById(R.id.speciesImage);
 		speciesImage.setImageBitmap(species.getImage());
 		speciesDescriptionTextView.setText(species.getDescription());
-		byte[] speciesAudio = species.getAudioDescription();
 		
+		byte[] speciesAudio = species.getAudioDescription();
 		if (speciesAudio != null) {
 			final ByteArrayDataSource dataSource = new ByteArrayDataSource(speciesAudio);
 			DataSource.Factory factory = () -> dataSource;
@@ -60,21 +62,19 @@ public class SpeciesActivity extends AbstractBaseActivity {
 		super.onDestroy();
 	}
 	
-	public void playAudio (View view){
-		if (!playerView.isVisible()){
+	public void playAudio(View view) {
+		if (!playerView.isVisible()) {
 			simplePlayer.play();
 			playerView.show();
-		}
-		else
+		} else
 			playerView.hide();
-		
 	}
 	
-	public void openSpeciesLocation (View view){
+	public void openSpeciesLocation(View view) {
 		//TODO: implement locator screen/logic
 	}
 	
-	public void openSpeciesIndividuals (View view){
+	public void openSpeciesIndividuals(View view) {
 		//TODO: implement individuals screen/logic
 	}
 }
