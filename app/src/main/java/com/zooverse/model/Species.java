@@ -18,6 +18,8 @@ public class Species {
 		return this.name;
 	}
 	
+	public int getId() { return id; }
+	
 	public Bitmap getImage() {
 		return this.image;
 	}

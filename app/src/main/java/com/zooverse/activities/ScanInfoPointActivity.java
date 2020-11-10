@@ -16,13 +16,13 @@ public class ScanInfoPointActivity extends AbstractQRCodeReaderActivity {
 		int speciesListIndex = -1;
 		for (Species scannedSpecies : Model.getSpeciesList()) {
 			speciesListIndex++;
-			if (scannedSpecies.getName().equalsIgnoreCase(qrContent)) {
+			if (qrContent.equals(Integer.toString(scannedSpecies.getId()))) {
 				Intent intent = new Intent(MainApplication.getContext(), SpeciesActivity.class);
 				intent.putExtra(MainApplication.INTENT_EXTRA_SPECIES, speciesListIndex);
 				startActivity(intent);
 				return;
 			}
 		}
-		Toast.makeText(MainApplication.getContext(), R.string.scan_enclosure_error_invalid_qr, Toast.LENGTH_SHORT).show();
+		Toast.makeText(MainApplication.getContext(), R.string.scan_infopoint_error_invalid_qr, Toast.LENGTH_SHORT).show();
 	}
 }

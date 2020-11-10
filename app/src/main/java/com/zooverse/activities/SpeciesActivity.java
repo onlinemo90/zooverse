@@ -41,9 +41,7 @@ public class SpeciesActivity extends AbstractBaseActivity {
 		
 		TextView speciesDescriptionTextView = findViewById(R.id.speciesDescriptionTextView);
 		speciesDescriptionTextView.setMovementMethod(new ScrollingMovementMethod());
-		speciesDescriptionTextView.setOnClickListener(v -> {
-			playerView.hide();
-		});
+		speciesDescriptionTextView.setOnClickListener(v -> { playerView.hide(); });
 		
 		Species species = Model.getSpeciesList().get(getIntent().getIntExtra(MainApplication.INTENT_EXTRA_SPECIES, 0));
 		setTitle(species.getName());

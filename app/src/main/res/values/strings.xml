@@ -17,7 +17,7 @@
 
 	<!--activity_scan_qr_code-->
 	<string name="scan_ticket_header">Please scan your zoo ticket</string>
-	<string name="scan_enclosure_header">Please scan the enclosure sign</string>
+	<string name="scan_infopoint_header">Please scan the info point</string>
 
 	<!--activity_species-->
 	<string name="species_image">Species Image</string>
@@ -36,13 +36,13 @@
 	<string name="scan_ticket_error_past_ticket">Your ticket is expired.</string>
 	<string name="scan_ticket_error_already_stored">You have already scanned that ticket.</string>
 
-	<!--ScanEnclosure.class-->
-	<string name="scan_enclosure_error_invalid_qr">Invalid QR code</string>
+	<!--ScanInfoPointActivity.class-->
+	<string name="scan_infopoint_error_invalid_qr">Invalid QR code</string>
 
 	<!--Zoo Menu-->
 	<string name="zoo_menu_tour_button">Go on a tour</string>
 	<string name="zoo_menu_animal_search">Search for an animal</string>
-	<string name="zoo_menu_scan_enclosure_button">Scan enclosure sign</string>
+	<string name="zoo_menu_scan_infopoint_button">Scan info point</string>
 
 	<!-- Settings Activity -->
 	<string name="title_activity_settings">Settings</string>

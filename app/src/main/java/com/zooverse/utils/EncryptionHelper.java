@@ -31,7 +31,7 @@ public class EncryptionHelper {
 		// Prevent class initialisation
 	}
 	
-	private static Function getEncryptionFunction(String functionName){
+	private static Function getEncryptionFunction(String functionName) {
 		// Use Rhino to compile Javascript script
 		RHINO_CONTEXT.setOptimizationLevel(-1); // disabling the optimizer to better support Android
 		try {
@@ -43,7 +43,7 @@ public class EncryptionHelper {
 		return null;
 	}
 	
-	private static String runEncryptionFunction(Function encryptionFunction, String inputText){
+	private static String runEncryptionFunction(Function encryptionFunction, String inputText) {
 		Object[] functionParams = new Object[]{inputText, ENCRYPTION_KEY, 256};
 		return (String) encryptionFunction.call(RHINO_CONTEXT, RHINO_SCOPE, RHINO_SCOPE, functionParams);
 	}
