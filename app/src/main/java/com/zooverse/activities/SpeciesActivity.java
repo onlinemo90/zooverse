@@ -28,16 +28,7 @@ public class SpeciesActivity extends AbstractBaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_species);
 		
-		playerView = findViewById(R.id.exoAudioPlayer);
-		simplePlayer = new SimpleExoPlayer.Builder(this).build();
-		playerView.setPlayer(simplePlayer);
-		
-		ImageView playButton = playerView.findViewById(R.id.exo_play);
-		ImageView pauseButton = playerView.findViewById(R.id.exo_pause);
-		ImageView backButton = playerView.findViewById(R.id.exo_prev);
-		playButton.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorPrimary));
-		pauseButton.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorForeground));
-		backButton.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorForeground));
+		this.initExoPlayer();
 		
 		TextView speciesDescriptionTextView = findViewById(R.id.speciesDescriptionTextView);
 		speciesDescriptionTextView.setMovementMethod(new ScrollingMovementMethod());
@@ -57,6 +48,19 @@ public class SpeciesActivity extends AbstractBaseActivity {
 			simplePlayer.prepare();
 			playerView.hide();
 		}
+	}
+	
+	private void initExoPlayer(){
+		playerView = findViewById(R.id.exoAudioPlayer);
+		simplePlayer = new SimpleExoPlayer.Builder(this).build();
+		playerView.setPlayer(simplePlayer);
+		
+		ImageView playButton = playerView.findViewById(R.id.exo_play);
+		ImageView pauseButton = playerView.findViewById(R.id.exo_pause);
+		ImageView backButton = playerView.findViewById(R.id.exo_prev);
+		playButton.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorForeground));
+		pauseButton.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorForeground));
+		backButton.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorForeground));
 	}
 	
 	@Override
