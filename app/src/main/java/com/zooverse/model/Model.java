@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import com.zooverse.model.database.DatabaseHandler;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class Model {
@@ -24,7 +25,7 @@ public class Model {
 	}
 	
 	private static List<Ticket> initStoredTickets() {
-		return dbHandler.getStoredTickets(Ticket.getTodayFormattedDate());
+		return dbHandler.getStoredTickets(new Date());
 	}
 	
 	private static List<Species> initSpeciesList() {

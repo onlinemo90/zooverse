@@ -17,7 +17,11 @@ import java.util.regex.Pattern;
 
 public class Ticket {
 	private static final String FIELD_SEPARATOR = "|";
-	private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMdd");
+	private static final SimpleDateFormat API_DATE_FORMAT = new SimpleDateFormat("yyyyMMdd");
+	
+	static {
+		API_DATE_FORMAT.setLenient(false);
+	}
 	
 	private boolean isValid;
 	private String zooID;
@@ -28,12 +32,11 @@ public class Ticket {
 	}
 	
 	public Ticket(String encryptedTicketString) {
-		DATE_FORMAT.setLenient(false);
 		try {
 			this.isValid = true;
 			String[] fields = EncryptionHelper.decrypt(encryptedTicketString).split(Pattern.quote(Ticket.FIELD_SEPARATOR));
 			this.zooID = fields[0];
-			this.date = DATE_FORMAT.parse(fields[1]);
+			this.date = API_DATE_FORMAT.parse(fields[1]);
 		} catch (Exception e) {
 			this.isValid = false;
 			this.zooID = null;
@@ -41,17 +44,10 @@ public class Ticket {
 		}
 	}
 	
-	public Ticket(String zooID, String date) {
-		DATE_FORMAT.setLenient(false);
-		try {
-			this.isValid = true;
-			this.zooID = zooID;
-			this.date = DATE_FORMAT.parse(date);
-		} catch (Exception e) {
-			this.isValid = false;
-			this.zooID = null;
-			this.date = null;
-		}
+	public Ticket(String zooID, Date date) {
+		this.isValid = true;
+		this.zooID = zooID;
+		this.date = date;
 	}
 	
 	public boolean isValid() {
@@ -67,10 +63,6 @@ public class Ticket {
 	}
 	
 	public String getFormattedDate() {
-		return Ticket.DATE_FORMAT.format(this.date);
-	}
-	
-	public String getReadableDate() {
 		return new SimpleDateFormat(MainApplication.getContext().getString(R.string.local_date_format)).format(this.date);
 	}
 	
@@ -80,10 +72,6 @@ public class Ticket {
 	
 	public boolean isExpired() {
 		return !this.isForToday() && this.date.before(new Date());
-	}
-	
-	public static String getTodayFormattedDate() {
-		return DATE_FORMAT.format(new Date());
 	}
 	
 	@Override

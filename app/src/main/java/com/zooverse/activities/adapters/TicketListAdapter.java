@@ -15,8 +15,6 @@ import static com.zooverse.MainApplication.getContext;
 import com.zooverse.R;
 import com.zooverse.model.Model;
 
-import static com.zooverse.MainApplication.getContext;
-
 
 public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.TicketListViewHolder> {
 	private final TicketOnClickListener ticketOnClickListener;
@@ -65,7 +63,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
 			viewHolder.ticketIcon.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorBackground));
 		} else {
 			viewHolder.cardView.setCardBackgroundColor(MainApplication.getThemeColor(R.attr.themeColorCardBackground));
-			viewHolder.ticketDateTextView.setText(Model.getStoredTickets().get(position).getReadableDate());
+			viewHolder.ticketDateTextView.setText(Model.getStoredTickets().get(position).getFormattedDate());
 			viewHolder.ticketIcon.setImageDrawable(getContext().getDrawable(R.drawable.icon_calendar));
 			viewHolder.ticketIcon.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorForeground));
 		}

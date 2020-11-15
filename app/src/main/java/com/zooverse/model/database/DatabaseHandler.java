@@ -3,18 +3,27 @@ package com.zooverse.model.database;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import com.zooverse.AssetManager;
 import com.zooverse.MainApplication;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
+import com.zooverse.model.Individual;
 import com.zooverse.model.Species;
 import com.zooverse.model.Ticket;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DatabaseHandler extends SQLiteAssetHelper {
-	private static final int DATABASE_VERSION = 14;
+	private static final int DATABASE_VERSION = 16;
+	
+	private static final SimpleDateFormat ticketDateFormat = new SimpleDateFormat(DatabaseContract.TicketEntry.DATE_FORMAT);
+	private static final SimpleDateFormat individualDobFormat = new SimpleDateFormat(DatabaseContract.IndividualEntry.DOB_FORMAT);
 	
 	private final SQLiteDatabase database;
 	
@@ -25,13 +34,15 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		this.database = getReadableDatabase();
 	}
 	
-	public List<Ticket> getStoredTickets(String afterDate) {
+	// Ticket-----------------------------------------------------------
+	public List<Ticket> getStoredTickets(Date afterDate) {
+		String afterDateString = ticketDateFormat.format(afterDate);
 		String[] columns = {
 				DatabaseContract.TicketEntry.COLUMN_ZOO_ID,
 				DatabaseContract.TicketEntry.COLUMN_DATE
 		};
 		String selection = DatabaseContract.TicketEntry.COLUMN_DATE + " >= ?";
-		String[] selectionArgs = new String[]{afterDate};
+		String[] selectionArgs = new String[]{afterDateString};
 		Cursor cursor = database.query(
 				DatabaseContract.TicketEntry.TABLE_NAME,
 				columns,
@@ -44,11 +55,16 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		
 		// Parse data into List
 		List<Ticket> ticketList = new ArrayList<>();
+		String zooID;
+		Date date;
 		while (cursor.moveToNext()) {
-			Ticket tmpTicket = new Ticket(
-					cursor.getString(cursor.getColumnIndex(DatabaseContract.TicketEntry.COLUMN_ZOO_ID)),
-					cursor.getString(cursor.getColumnIndex(DatabaseContract.TicketEntry.COLUMN_DATE))
-			);
+			zooID = cursor.getString(cursor.getColumnIndex(DatabaseContract.TicketEntry.COLUMN_ZOO_ID));
+			try {
+				date = ticketDateFormat.parse(cursor.getString(cursor.getColumnIndex(DatabaseContract.TicketEntry.COLUMN_DATE)));
+			} catch (ParseException e) {
+				continue;
+			}
+			Ticket tmpTicket = new Ticket(zooID, date);
 			if (tmpTicket.isValid()) {
 				ticketList.add(tmpTicket);
 			}
@@ -60,7 +76,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 	public void storeTicket(Ticket ticket) {
 		ContentValues insertValues = new ContentValues();
 		insertValues.put(DatabaseContract.TicketEntry.COLUMN_ZOO_ID, ticket.getZooID());
-		insertValues.put(DatabaseContract.TicketEntry.COLUMN_DATE, ticket.getFormattedDate());
+		insertValues.put(DatabaseContract.TicketEntry.COLUMN_DATE, ticketDateFormat.format(ticket.getDate()));
 		database.insert(
 				DatabaseContract.TicketEntry.TABLE_NAME,
 				null,
@@ -68,6 +84,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		);
 	}
 	
+	// Species----------------------------------------------------------
 	public List<Species> getAllSpecies() {
 		Cursor cursor = database.query(
 				DatabaseContract.SpeciesEntry.TABLE_NAME,
@@ -80,16 +97,61 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 				DatabaseContract.SpeciesEntry.COLUMN_NAME + " ASC"
 		);
 		List<Species> speciesList = new ArrayList<>();
+		int id;
+		String name;
+		byte[] imageBlob;
 		while (cursor.moveToNext()) {
-			speciesList.add(new Species(
-							cursor.getInt(cursor.getColumnIndex(DatabaseContract.SpeciesEntry._ID)),
-							cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_NAME)),
-							cursor.getBlob(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_IMAGE))
-					)
-			);
+			id = cursor.getInt(cursor.getColumnIndex(DatabaseContract.SpeciesEntry._ID));
+			name = cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_NAME));
+			imageBlob = cursor.getBlob(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_IMAGE));
+			Species tmpSpecies = new Species(id, name, BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length));
+			tmpSpecies.setIndividuals(this.getSpeciesIndividuals(tmpSpecies));
+			speciesList.add(tmpSpecies);
 		}
 		cursor.close();
 		return speciesList;
+	}
+	
+	private List<Individual> getSpeciesIndividuals(Species species) {
+		Cursor cursor = database.query(
+				DatabaseContract.IndividualEntry.TABLE_NAME,
+				new String[]{
+						DatabaseContract.IndividualEntry._ID,
+						DatabaseContract.IndividualEntry.COLUMN_NAME,
+						DatabaseContract.IndividualEntry.COLUMN_DOB,
+						DatabaseContract.IndividualEntry.COLUMN_PLACE_OF_BIRTH,
+						DatabaseContract.IndividualEntry.COLUMN_GENDER,
+						DatabaseContract.IndividualEntry.COLUMN_WEIGHT,
+						DatabaseContract.IndividualEntry.COLUMN_SIZE,
+						DatabaseContract.IndividualEntry.COLUMN_IMAGE
+				},
+				DatabaseContract.IndividualEntry.COLUMN_SPECIES_ID + " = ?",
+				new String[]{Integer.toString(species.getId())},
+				null, null,
+				DatabaseContract.IndividualEntry.COLUMN_NAME + " ASC"
+		);
+		
+		List<Individual> individualList = new ArrayList<>();
+		String name, placeOfBirth, gender, weight, size;
+		Date dob = new Date();
+		byte[] imageBlob;
+		while (cursor.moveToNext()) {
+			name = cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_NAME));
+			try {
+				dob = individualDobFormat.parse(cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_DOB)));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			placeOfBirth = cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_PLACE_OF_BIRTH));
+			gender = cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_GENDER));
+			weight = cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_WEIGHT));
+			size = cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_SIZE));
+			imageBlob = cursor.getBlob(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_IMAGE));
+			
+			individualList.add(new Individual(species, name, dob, placeOfBirth, gender, weight, size, BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length)));
+		}
+		cursor.close();
+		return individualList;
 	}
 	
 	public String getSpeciesDescription(int speciesID) {
