@@ -6,6 +6,6 @@
 	<attr name="themeColorPrimaryDark" format="reference|color" />
 	<attr name="themeColorBackground" format="reference|color" />
 	<attr name="themeColorForeground" format="reference|color" />
-	
+	<attr name="themeColorExoPlayer" format="reference|color" />
 	<attr name="themeColorCardBackground" format="reference|color" />
 </resources>
