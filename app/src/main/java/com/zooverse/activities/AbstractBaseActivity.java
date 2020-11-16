@@ -4,14 +4,14 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.zooverse.MainApplication;
+import com.zooverse.Theme;
 
 public abstract class AbstractBaseActivity extends AppCompatActivity {
 	private int themeResourceId;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		this.themeResourceId = MainApplication.getThemeResourceId();
+		this.themeResourceId = Theme.getResourceId();
 		setTheme(this.themeResourceId);
 		super.onCreate(savedInstanceState);
 	}
@@ -20,7 +20,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (themeResourceId != MainApplication.getThemeResourceId()) {
+		if (themeResourceId != Theme.getResourceId()) {
 			recreate();
 		}
 	}

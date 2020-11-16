@@ -16,6 +16,7 @@ import com.google.android.exoplayer2.upstream.ByteArrayDataSource;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.zooverse.MainApplication;
 import com.zooverse.R;
+import com.zooverse.Theme;
 import com.zooverse.model.Model;
 import com.zooverse.model.Species;
 
@@ -60,9 +61,9 @@ public class SpeciesActivity extends AbstractBaseActivity {
 		ImageView playButton = playerView.findViewById(R.id.exo_play);
 		ImageView pauseButton = playerView.findViewById(R.id.exo_pause);
 		ImageView backButton = playerView.findViewById(R.id.exo_prev);
-		playButton.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorExoPlayerButtons));
-		pauseButton.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorExoPlayerButtons));
-		backButton.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorExoPlayerButtons));
+		playButton.setColorFilter(Theme.getColor(R.attr.themeColorExoPlayerButtons));
+		pauseButton.setColorFilter(Theme.getColor(R.attr.themeColorExoPlayerButtons));
+		backButton.setColorFilter(Theme.getColor(R.attr.themeColorExoPlayerButtons));
 	}
 	
 	@Override

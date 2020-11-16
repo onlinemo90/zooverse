@@ -8,6 +8,7 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.zooverse.MainApplication;
 import com.zooverse.R;
+import com.zooverse.Theme;
 
 public class SettingsActivity extends AbstractBaseActivity {
 	@Override
@@ -29,7 +30,7 @@ public class SettingsActivity extends AbstractBaseActivity {
 			this.setPreferencesFromResource(R.xml.root_preferences, rootKey);
 			preferenceChangeListener = (sharedPreferences, key) -> {
 				if (MainApplication.getContext().getResources().getString(R.string.theme_pref_key).equals(key)) {
-					MainApplication.updateTheme();
+					Theme.init();
 					requireActivity().recreate();
 				}
 			};

@@ -27,9 +27,9 @@ public class SpeciesSearchAdapter extends RecyclerView.Adapter<SpeciesSearchAdap
 	
 	// inner class for view holder
 	public static class SpeciesSearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-		private TextView speciesNameTextView = itemView.findViewById(R.id.speciesNameTextView);
-		private ImageView speciesImageView = itemView.findViewById(R.id.speciesImageView);
-		private SpeciesOnClickListener speciesOnClickListener;
+		private final TextView speciesNameTextView = itemView.findViewById(R.id.speciesNameTextView);
+		private final ImageView speciesImageView = itemView.findViewById(R.id.speciesImageView);
+		private final SpeciesOnClickListener speciesOnClickListener;
 		
 		public SpeciesSearchViewHolder(@NonNull View itemView, SpeciesOnClickListener speciesOnClickListener) {
 			super(itemView);
