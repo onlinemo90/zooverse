@@ -25,69 +25,195 @@
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
 		app:layout_constraintGuide_percent="0.4" />
-	
-	<androidx.constraintlayout.widget.ConstraintLayout
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/buttonGuideline"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		app:layout_constraintGuide_percent="0.7" />
+
+	<LinearLayout
+		android:id="@+id/buttonRow1"
 		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/logoGuideline"
-		tools:layout_editor_absoluteX="-106dp">
-		
-		<androidx.constraintlayout.widget.Guideline
-			android:id="@+id/guidelineTop"
-			android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:layout_marginBottom="5dp"
+		app:layout_constraintBottom_toTopOf="@+id/buttonGuideline"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent">
+
+		<androidx.cardview.widget.CardView
+			android:id="@+id/cardViewTour"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="5dp"
+			android:layout_weight="1"
+			android:clickable="true"
+			android:focusable="true"
+			android:onClick="openTour"
+			app:cardCornerRadius="6dp"
+			app:cardElevation="6dp">
+
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:paddingTop="40dp"
+				android:paddingBottom="40dp">
+
+				<ImageView
+					android:id="@+id/iconTour"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent"
+					app:srcCompat="@drawable/icon_location" />
+
+				<TextView
+					android:id="@+id/tourTextView"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="20dp"
+					android:text="@string/zoo_menu_tour_button"
+					android:textSize="20sp"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/iconTour" />
+			</androidx.constraintlayout.widget.ConstraintLayout>
+
+		</androidx.cardview.widget.CardView>
+
+		<androidx.cardview.widget.CardView
+			android:id="@+id/cardViewScanInfoPoint"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="5dp"
+			android:layout_weight="1"
+			android:clickable="true"
+			android:focusable="true"
+			android:onClick="openInfoPointScan"
+			app:cardCornerRadius="6dp"
+			app:cardElevation="6dp">
+
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:paddingTop="40dp"
+				android:paddingBottom="40dp">
+
+				<ImageView
+					android:id="@+id/iconScanInfoPoint"
+					android:layout_width="50dp"
+					android:layout_height="50dp"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent"
+					app:srcCompat="@drawable/icon_qrcode" />
+
+				<TextView
+					android:id="@+id/scanInfoPointTextView"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="20dp"
+					android:text="@string/zoo_menu_scan_infopoint_button"
+					android:textSize="20sp"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/iconScanInfoPoint" />
+			</androidx.constraintlayout.widget.ConstraintLayout>
+		</androidx.cardview.widget.CardView>
+	</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:orientation="horizontal"
-			app:layout_constraintGuide_percent="0.1" />
-		
-		<androidx.constraintlayout.widget.Guideline
-			android:id="@+id/guidelineLeft"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:orientation="vertical"
-			app:layout_constraintGuide_percent="0.85" />
-		
-		<androidx.constraintlayout.widget.Guideline
-			android:id="@+id/guidelineRight"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:orientation="vertical"
-			app:layout_constraintGuide_percent="0.15" />
-		
-		<Button
-			android:id="@+id/tourButton"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:onClick="openTour"
-			android:text="@string/zoo_menu_tour_button"
-			app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
-			app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-			app:layout_constraintTop_toTopOf="@+id/guidelineTop" />
-		
-		<Button
-			android:id="@+id/animalSearchButton"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="16dp"
-			android:onClick="openSpeciesSearch"
-			android:text="@string/zoo_menu_animal_search"
-			app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
-			app:layout_constraintHorizontal_bias="1.0"
-			app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-			app:layout_constraintTop_toBottomOf="@+id/tourButton" />
-		
-		<Button
-			android:id="@+id/scanEnclosureButton"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="16dp"
-			android:onClick="openInfoPointScan"
-			android:text="@string/zoo_menu_scan_infopoint_button"
-			app:layout_constraintEnd_toStartOf="@+id/guidelineLeft"
-			app:layout_constraintHorizontal_bias="0.0"
-			app:layout_constraintStart_toStartOf="@+id/guidelineRight"
-			app:layout_constraintTop_toBottomOf="@+id/animalSearchButton" />
-	
-	</androidx.constraintlayout.widget.ConstraintLayout>
+			android:layout_marginTop="5dp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/buttonGuideline">
+
+			<androidx.cardview.widget.CardView
+				android:id="@+id/cardViewSearchSpecies"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="5dp"
+				android:layout_weight="1"
+				android:clickable="true"
+				android:focusable="true"
+				android:onClick="openSpeciesSearch"
+				app:cardCornerRadius="6dp"
+				app:cardElevation="6dp">
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:paddingTop="40dp"
+					android:paddingBottom="40dp">
+
+					<ImageView
+						android:id="@+id/iconSearchSpecies"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						app:srcCompat="@drawable/icon_search" />
+
+					<TextView
+						android:id="@+id/searchSpeciesTextView"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="20dp"
+						android:text="@string/zoo_menu_species_search"
+						android:textSize="20sp"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toBottomOf="@id/iconSearchSpecies" />
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+			</androidx.cardview.widget.CardView>
+			<androidx.cardview.widget.CardView
+				android:id="@+id/cardViewZooInfo"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:layout_marginStart="5dp"
+				android:clickable="true"
+				android:focusable="true"
+				app:cardCornerRadius="6dp"
+				app:cardElevation="6dp">
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:onClick="openZooInformation"
+					android:paddingTop="40dp"
+					android:paddingBottom="40dp">
+
+					<ImageView
+						android:id="@+id/iconZooInfo"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						app:srcCompat="@drawable/icon_information" />
+
+					<TextView
+						android:id="@+id/zooInfoTextView"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="20dp"
+						android:text="@string/zoo_menu_zoo_information_button"
+						android:textSize="20sp"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toBottomOf="@id/iconZooInfo" />
+				</androidx.constraintlayout.widget.ConstraintLayout>
+			</androidx.cardview.widget.CardView>
+
+		</LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

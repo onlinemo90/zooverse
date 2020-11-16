@@ -4,7 +4,12 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.TypedValue;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.preference.PreferenceManager;
 
 import com.zooverse.model.Model;
@@ -58,6 +63,26 @@ public class MainApplication extends Application {
 		TypedValue typedValue = new TypedValue();
 		appContext.getTheme().resolveAttribute(attrResourceId, typedValue, true);
 		return typedValue.data;
+	}
+	
+	public static void setCardViewTheme(CardView...cards){
+		for (CardView card : cards){
+			card.setCardBackgroundColor(MainApplication.getThemeColor(R.attr.themeColorCardBackground));
+			
+			// check if ConstraintLayout is manages item within card view
+			ViewGroup parent;
+			if (card.getChildCount() > 0 && card.getChildAt(0) instanceof ConstraintLayout)
+				parent = (ViewGroup) card.getChildAt(0);
+			else
+				parent = card;
+			
+			for (int i=0; i<parent.getChildCount();i++){
+				View cardChild = parent.getChildAt(i);
+				if (cardChild instanceof ImageView){
+					((ImageView) cardChild).setColorFilter(MainApplication.getThemeColor(R.attr.themeColorForeground));
+				}
+			}
+		}
 	}
 }
 

@@ -41,8 +41,9 @@
 
 	<!--Zoo Menu-->
 	<string name="zoo_menu_tour_button">Go on a tour</string>
-	<string name="zoo_menu_animal_search">Search for an animal</string>
+	<string name="zoo_menu_species_search">Animal Search</string>
 	<string name="zoo_menu_scan_infopoint_button">Scan info point</string>
+	<string name="zoo_menu_zoo_information_button">More Information</string>
 
 	<!-- Settings Activity -->
 	<string name="title_activity_settings">Settings</string>
