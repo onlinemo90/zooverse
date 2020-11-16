@@ -12,20 +12,20 @@
 		android:layout_height="0dp"
 		android:contentDescription="@string/species_image"
 		android:scaleType="centerCrop"
-		app:layout_constraintBottom_toTopOf="@+id/SpeciesguidelineTop"
+		app:layout_constraintBottom_toTopOf="@+id/speciesGuidelineTop"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<androidx.constraintlayout.widget.Guideline
-		android:id="@+id/SpeciesguidelineTop"
+		android:id="@+id/speciesGuidelineTop"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
 		app:layout_constraintGuide_percent="0.3" />
 
 	<androidx.constraintlayout.widget.Guideline
-		android:id="@+id/SpeciesguidelineMiddle"
+		android:id="@+id/speciesGuidelineMiddle"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
@@ -60,7 +60,7 @@
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="@+id/SpeciesguidelineMiddle" />
+		app:layout_constraintTop_toTopOf="@+id/speciesGuidelineMiddle" />
 
 	<com.google.android.exoplayer2.ui.PlayerControlView
 		android:id="@+id/exoAudioPlayer"
@@ -90,10 +90,10 @@
 		android:contentDescription="@string/location_image_view"
 		android:focusable="true"
 		android:onClick="openSpeciesLocation"
-		app:layout_constraintBottom_toTopOf="@+id/SpeciesguidelineMiddle"
+		app:layout_constraintBottom_toTopOf="@+id/speciesGuidelineMiddle"
 		app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="@+id/SpeciesguidelineTop"
+		app:layout_constraintTop_toTopOf="@+id/speciesGuidelineTop"
 		app:srcCompat="@drawable/icon_location"
 		app:tint="?attr/themeColorForeground" />
 
@@ -105,10 +105,10 @@
 		android:contentDescription="@string/audio_image_view"
 		android:focusable="true"
 		android:onClick="playAudio"
-		app:layout_constraintBottom_toTopOf="@+id/SpeciesguidelineMiddle"
+		app:layout_constraintBottom_toTopOf="@+id/speciesGuidelineMiddle"
 		app:layout_constraintEnd_toStartOf="@+id/individualsImageView"
 		app:layout_constraintStart_toEndOf="@+id/locationImageView"
-		app:layout_constraintTop_toTopOf="@+id/SpeciesguidelineTop"
+		app:layout_constraintTop_toTopOf="@+id/speciesGuidelineTop"
 		app:srcCompat="@drawable/icon_audio"
 		app:tint="?attr/themeColorForeground" />
 
@@ -120,10 +120,10 @@
 		android:contentDescription="@string/individuals_image_view"
 		android:focusable="true"
 		android:onClick="openSpeciesIndividuals"
-		app:layout_constraintBottom_toTopOf="@+id/SpeciesguidelineMiddle"
+		app:layout_constraintBottom_toTopOf="@+id/speciesGuidelineMiddle"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
-		app:layout_constraintTop_toTopOf="@+id/SpeciesguidelineTop"
+		app:layout_constraintTop_toTopOf="@+id/speciesGuidelineTop"
 		app:srcCompat="@drawable/icon_individuals"
 		app:tint="?attr/themeColorForeground" />
 

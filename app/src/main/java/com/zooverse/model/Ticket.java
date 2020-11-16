@@ -16,16 +16,19 @@ import java.util.Date;
 import java.util.regex.Pattern;
 
 public class Ticket {
-	private static final String FIELD_SEPARATOR = "|";
-	private static final SimpleDateFormat API_DATE_FORMAT = new SimpleDateFormat("yyyyMMdd");
-	
-	static {
-		API_DATE_FORMAT.setLenient(false);
-	}
-	
 	private boolean isValid;
 	private String zooID;
 	private Date date;
+	
+	private static class TicketAPI {
+		private static final String FIELD_SEPARATOR = "|";
+		private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMdd");
+		
+		static {
+			DATE_FORMAT.setLenient(false);
+		}
+		
+	}
 	
 	private Ticket() {
 		// Prevent initialisation without arguments
@@ -34,9 +37,9 @@ public class Ticket {
 	public Ticket(String encryptedTicketString) {
 		try {
 			this.isValid = true;
-			String[] fields = EncryptionHelper.decrypt(encryptedTicketString).split(Pattern.quote(Ticket.FIELD_SEPARATOR));
+			String[] fields = EncryptionHelper.decrypt(encryptedTicketString).split(Pattern.quote(TicketAPI.FIELD_SEPARATOR));
 			this.zooID = fields[0];
-			this.date = API_DATE_FORMAT.parse(fields[1]);
+			this.date = TicketAPI.DATE_FORMAT.parse(fields[1]);
 		} catch (Exception e) {
 			this.isValid = false;
 			this.zooID = null;

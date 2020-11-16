@@ -3,7 +3,6 @@ package com.zooverse.model.database;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.zooverse.AssetManager;
@@ -20,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 public class DatabaseHandler extends SQLiteAssetHelper {
-	private static final int DATABASE_VERSION = 16;
+	private static final int DATABASE_VERSION = 17;
 	
 	private static final SimpleDateFormat ticketDateFormat = new SimpleDateFormat(DatabaseContract.TicketEntry.DATE_FORMAT);
 	private static final SimpleDateFormat individualDobFormat = new SimpleDateFormat(DatabaseContract.IndividualEntry.DOB_FORMAT);
@@ -105,7 +104,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 			name = cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_NAME));
 			imageBlob = cursor.getBlob(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_IMAGE));
 			Species tmpSpecies = new Species(id, name, BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length));
-			tmpSpecies.setIndividuals(this.getSpeciesIndividuals(tmpSpecies));
+			tmpSpecies.setIndividualsList(this.getSpeciesIndividuals(tmpSpecies));
 			speciesList.add(tmpSpecies);
 		}
 		cursor.close();

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<attr name="themeLogo" format="reference"/>
+	<attr name="themeLogo" format="reference" />
 	
 	<attr name="themeColorPrimary" format="reference|color" />
 	<attr name="themeColorPrimaryDark" format="reference|color" />
 	<attr name="themeColorBackground" format="reference|color" />
 	<attr name="themeColorForeground" format="reference|color" />
-	<attr name="themeColorExoPlayer" format="reference|color" />
+	
 	<attr name="themeColorCardBackground" format="reference|color" />
+	<attr name="themeColorExoPlayerButtons" format="reference|color" />
 </resources>

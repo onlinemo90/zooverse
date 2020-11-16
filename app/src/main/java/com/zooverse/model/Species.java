@@ -10,16 +10,18 @@ public class Species {
 	private final int id;
 	private final String name;
 	private final Bitmap image;
-	private  List<Individual> individuals;
+	private List<Individual> individualsList;
 	
 	public Species(int id, String name, Bitmap image) {
 		this.id = id;
 		this.name = name;
 		this.image = image;
-		this.individuals = new ArrayList<>();
+		this.individualsList = new ArrayList<>();
 	}
 	
-	public int getId() { return this.id; }
+	public int getId() {
+		return this.id;
+	}
 	
 	public String getName() {
 		return this.name;
@@ -37,8 +39,12 @@ public class Species {
 		return Model.getSpeciesAudioDescription(this.id);
 	}
 	
-	public void setIndividuals(List<Individual> individuals){
-		this.individuals = individuals;
-		Collections.sort(this.individuals, (Individual i1, Individual i2) -> i1.getName().compareTo(i2.getName()));
+	public List<Individual> getIndividualsList() {
+		return this.individualsList;
+	}
+	
+	public void setIndividualsList(List<Individual> individualsList) {
+		this.individualsList = individualsList;
+		Collections.sort(this.individualsList, (Individual i1, Individual i2) -> i1.getName().compareTo(i2.getName()));
 	}
 }

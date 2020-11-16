@@ -1,5 +1,6 @@
 package com.zooverse.activities;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -19,6 +20,7 @@ import com.zooverse.model.Model;
 import com.zooverse.model.Species;
 
 public class SpeciesActivity extends AbstractBaseActivity {
+	private Species species;
 	
 	private PlayerControlView playerView;
 	private SimpleExoPlayer simplePlayer;
@@ -34,11 +36,11 @@ public class SpeciesActivity extends AbstractBaseActivity {
 		speciesDescriptionTextView.setMovementMethod(new ScrollingMovementMethod());
 		speciesDescriptionTextView.setOnClickListener(v -> { playerView.hide(); });
 		
-		Species species = Model.getSpeciesList().get(getIntent().getIntExtra(MainApplication.INTENT_EXTRA_SPECIES, 0));
-		setTitle(species.getName());
+		this.species = Model.getSpeciesList().get(getIntent().getIntExtra(MainApplication.INTENT_EXTRA_SPECIES, 0));
+		setTitle(this.species.getName());
 		ImageView speciesImage = findViewById(R.id.speciesImage);
-		speciesImage.setImageBitmap(species.getImage());
-		speciesDescriptionTextView.setText(species.getDescription());
+		speciesImage.setImageBitmap(this.species.getImage());
+		speciesDescriptionTextView.setText(this.species.getDescription());
 		
 		byte[] speciesAudio = species.getAudioDescription();
 		if (speciesAudio != null) {
@@ -58,9 +60,9 @@ public class SpeciesActivity extends AbstractBaseActivity {
 		ImageView playButton = playerView.findViewById(R.id.exo_play);
 		ImageView pauseButton = playerView.findViewById(R.id.exo_pause);
 		ImageView backButton = playerView.findViewById(R.id.exo_prev);
-		playButton.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorExoPlayer));
-		pauseButton.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorExoPlayer));
-		backButton.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorExoPlayer));
+		playButton.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorExoPlayerButtons));
+		pauseButton.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorExoPlayerButtons));
+		backButton.setColorFilter(MainApplication.getThemeColor(R.attr.themeColorExoPlayerButtons));
 	}
 	
 	@Override
@@ -72,11 +74,13 @@ public class SpeciesActivity extends AbstractBaseActivity {
 	}
 	
 	public void playAudio(View view) {
-		if (!playerView.isVisible()) {
-			simplePlayer.play();
-			playerView.show();
-		} else
-			playerView.hide();
+		if (this.species.getAudioDescription() != null) {
+			if (!playerView.isVisible()) {
+				simplePlayer.play();
+				playerView.show();
+			} else
+				playerView.hide();
+		}
 	}
 	
 	public void openSpeciesLocation(View view) {
@@ -84,6 +88,10 @@ public class SpeciesActivity extends AbstractBaseActivity {
 	}
 	
 	public void openSpeciesIndividuals(View view) {
-		//TODO: implement individuals screen/logic
+		if (this.species.getIndividualsList().size() > 0) {
+			Intent intent = new Intent(MainApplication.getContext(), IndividualActivity.class);
+			intent.putExtra(MainApplication.INTENT_EXTRA_SPECIES, Model.getSpeciesList().indexOf(this.species));
+			startActivity(intent);
+		}
 	}
 }

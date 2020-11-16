@@ -17,7 +17,7 @@ public class Individual {
 	
 	public Individual(Species species, String name, Date dob, String placeOfBirth, String gender, String weight, String size, Bitmap image) {
 		this.species = species;
-		this.name = name;
+		this.name = name != null ? name : "";
 		this.dob = dob;
 		this.placeOfBirth = placeOfBirth;
 		this.gender = gender;
