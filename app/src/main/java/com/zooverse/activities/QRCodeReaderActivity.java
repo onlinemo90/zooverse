@@ -2,6 +2,7 @@ package com.zooverse.activities;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,10 +23,14 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.zooverse.Servlet;
+import com.zooverse.model.Model;
+import com.zooverse.model.Species;
+import com.zooverse.model.Ticket;
 
 import java.io.IOException;
 
-public abstract class AbstractQRCodeReaderActivity extends AbstractBaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
+public class QRCodeReaderActivity extends AbstractBaseActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
 	private String lastQRCodeDetection = null;
 	private String newQRCodeDetection = null;
 	
@@ -57,7 +62,7 @@ public abstract class AbstractQRCodeReaderActivity extends AbstractBaseActivity 
 				finish();
 				startActivity(getIntent());
 			} else { //User denied permission, show sad message
-				Toast.makeText(MainApplication.getContext(), getString(R.string.scan_ticket_error_camera_access_denied), Toast.LENGTH_SHORT).show();
+				Toast.makeText(MainApplication.getContext(), getString(R.string.scan_qr_code_error_camera_access_denied), Toast.LENGTH_SHORT).show();
 				finish();
 			}
 		} else {
@@ -104,11 +109,11 @@ public abstract class AbstractQRCodeReaderActivity extends AbstractBaseActivity 
 				final SparseArray<Barcode> qrCodes = detections.getDetectedItems();
 				if (qrCodes.size() != 0) {
 					newQRCodeDetection = qrCodes.valueAt(0).displayValue;
-					//only trigger new interpretation if a different qr code was scanned
+					// only trigger new interpretation if a different qr code was scanned
 					if (!newQRCodeDetection.equals(lastQRCodeDetection)) {
 						lastQRCodeDetection = newQRCodeDetection;
 						handler.post(() -> {
-							//trigger short device vibration upon detection
+							// trigger short device vibration upon detection
 							Vibrator vibrator = (Vibrator) MainApplication.getContext().getSystemService(Context.VIBRATOR_SERVICE);
 							vibrator.vibrate(1000);
 							processQRCode(qrCodes.valueAt(0).displayValue);
@@ -119,6 +124,7 @@ public abstract class AbstractQRCodeReaderActivity extends AbstractBaseActivity 
 		});
 	}
 	
-	public abstract void processQRCode(String qrContent);
-	
+	public void processQRCode(String qrContent){
+		super.processExternalRequest(qrContent);
+	}
 }

@@ -63,10 +63,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 			} catch (ParseException e) {
 				continue;
 			}
-			Ticket tmpTicket = new Ticket(zooID, date);
-			if (tmpTicket.isValid()) {
-				ticketList.add(tmpTicket);
-			}
+			ticketList.add(new Ticket(zooID, date));
 		}
 		cursor.close();
 		return ticketList;

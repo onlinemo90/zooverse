@@ -15,10 +15,6 @@
 	<string name="main_no_tickets">You currently have no tickets to this zoo</string>
 	<string name="main_scan_ticket_instructions">Scan your ticket QR code to register it and use the app</string>
 
-	<!--activity_scan_qr_code-->
-	<string name="scan_ticket_header">Please scan your zoo ticket</string>
-	<string name="scan_infopoint_header">Please scan the info point</string>
-
 	<!--activity_species-->
 	<string name="species_image">Species Image</string>
 	<string name="individuals_image_view">species individuals icon</string>
@@ -28,16 +24,14 @@
 	<!--activity_species_search-->
 	<string name="species_search_criterion_hint">Search for an animal…</string>
 
-	<!--ScanTicketActivity.class-->
-	<string name="scan_ticket_future_ticket_stored">Your ticket has been stored.</string>
-	<string name="scan_ticket_error_camera_access_denied">Camera is required to scan zoo ticket.</string>
-	<string name="scan_ticket_error_invalid_qr">Invalid QR code</string>
-	<string name="scan_ticket_error_wrong_zoo">You have a ticket for a different zoo.</string>
-	<string name="scan_ticket_error_past_ticket">Your ticket is expired.</string>
-	<string name="scan_ticket_error_already_stored">You have already scanned that ticket.</string>
-
-	<!--ScanInfoPointActivity.class-->
-	<string name="scan_infopoint_error_invalid_qr">Invalid QR code</string>
+	<!--QRCodeReaderActivity.class-->
+	<string name="scan_qr_code_future_ticket_stored">Your ticket has been stored.</string>
+	<string name="scan_qr_code_error_camera_access_denied">Camera is required to scan zoo ticket.</string>
+	<string name="scan_qr_code_error_invalid_qr">Invalid QR code</string>
+	<string name="scan_qr_code_error_wrong_zoo">You have a ticket for a different zoo.</string>
+	<string name="scan_qr_code_error_past_ticket">Your ticket is expired.</string>
+	<string name="scan_qr_code_error_already_stored">You have already scanned that ticket.</string>
+	<string name="scan_qr_code_species_search_without_ticket">Register your zoo ticket to use the app!</string>
 
 	<!--Zoo Menu-->
 	<string name="zoo_menu_tour_button">Go on a tour</string>

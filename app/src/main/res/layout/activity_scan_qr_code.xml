@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:backgroundTint="@color/colorBackground_dark"
     android:backgroundTintMode="multiply"
-    tools:context=".activities.ScanTicketActivity">
+    tools:context=".activities.QRCodeReaderActivity">
     
     <SurfaceView
         android:id="@+id/cameraSurface"

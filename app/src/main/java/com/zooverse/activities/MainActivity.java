@@ -15,6 +15,7 @@ import android.view.View;
 
 import com.zooverse.MainApplication;
 import com.zooverse.R;
+import com.zooverse.Theme;
 import com.zooverse.model.Model;
 import com.zooverse.model.Ticket;
 import com.zooverse.activities.adapters.TicketListAdapter;
@@ -28,6 +29,7 @@ public class MainActivity extends AbstractBaseActivity implements TicketListAdap
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		this.enableOptionsMenu();
 		
 		// Loading RecyclerView with stored tickets
 		ticketListAdapter = new TicketListAdapter(this);
@@ -55,33 +57,7 @@ public class MainActivity extends AbstractBaseActivity implements TicketListAdap
 	}
 	
 	public void openScanTicket(View view) {
-		startActivity(new Intent(MainApplication.getContext(), ScanTicketActivity.class));
-	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.menu_bar_main, menu);
-		for (int i = 0; i < menu.size(); i++) {
-			Drawable drawable = menu.getItem(i).getIcon();
-			if (drawable != null) {
-				drawable.mutate().setColorFilter(MainApplication.getThemeColor(R.attr.themeColorBackground), PorterDuff.Mode.SRC_ATOP);
-			}
-		}
-		return true;
-	}
-	
-	@SuppressLint("NonConstantResourceId")
-	@Override
-	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.settingsMenuItem:
-				startActivity(new Intent(MainApplication.getContext(), SettingsActivity.class));
-				break;
-			case R.id.scanTicketMenuItem:
-				startActivity(new Intent(MainApplication.getContext(), ScanTicketActivity.class));
-				break;
-		}
-		return true;
+		startActivity(new Intent(MainApplication.getContext(), QRCodeReaderActivity.class));
 	}
 	
 	@Override

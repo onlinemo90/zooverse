@@ -1,9 +1,5 @@
 package com.zooverse.model;
 
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
 import com.zooverse.model.database.DatabaseHandler;
 
 import java.util.Collections;
@@ -34,6 +30,15 @@ public class Model {
 	
 	public static List<Ticket> getStoredTickets() {
 		return storedTickets;
+	}
+	
+	public static boolean hasTodayTicket() {
+		for (Ticket ticket : storedTickets) {
+			if (ticket.isForToday()) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public static List<Species> getSpeciesList() {
