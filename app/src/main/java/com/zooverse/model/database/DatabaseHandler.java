@@ -16,7 +16,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DatabaseHandler extends SQLiteAssetHelper {
 	private static final int DATABASE_VERSION = 17;
@@ -84,7 +86,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 	}
 	
 	// Species----------------------------------------------------------
-	public List<Species> getAllSpecies() {
+	public Map<Integer, Species> getAllSpecies() {
 		Cursor cursor = database.query(
 				DatabaseContract.SpeciesEntry.TABLE_NAME,
 				new String[]{
@@ -95,7 +97,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 				null, null, null, null,
 				DatabaseContract.SpeciesEntry.COLUMN_NAME + " ASC"
 		);
-		List<Species> speciesList = new ArrayList<>();
+		Map<Integer, Species> speciesMap = new HashMap<>();
 		int id;
 		String name;
 		byte[] imageBlob;
@@ -105,10 +107,10 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 			imageBlob = cursor.getBlob(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_IMAGE));
 			Species tmpSpecies = new Species(id, name, BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length));
 			tmpSpecies.setIndividualsList(this.getSpeciesIndividuals(tmpSpecies));
-			speciesList.add(tmpSpecies);
+			speciesMap.put(id, tmpSpecies);
 		}
 		cursor.close();
-		return speciesList;
+		return speciesMap;
 	}
 	
 	private List<Individual> getSpeciesIndividuals(Species species) {

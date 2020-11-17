@@ -37,7 +37,7 @@ public class SpeciesActivity extends AbstractBaseActivity {
 		speciesDescriptionTextView.setMovementMethod(new ScrollingMovementMethod());
 		speciesDescriptionTextView.setOnClickListener(v -> { playerView.hide(); });
 		
-		this.species = Model.getSpeciesList().get(getIntent().getIntExtra(MainApplication.INTENT_EXTRA_SPECIES, 0));
+		this.species = Model.getSpecies().get(getIntent().getIntExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, 0));
 		setTitle(this.species.getName());
 		ImageView speciesImage = findViewById(R.id.speciesImage);
 		speciesImage.setImageBitmap(this.species.getImage());
@@ -91,7 +91,7 @@ public class SpeciesActivity extends AbstractBaseActivity {
 	public void openSpeciesIndividuals(View view) {
 		if (this.species.getIndividualsList().size() > 0) {
 			Intent intent = new Intent(MainApplication.getContext(), IndividualActivity.class);
-			intent.putExtra(MainApplication.INTENT_EXTRA_SPECIES, Model.getSpeciesList().indexOf(this.species));
+			intent.putExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, this.species.getId());
 			startActivity(intent);
 		}
 	}

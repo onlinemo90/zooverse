@@ -12,11 +12,8 @@ import android.widget.EditText;
 import com.zooverse.MainApplication;
 import com.zooverse.R;
 import com.zooverse.activities.adapters.SpeciesSearchAdapter;
-import com.zooverse.model.Model;
-import com.zooverse.model.Species;
 
 public class SpeciesSearchActivity extends AbstractBaseActivity implements SpeciesSearchAdapter.SpeciesOnClickListener {
-	
 	private SpeciesSearchAdapter speciesSearchAdapter;
 	
 	@Override
@@ -50,9 +47,9 @@ public class SpeciesSearchActivity extends AbstractBaseActivity implements Speci
 	
 	@Override
 	public void onSpeciesClick(int position) {
-		Species selectedSpecies = speciesSearchAdapter.getSelectedSpecies(position);
+		int selectedSpeciesId = speciesSearchAdapter.getSelectedSpecies(position).getId();
 		Intent intent = new Intent(MainApplication.getContext(), SpeciesActivity.class);
-		intent.putExtra(MainApplication.INTENT_EXTRA_SPECIES, Model.getSpeciesList().indexOf(selectedSpecies));
+		intent.putExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, selectedSpeciesId);
 		startActivity(intent);
 	}
 }

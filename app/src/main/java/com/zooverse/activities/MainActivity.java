@@ -15,6 +15,7 @@ import android.view.View;
 
 import com.zooverse.MainApplication;
 import com.zooverse.R;
+import com.zooverse.Theme;
 import com.zooverse.model.Model;
 import com.zooverse.model.Ticket;
 import com.zooverse.activities.adapters.TicketListAdapter;
@@ -64,7 +65,7 @@ public class MainActivity extends AbstractBaseActivity implements TicketListAdap
 		for (int i = 0; i < menu.size(); i++) {
 			Drawable drawable = menu.getItem(i).getIcon();
 			if (drawable != null) {
-				drawable.mutate().setColorFilter(MainApplication.getThemeColor(R.attr.themeColorBackground), PorterDuff.Mode.SRC_ATOP);
+				drawable.mutate().setColorFilter(Theme.getColor(R.attr.themeColorBackground), PorterDuff.Mode.SRC_ATOP);
 			}
 		}
 		return true;

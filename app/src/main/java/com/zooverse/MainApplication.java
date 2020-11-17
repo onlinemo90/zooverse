@@ -12,7 +12,7 @@ public class MainApplication extends Application {
 	private static Context appContext;
 	private static SharedPreferences appPreferences;
 	
-	public static final String INTENT_EXTRA_SPECIES = "species_index";
+	public static final String INTENT_EXTRA_SPECIES_ID = "species_index";
 	
 	@Override
 	public void onCreate() {

@@ -6,15 +6,17 @@ import android.graphics.BitmapFactory;
 
 import com.zooverse.model.database.DatabaseHandler;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class Model {
 	private static final DatabaseHandler dbHandler = new DatabaseHandler();
 	
 	private static final List<Ticket> storedTickets = initStoredTickets();
-	private static final List<Species> speciesList = initSpeciesList();
+	private static final Map<Integer, Species> species = initSpecies();
 	
 	private Model() {
 		// prevent class initialisation
@@ -28,7 +30,7 @@ public class Model {
 		return dbHandler.getStoredTickets(new Date());
 	}
 	
-	private static List<Species> initSpeciesList() {
+	private static Map<Integer, Species> initSpecies() {
 		return dbHandler.getAllSpecies();
 	}
 	
@@ -36,7 +38,13 @@ public class Model {
 		return storedTickets;
 	}
 	
-	public static List<Species> getSpeciesList() {
+	public static Map<Integer, Species> getSpecies() {
+		return species;
+	}
+	
+	public static List<Species> getSortedSpeciesList(){
+		List<Species> speciesList = new ArrayList<>(species.values());
+		Collections.sort(speciesList, (Species s1, Species s2) -> s1.getName().compareTo(s2.getName()));
 		return speciesList;
 	}
 	

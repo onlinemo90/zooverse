@@ -18,7 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SpeciesSearchAdapter extends RecyclerView.Adapter<SpeciesSearchAdapter.SpeciesSearchViewHolder> {
-	private List<Species> filteredSpeciesList = Model.getSpeciesList();
+	private final List<Species> fullSpeciesList = Model.getSortedSpeciesList();
+	private List<Species> filteredSpeciesList = Model.getSortedSpeciesList();
+	
 	private final SpeciesOnClickListener speciesOnClickListener;
 	
 	public SpeciesSearchAdapter(SpeciesOnClickListener speciesOnClickListener) {
@@ -70,7 +72,7 @@ public class SpeciesSearchAdapter extends RecyclerView.Adapter<SpeciesSearchAdap
 	
 	public void updateCursor(String searchCriterion) {
 		this.filteredSpeciesList = new ArrayList<>();
-		for (Species species : Model.getSpeciesList()) {
+		for (Species species : this.fullSpeciesList) {
 			if (species.getName().toLowerCase().startsWith(searchCriterion.toLowerCase())) {
 				this.filteredSpeciesList.add(species);
 			}
