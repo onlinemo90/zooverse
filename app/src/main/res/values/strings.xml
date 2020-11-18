@@ -57,4 +57,9 @@
 	
 	<!--Individual Activity-->
 	<string name="individual_image">Individual Image</string>
+	<string name="individual_dob">Date of Birth:</string>
+	<string name="individual_place_of_birth">Place of Birth:</string>
+	<string name="individual_gender">Gender:</string>
+	<string name="individual_weight">Weight:</string>
+	<string name="individual_size">Size:</string>
 </resources>

@@ -127,4 +127,14 @@
 		app:srcCompat="@drawable/icon_individuals"
 		app:tint="?attr/themeColorForeground" />
 
+	<TextView
+		android:id="@+id/badgeTextView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:background="@drawable/badge_counter"
+		android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+		android:textStyle="bold"
+		app:layout_constraintStart_toEndOf="@+id/individualsImageView"
+		app:layout_constraintTop_toTopOf="@+id/individualsImageView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

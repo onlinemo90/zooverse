@@ -22,6 +22,7 @@ import com.zooverse.model.Species;
 
 public class SpeciesActivity extends AbstractBaseActivity {
 	private Species species;
+	private int individualsCount;
 	
 	private PlayerControlView playerView;
 	private SimpleExoPlayer simplePlayer;
@@ -32,12 +33,16 @@ public class SpeciesActivity extends AbstractBaseActivity {
 		setContentView(R.layout.activity_species);
 		
 		this.initExoPlayer();
+		this.species = Model.getSpecies().get(getIntent().getIntExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, 0));
+		this.individualsCount = this.species.getIndividualsList().size();
+		
+		TextView badgeTextView = findViewById(R.id.badgeTextView);
+		badgeTextView.setText(Integer.toString(individualsCount));
 		
 		TextView speciesDescriptionTextView = findViewById(R.id.speciesDescriptionTextView);
 		speciesDescriptionTextView.setMovementMethod(new ScrollingMovementMethod());
 		speciesDescriptionTextView.setOnClickListener(v -> { playerView.hide(); });
 		
-		this.species = Model.getSpecies().get(getIntent().getIntExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, 0));
 		setTitle(this.species.getName());
 		ImageView speciesImage = findViewById(R.id.speciesImage);
 		speciesImage.setImageBitmap(this.species.getImage());
@@ -89,7 +94,7 @@ public class SpeciesActivity extends AbstractBaseActivity {
 	}
 	
 	public void openSpeciesIndividuals(View view) {
-		if (this.species.getIndividualsList().size() > 0) {
+		if (individualsCount > 0) {
 			Intent intent = new Intent(MainApplication.getContext(), IndividualActivity.class);
 			intent.putExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, this.species.getId());
 			startActivity(intent);
