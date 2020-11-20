@@ -22,7 +22,6 @@ import com.zooverse.model.Species;
 
 public class SpeciesActivity extends AbstractBaseActivity {
 	private Species species;
-	private int individualsCount;
 	
 	private PlayerControlView playerView;
 	private SimpleExoPlayer simplePlayer;
@@ -34,14 +33,13 @@ public class SpeciesActivity extends AbstractBaseActivity {
 		
 		this.initExoPlayer();
 		this.species = Model.getSpecies().get(getIntent().getIntExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, 0));
-		this.individualsCount = this.species.getIndividualsList().size();
 		
-		TextView badgeTextView = findViewById(R.id.badgeTextView);
-		badgeTextView.setText(Integer.toString(individualsCount));
+		TextView individualsCountTextView = findViewById(R.id.individualsCountTextView);
+		individualsCountTextView.setText(Integer.toString(this.species.getIndividualsList().size()));
 		
 		TextView speciesDescriptionTextView = findViewById(R.id.speciesDescriptionTextView);
 		speciesDescriptionTextView.setMovementMethod(new ScrollingMovementMethod());
-		speciesDescriptionTextView.setOnClickListener(v -> { playerView.hide(); });
+		speciesDescriptionTextView.setOnClickListener(v -> playerView.hide());
 		
 		setTitle(this.species.getName());
 		ImageView speciesImage = findViewById(R.id.speciesImage);
@@ -58,7 +56,7 @@ public class SpeciesActivity extends AbstractBaseActivity {
 		}
 	}
 	
-	private void initExoPlayer(){
+	private void initExoPlayer() {
 		playerView = findViewById(R.id.exoAudioPlayer);
 		simplePlayer = new SimpleExoPlayer.Builder(this).build();
 		playerView.setPlayer(simplePlayer);
@@ -94,8 +92,8 @@ public class SpeciesActivity extends AbstractBaseActivity {
 	}
 	
 	public void openSpeciesIndividuals(View view) {
-		if (individualsCount > 0) {
-			Intent intent = new Intent(MainApplication.getContext(), IndividualActivity.class);
+		if (this.species.getIndividualsList().size() > 0) {
+			Intent intent = new Intent(MainApplication.getContext(), IndividualsActivity.class);
 			intent.putExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, this.species.getId());
 			startActivity(intent);
 		}

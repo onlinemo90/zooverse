@@ -16,20 +16,19 @@ import com.zooverse.model.Species;
 
 import java.util.List;
 
-public class IndividualActivity extends AbstractBaseActivity {
-	
+public class IndividualsActivity extends AbstractBaseActivity {
 	private List<Individual> individuals;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_individual);
+		setContentView(R.layout.activity_individuals);
 		
 		Species species = Model.getSpecies().get(getIntent().getIntExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, 0));
 		individuals = species.getIndividualsList();
 		
-		ViewPager2 viewPager = findViewById(R.id.individualViewPager);
-		TabLayout tabLayout = findViewById(R.id.individualTabLayout);
+		ViewPager2 viewPager = findViewById(R.id.individualsViewPager);
+		TabLayout tabLayout = findViewById(R.id.individualsTabLayout);
 		
 		IndividualsViewPagerAdapter viewPagerAdapter = new IndividualsViewPagerAdapter(individuals);
 		viewPager.setAdapter(viewPagerAdapter);
@@ -46,7 +45,7 @@ public class IndividualActivity extends AbstractBaseActivity {
 			@Override
 			public void onTabSelected(TabLayout.Tab tab) {
 				tab.getIcon().setColorFilter(Theme.getColor(R.attr.themeColorPrimary), PorterDuff.Mode.SRC_ATOP);
-				IndividualActivity.this.setActivityTitle(tab.getPosition());
+				IndividualsActivity.this.setActivityTitle(tab.getPosition());
 			}
 			@Override
 			public void onTabUnselected(TabLayout.Tab tab) {
