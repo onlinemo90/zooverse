@@ -19,7 +19,7 @@ import java.util.List;
 
 public class SpeciesSearchAdapter extends RecyclerView.Adapter<SpeciesSearchAdapter.SpeciesSearchViewHolder> {
 	private final List<Species> fullSpeciesList = Model.getSortedSpeciesList();
-	private List<Species> filteredSpeciesList = Model.getSortedSpeciesList();
+	private List<Species> filteredSpeciesList = fullSpeciesList;
 	
 	private final SpeciesOnClickListener speciesOnClickListener;
 	

@@ -17,6 +17,7 @@ public class Model {
 	
 	private static final List<Ticket> storedTickets = initStoredTickets();
 	private static final Map<Integer, Species> species = initSpecies();
+	private static List<Species> speciesList;
 	
 	private Model() {
 		// prevent class initialisation
@@ -43,8 +44,10 @@ public class Model {
 	}
 	
 	public static List<Species> getSortedSpeciesList(){
-		List<Species> speciesList = new ArrayList<>(species.values());
-		Collections.sort(speciesList, (Species s1, Species s2) -> s1.getName().compareTo(s2.getName()));
+		if (speciesList == null) {
+			speciesList = new ArrayList<>(species.values());
+			Collections.sort(speciesList, (Species s1, Species s2) -> s1.getName().compareTo(s2.getName()));
+		}
 		return speciesList;
 	}
 	
