@@ -16,45 +16,16 @@ import java.util.Date;
 import java.util.regex.Pattern;
 
 public class Ticket {
-	private boolean isValid;
 	private String zooID;
 	private Date date;
-	
-	private static class TicketAPI {
-		private static final String FIELD_SEPARATOR = "|";
-		private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMdd");
-		
-		static {
-			DATE_FORMAT.setLenient(false);
-		}
-		
-	}
 	
 	private Ticket() {
 		// Prevent initialisation without arguments
 	}
 	
-	public Ticket(String encryptedTicketString) {
-		try {
-			this.isValid = true;
-			String[] fields = EncryptionHelper.decrypt(encryptedTicketString).split(Pattern.quote(TicketAPI.FIELD_SEPARATOR));
-			this.zooID = fields[0];
-			this.date = TicketAPI.DATE_FORMAT.parse(fields[1]);
-		} catch (Exception e) {
-			this.isValid = false;
-			this.zooID = null;
-			this.date = null;
-		}
-	}
-	
 	public Ticket(String zooID, Date date) {
-		this.isValid = true;
 		this.zooID = zooID;
 		this.date = date;
-	}
-	
-	public boolean isValid() {
-		return this.isValid;
 	}
 	
 	public String getZooID() {
@@ -70,7 +41,7 @@ public class Ticket {
 	}
 	
 	public boolean isForToday() {
-		return this.isValid && DateUtils.isToday(this.date.getTime());
+		return DateUtils.isToday(this.date.getTime());
 	}
 	
 	public boolean isExpired() {
@@ -81,8 +52,7 @@ public class Ticket {
 	public boolean equals(Object other) {
 		if (other instanceof Ticket) {
 			Ticket otherTicket = (Ticket) other;
-			return this.isValid == otherTicket.isValid()
-					&& this.zooID.equals(otherTicket.getZooID())
+			return this.zooID.equals(otherTicket.getZooID())
 					&& this.date.equals(otherTicket.getDate());
 		}
 		return false;

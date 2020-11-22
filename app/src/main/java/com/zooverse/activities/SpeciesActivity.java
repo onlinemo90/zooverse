@@ -30,6 +30,7 @@ public class SpeciesActivity extends AbstractBaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_species);
+		this.enableOptionsMenu();
 		
 		this.initExoPlayer();
 		this.species = Model.getSpecies().get(getIntent().getIntExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, 0));

@@ -41,24 +41,19 @@
 			android:label="@string/title_activity_settings"
 			android:screenOrientation="portrait" />
 		<activity
-			android:name=".activities.ScanTicketActivity"
-			android:label="@string/scan_ticket_header"
-			android:screenOrientation="portrait" />
-		<activity
 			android:name=".activities.ZooMenuActivity"
 			android:screenOrientation="portrait" />
 		<activity
 			android:name=".activities.SpeciesSearchActivity"
 			android:screenOrientation="portrait" />
 		<activity
-			android:name=".activities.ScanInfoPointActivity"
-			android:label="@string/scan_infopoint_header"
-			android:screenOrientation="portrait" />
-		<activity
 			android:name=".activities.SpeciesActivity"
 			android:screenOrientation="portrait"/>
 		<activity
 			android:name=".activities.IndividualsActivity"
+			android:screenOrientation="portrait"/>
+		<activity
+			android:name=".activities.QRCodeReaderActivity"
 			android:screenOrientation="portrait"/>
 	</application>
 

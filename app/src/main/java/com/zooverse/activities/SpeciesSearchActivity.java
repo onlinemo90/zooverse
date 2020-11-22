@@ -20,6 +20,7 @@ public class SpeciesSearchActivity extends AbstractBaseActivity implements Speci
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_species_search);
+		this.enableOptionsMenu();
 		
 		speciesSearchAdapter = new SpeciesSearchAdapter(this);
 		RecyclerView searchResults = findViewById(R.id.searchResults);

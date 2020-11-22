@@ -17,7 +17,6 @@ public class Model {
 	
 	private static final List<Ticket> storedTickets = initStoredTickets();
 	private static final Map<Integer, Species> species = initSpecies();
-	private static List<Species> speciesList;
 	
 	private Model() {
 		// prevent class initialisation
@@ -49,6 +48,15 @@ public class Model {
 			Collections.sort(speciesList, (Species s1, Species s2) -> s1.getName().compareTo(s2.getName()));
 		}
 		return speciesList;
+	}
+	
+	public static boolean hasTodayTicket() {
+		for (Ticket ticket : storedTickets) {
+			if (ticket.isForToday()) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public static void storeTicket(Ticket ticket) {

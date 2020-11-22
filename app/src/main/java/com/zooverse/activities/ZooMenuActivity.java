@@ -17,12 +17,13 @@ public class ZooMenuActivity extends AbstractBaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_zoo_menu);
+		this.enableOptionsMenu();
 		
 		Theme.apply(
-				(CardView) findViewById(R.id.cardViewTour),
-				(CardView) findViewById(R.id.cardViewScanInfoPoint),
-				(CardView) findViewById(R.id.cardViewSearchSpecies),
-				(CardView) findViewById(R.id.cardViewZooInfo)
+				findViewById(R.id.cardViewTour),
+				findViewById(R.id.cardViewScanInfoPoint),
+				findViewById(R.id.cardViewSearchSpecies),
+				findViewById(R.id.cardViewZooInfo)
 		);
 	}
 	
@@ -39,6 +40,6 @@ public class ZooMenuActivity extends AbstractBaseActivity {
 	}
 	
 	public void openInfoPointScan(View view) {
-		startActivity(new Intent(MainApplication.getContext(), ScanInfoPointActivity.class));
+		startActivity(new Intent(MainApplication.getContext(), QRCodeReaderActivity.class));
 	}
 }
