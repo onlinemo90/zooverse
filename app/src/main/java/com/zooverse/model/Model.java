@@ -38,18 +38,6 @@ public class Model {
 		return storedTickets;
 	}
 	
-	public static Map<Integer, Species> getSpecies() {
-		return species;
-	}
-	
-	public static List<Species> getSortedSpeciesList(){
-		if (speciesList == null) {
-			speciesList = new ArrayList<>(species.values());
-			Collections.sort(speciesList, (Species s1, Species s2) -> s1.getName().compareTo(s2.getName()));
-		}
-		return speciesList;
-	}
-	
 	public static boolean hasTodayTicket() {
 		for (Ticket ticket : storedTickets) {
 			if (ticket.isForToday()) {
@@ -57,6 +45,16 @@ public class Model {
 			}
 		}
 		return false;
+	}
+	
+	public static Map<Integer, Species> getSpecies() {
+		return species;
+	}
+	
+	public static List<Species> getSortedSpeciesList() {
+		List<Species> speciesList = new ArrayList<>(species.values());
+		Collections.sort(speciesList, (Species s1, Species s2) -> s1.getName().compareTo(s2.getName()));
+		return speciesList;
 	}
 	
 	public static void storeTicket(Ticket ticket) {

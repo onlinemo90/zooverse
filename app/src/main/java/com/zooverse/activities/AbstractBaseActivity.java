@@ -39,7 +39,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
 		}
 	}
 	
-	protected void enableOptionsMenu(){
+	protected void enableOptionsMenu() {
 		this.isOptionsMenuEnabled = true;
 	}
 	
@@ -72,20 +72,18 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
 		return true;
 	}
 	
-	protected void processExternalRequest(String request){
+	protected void processExternalRequest(String request) {
 		Object requestResult = Servlet.process(request);
-		if (requestResult instanceof Ticket){
+		if (requestResult instanceof Ticket) {
 			this.processExternalRequestTicket((Ticket) requestResult);
-		}
-		else if (requestResult instanceof Species){
+		} else if (requestResult instanceof Species) {
 			this.processExternalRequestInfoPoint((Species) requestResult);
-		}
-		else {
+		} else {
 			Toast.makeText(MainApplication.getContext(), R.string.scan_qr_code_error_invalid_qr, Toast.LENGTH_SHORT).show();
 		}
 	}
 	
-	private void processExternalRequestTicket(Ticket ticket){
+	private void processExternalRequestTicket(Ticket ticket) {
 		if (ticket.getZooID().equals(getString(R.string.zoo_id))) {
 			if (ticket.isExpired()) {
 				Toast.makeText(MainApplication.getContext(), R.string.scan_qr_code_error_past_ticket, Toast.LENGTH_SHORT).show();
@@ -110,20 +108,12 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
 		}
 	}
 	
-	private void processExternalRequestInfoPoint(Species species){
-		if (Model.hasTodayTicket()){
-			int speciesListIndex = -1;
-			for (Species tmpSpecies : Model.getSpeciesList()) {
-				speciesListIndex++;
-				if (tmpSpecies.equals(species)) {
-					Intent intent = new Intent(MainApplication.getContext(), SpeciesActivity.class);
-					intent.putExtra(MainApplication.INTENT_EXTRA_SPECIES, speciesListIndex);
-					startActivity(intent);
-					return;
-				}
-			}
-		}
-		else {
+	private void processExternalRequestInfoPoint(Species species) {
+		if (Model.hasTodayTicket() && Model.getSpecies().containsKey(species.getId())) {
+			Intent intent = new Intent(MainApplication.getContext(), SpeciesActivity.class);
+			intent.putExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, species.getId());
+			startActivity(intent);
+		} else {
 			Toast.makeText(MainApplication.getContext(), R.string.scan_qr_code_species_search_without_ticket, Toast.LENGTH_SHORT).show();
 		}
 	}

@@ -14,7 +14,10 @@
 	<string name="main_upcoming_tickets">Your upcoming tickets:</string>
 	<string name="main_no_tickets">You currently have no tickets to this zoo</string>
 	<string name="main_scan_ticket_instructions">Scan your ticket QR code to register it and use the app</string>
-
+	
+	<!--activity_qr_code_scanner-->
+	<string name="qr_scanner_title">Please scan a QR code</string>
+	
 	<!--activity_species-->
 	<string name="species_image">Species Image</string>
 	<string name="individuals_image_view">species individuals icon</string>

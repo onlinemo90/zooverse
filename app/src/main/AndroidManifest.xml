@@ -54,6 +54,7 @@
 			android:screenOrientation="portrait"/>
 		<activity
 			android:name=".activities.QRCodeReaderActivity"
+			android:label="@string/qr_scanner_title"
 			android:screenOrientation="portrait"/>
 	</application>
 

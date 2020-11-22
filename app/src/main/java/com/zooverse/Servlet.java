@@ -29,7 +29,7 @@ public class Servlet {
 	
 	public static Object process(String encryptedRequest) {
 		try {
-			String request = EncryptionHelper.decrypt(encryptedRequest);
+			String request = encryptedRequest;//EncryptionHelper.decrypt(encryptedRequest);
 			Log.d("decryptedRequest", request);
 			String[] requestFields = request.split(Pattern.quote(FIELD_SEPARATOR));
 			String requestTypeId = requestFields[0];
@@ -55,10 +55,8 @@ public class Servlet {
 	
 	private static Species processInfoPoint(String[] requestFields) {
 		int speciesId = Integer.parseInt(requestFields[1]);
-		for (Species species : Model.getSpeciesList()) {
-			if (species.getId() == speciesId) {
-				return species;
-			}
+		if (Model.getSpecies().containsKey(speciesId)){
+			return Model.getSpecies().get(speciesId);
 		}
 		return null;
 	}
