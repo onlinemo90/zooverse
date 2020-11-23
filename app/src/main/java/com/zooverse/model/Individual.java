@@ -2,6 +2,10 @@ package com.zooverse.model;
 
 import android.graphics.Bitmap;
 
+import com.zooverse.MainApplication;
+import com.zooverse.R;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Individual {
@@ -36,6 +40,10 @@ public class Individual {
 	
 	public Date getDOB() {
 		return dob;
+	}
+	
+	public String getFormattedDOB(){
+		return new SimpleDateFormat(MainApplication.getContext().getString(R.string.local_date_format)).format(this.getDOB());
 	}
 	
 	public String getPlaceOfBirth() {

@@ -37,6 +37,7 @@ public class SpeciesActivity extends AbstractBaseActivity {
 		
 		TextView individualsCountTextView = findViewById(R.id.individualsCountTextView);
 		individualsCountTextView.setText(Integer.toString(this.species.getIndividualsList().size()));
+		individualsCountTextView.setTextColor(Theme.getColor(R.attr.themeColorBackground));
 		
 		TextView speciesDescriptionTextView = findViewById(R.id.speciesDescriptionTextView);
 		speciesDescriptionTextView.setMovementMethod(new ScrollingMovementMethod());

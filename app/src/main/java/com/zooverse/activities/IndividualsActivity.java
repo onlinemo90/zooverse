@@ -34,7 +34,7 @@ public class IndividualsActivity extends AbstractBaseActivity {
 		viewPager.setAdapter(viewPagerAdapter);
 		
 		new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
-			tab.setIcon(R.drawable.icon_individuals);
+			tab.setIcon(R.drawable.icon_individuals).getIcon().setColorFilter(Theme.getColor(R.attr.themeColorForeground), PorterDuff.Mode.SRC_ATOP);
 			if (position == 0) {
 				tab.getIcon().setColorFilter(Theme.getColor(R.attr.themeColorPrimary), PorterDuff.Mode.SRC_ATOP);
 				this.setActivityTitle(position);

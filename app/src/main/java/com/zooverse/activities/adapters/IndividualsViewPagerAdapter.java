@@ -9,11 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.zooverse.MainApplication;
 import com.zooverse.R;
 import com.zooverse.model.Individual;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class IndividualsViewPagerAdapter extends RecyclerView.Adapter<IndividualsViewPagerAdapter.IndividualViewHolder> {
@@ -49,7 +47,7 @@ public class IndividualsViewPagerAdapter extends RecyclerView.Adapter<Individual
 		Individual individual = this.individuals.get(position);
 		if (individual.getImage() != null)
 			viewHolder.individualImageView.setImageBitmap(this.individuals.get(position).getImage());
-		viewHolder.individualDobTextView.setText(new SimpleDateFormat(MainApplication.getContext().getString(R.string.local_date_format)).format(individual.getDOB()));
+		viewHolder.individualDobTextView.setText(individual.getFormattedDOB());
 		viewHolder.individualPlaceOfBirthTextView.setText(individual.getPlaceOfBirth());
 		viewHolder.individualGenderTextView.setText(individual.getGender());
 		viewHolder.individualWeightTextView.setText(individual.getWeight());

@@ -131,10 +131,13 @@
 		android:id="@+id/individualsCountTextView"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:background="@drawable/badge_counter"
+		android:layout_marginBottom="4dp"
+		android:textAlignment="center"
 		android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+		android:textColor="@color/colorBackground"
 		android:textStyle="bold"
-		app:layout_constraintStart_toEndOf="@+id/individualsImageView"
-		app:layout_constraintTop_toTopOf="@+id/individualsImageView" />
+		app:layout_constraintBottom_toBottomOf="@+id/individualsImageView"
+		app:layout_constraintEnd_toEndOf="@+id/individualsImageView"
+		app:layout_constraintStart_toStartOf="@+id/individualsImageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
