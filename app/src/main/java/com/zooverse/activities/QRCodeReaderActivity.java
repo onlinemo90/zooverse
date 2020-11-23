@@ -116,15 +116,11 @@ public class QRCodeReaderActivity extends AbstractBaseActivity implements Activi
 							// trigger short device vibration upon detection
 							Vibrator vibrator = (Vibrator) MainApplication.getContext().getSystemService(Context.VIBRATOR_SERVICE);
 							vibrator.vibrate(1000);
-							processQRCode(qrCodes.valueAt(0).displayValue);
+							processExternalRequest(qrCodes.valueAt(0).displayValue);
 						});
 					}
 				}
 			}
 		});
-	}
-	
-	public void processQRCode(String qrContent){
-		super.processExternalRequest(qrContent);
 	}
 }
