@@ -37,9 +37,9 @@
 	<string name="scan_qr_code_species_search_without_ticket">Register your zoo ticket to use the app!</string>
 
 	<!--Zoo Menu-->
-	<string name="zoo_menu_tour_button">Go on a tour</string>
+	<string name="zoo_menu_tour_button">Go\non a Tour</string>
 	<string name="zoo_menu_species_search">Animal Search</string>
-	<string name="zoo_menu_scan_infopoint_button">Scan info point</string>
+	<string name="zoo_menu_scan_infopoint_button">Scan\nInfo point</string>
 	<string name="zoo_menu_zoo_information_button">More Information</string>
 
 	<!--Settings Activity-->
