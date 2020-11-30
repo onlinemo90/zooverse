@@ -1,6 +1,7 @@
 package com.zooverse.utils;
 
 import com.zooverse.AssetManager;
+import com.zooverse.BuildConfig;
 import com.zooverse.MainApplication;
 import com.zooverse.R;
 
@@ -24,8 +25,11 @@ public class EncryptionHelper {
 	}
 	
 	public static String decrypt(String cipherText) {
-		return cipherText;
-		//return runEncryptionFunction(DECRYPTION_FUNCTION, cipherText);
+		// Encryption disabled for Application in development but never for released versions
+		if (BuildConfig.DEBUG)
+			return cipherText;
+		else
+			return runEncryptionFunction(DECRYPTION_FUNCTION, cipherText);
 	}
 	
 	private EncryptionHelper() {

@@ -23,6 +23,7 @@ import com.zooverse.model.Ticket;
 public abstract class AbstractBaseActivity extends AppCompatActivity {
 	private int themeResourceId;
 	private boolean isOptionsMenuEnabled = false;
+	protected int menuBarId = R.menu.menu_bar_main;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +44,15 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
 		this.isOptionsMenuEnabled = true;
 	}
 	
+	protected void enableOptionsMenu(int menuBarId) {
+		this.menuBarId = menuBarId;
+		this.isOptionsMenuEnabled = true;
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		if (this.isOptionsMenuEnabled) {
-			getMenuInflater().inflate(R.menu.menu_bar_main, menu);
+			getMenuInflater().inflate(menuBarId, menu);
 			for (int i = 0; i < menu.size(); i++) {
 				Drawable drawable = menu.getItem(i).getIcon();
 				if (drawable != null) {

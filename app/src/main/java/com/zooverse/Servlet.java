@@ -29,7 +29,7 @@ public class Servlet {
 	
 	public static Object process(String encryptedRequest) {
 		try {
-			String request = encryptedRequest;//EncryptionHelper.decrypt(encryptedRequest);
+			String request = EncryptionHelper.decrypt(encryptedRequest);
 			Log.d("decryptedRequest", request);
 			String[] requestFields = request.split(Pattern.quote(FIELD_SEPARATOR));
 			String requestTypeId = requestFields[0];

@@ -29,11 +29,13 @@ public class IndividualsActivity extends AbstractBaseActivity {
 		
 		ViewPager2 viewPager = findViewById(R.id.individualsViewPager);
 		TabLayout tabLayout = findViewById(R.id.individualsTabLayout);
+		tabLayout.setTabTextColors(Theme.getColor(R.attr.themeColorForeground),Theme.getColor(R.attr.themeColorPrimary));
 		
 		IndividualsViewPagerAdapter viewPagerAdapter = new IndividualsViewPagerAdapter(individuals);
 		viewPager.setAdapter(viewPagerAdapter);
 		
 		new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
+			tab.setText(individuals.get(position).getName());
 			tab.setIcon(R.drawable.icon_individuals).getIcon().setColorFilter(Theme.getColor(R.attr.themeColorForeground), PorterDuff.Mode.SRC_ATOP);
 			if (position == 0) {
 				tab.getIcon().setColorFilter(Theme.getColor(R.attr.themeColorPrimary), PorterDuff.Mode.SRC_ATOP);
