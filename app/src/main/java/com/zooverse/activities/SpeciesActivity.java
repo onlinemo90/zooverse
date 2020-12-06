@@ -1,7 +1,9 @@
 package com.zooverse.activities;
 
 import android.annotation.SuppressLint;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -11,11 +13,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.android.exoplayer2.MediaItem;
+import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.ui.PlayerControlView;
+import com.google.android.exoplayer2.ui.PlayerNotificationManager;
 import com.google.android.exoplayer2.upstream.ByteArrayDataSource;
 import com.zooverse.MainApplication;
 import com.zooverse.R;
@@ -32,6 +37,7 @@ public class SpeciesActivity extends AbstractBaseActivity {
 	
 	private PlayerControlView playerView;
 	private SimpleExoPlayer simplePlayer;
+	private PlayerNotificationManager playerNotificationManager;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +116,40 @@ public class SpeciesActivity extends AbstractBaseActivity {
 		playButton.setColorFilter(Theme.getColor(R.attr.themeColorExoPlayerButtons));
 		pauseButton.setColorFilter(Theme.getColor(R.attr.themeColorExoPlayerButtons));
 		backButton.setColorFilter(Theme.getColor(R.attr.themeColorExoPlayerButtons));
+		
+		playerNotificationManager = PlayerNotificationManager.createWithNotificationChannel(
+				this,
+				MainApplication.getContext().getString(R.string.app_name),
+				R.string.app_name,
+				R.string.app_name,
+				R.string.app_name,
+				new PlayerNotificationManager.MediaDescriptionAdapter() {
+					@Override
+					public CharSequence getCurrentContentTitle(Player player) {
+						return species.getName();
+					}
+					
+					@Nullable
+					@Override
+					public PendingIntent createCurrentContentIntent(Player player) {
+						Intent intent = new Intent(MainApplication.getContext(), SpeciesActivity.class);
+						intent.putExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, species.getId());
+						return PendingIntent.getActivity(MainApplication.getContext(),1,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+					}
+					
+					@Nullable
+					@Override
+					public CharSequence getCurrentContentText(Player player) {
+						return species.getDescription();
+					}
+					
+					@Nullable
+					@Override
+					public Bitmap getCurrentLargeIcon(Player player, PlayerNotificationManager.BitmapCallback callback) {
+						return species.getImage();
+					}
+				});
+		playerNotificationManager.setPlayer(simplePlayer);
 	}
 	
 	@Override
