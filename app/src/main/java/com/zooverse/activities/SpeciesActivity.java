@@ -53,10 +53,10 @@ public class SpeciesActivity extends AbstractBaseActivity {
 	@Override
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 		switch (item.getItemId()) {
-			case R.id.pageLeftMenuItem:
+			case R.id.previousSpeciesMenuItem:
 				populateSpeciesPage(this.species.getId(), PREVIOUS_SPECIES_POSITION);
 				break;
-			case R.id.pageRightMenuItem:
+			case R.id.nextSpeciesMenuItem:
 				populateSpeciesPage(this.species.getId(), NEXT_SPECIES_POSITION);
 				break;
 			default:

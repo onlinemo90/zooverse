@@ -3,12 +3,12 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto">
 
 	<item
-		android:id="@+id/pageLeftMenuItem"
+		android:id="@+id/previousSpeciesMenuItem"
 		android:icon="@drawable/icon_arrow_left"
 		android:title="@string/menu_bar_species_page_left"
 		app:showAsAction="always" />
 	<item
-		android:id="@+id/pageRightMenuItem"
+		android:id="@+id/nextSpeciesMenuItem"
 		android:icon="@drawable/icon_arrow_right"
 		android:title="@string/menu_bar_species_page_right"
 		app:showAsAction="always" />
@@ -16,10 +16,10 @@
 		android:id="@+id/scanTicketMenuItem"
 		android:icon="@drawable/icon_scan_qr_code"
 		android:title="@string/menu_bar_ticket_scan"
-		app:showAsAction="ifRoom" />
+		app:showAsAction="always" />
 	<item
 		android:id="@+id/settingsMenuItem"
 		android:icon="@drawable/icon_settings"
 		android:title="@string/menu_bar_settings"
-		app:showAsAction="ifRoom" />
+		app:showAsAction="always" />
 </menu>
