@@ -1,15 +1,18 @@
 package com.zooverse.model;
 
 import android.graphics.Bitmap;
+import android.util.Pair;
 
 import com.zooverse.MainApplication;
 import com.zooverse.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class Individual {
 	
+	private final int id;
 	private final Species species;
 	private final String name;
 	private final Date dob;
@@ -17,18 +20,19 @@ public class Individual {
 	private final String gender;
 	private final String weight;
 	private final String size;
-	private final Bitmap image;
 	
-	public Individual(Species species, String name, Date dob, String placeOfBirth, String gender, String weight, String size, Bitmap image) {
+	public Individual(int id, Species species, String name, Date dob, String placeOfBirth, String gender, String weight, String size) {
+		this.id = id;
 		this.species = species;
-		this.name = name != null ? name : "";
+		this.name = (name != null ? name : "");
 		this.dob = dob;
 		this.placeOfBirth = placeOfBirth;
 		this.gender = gender;
 		this.weight = weight;
 		this.size = size;
-		this.image = image;
 	}
+	
+	public int getId(){ return id; }
 	
 	public Species getSpecies() {
 		return species;
@@ -63,6 +67,10 @@ public class Individual {
 	}
 	
 	public Bitmap getImage() {
-		return image;
+		return Model.getIndividualImage(id);
+	}
+	
+	public List<Pair<String, String>> getAttributes(){
+		return Model.getIndividualAttributes(id);
 	}
 }

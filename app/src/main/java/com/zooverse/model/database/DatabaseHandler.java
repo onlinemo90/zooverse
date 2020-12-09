@@ -3,7 +3,9 @@ package com.zooverse.model.database;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Pair;
 
 import com.zooverse.AssetManager;
 import com.zooverse.MainApplication;
@@ -21,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DatabaseHandler extends SQLiteAssetHelper {
-	private static final int DATABASE_VERSION = 19;
+	private static final int DATABASE_VERSION = 26;
 	
 	private static final SimpleDateFormat ticketDateFormat = new SimpleDateFormat(DatabaseContract.TicketEntry.DATE_FORMAT);
 	private static final SimpleDateFormat individualDobFormat = new SimpleDateFormat(DatabaseContract.IndividualEntry.DOB_FORMAT);
@@ -102,15 +104,13 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 			id = cursor.getInt(cursor.getColumnIndex(DatabaseContract.SpeciesEntry._ID));
 			name = cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_NAME));
 			imageBlob = cursor.getBlob(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_IMAGE));
-			Species tmpSpecies = new Species(id, name, BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length));
-			tmpSpecies.setIndividualsList(this.getSpeciesIndividuals(tmpSpecies));
-			speciesMap.put(id, tmpSpecies);
+			speciesMap.put(id, new Species(id, name, BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length)));
 		}
 		cursor.close();
 		return speciesMap;
 	}
 	
-	private List<Individual> getSpeciesIndividuals(Species species) {
+	public List<Individual> getSpeciesIndividuals(Species species) {
 		Cursor cursor = database.query(
 				DatabaseContract.IndividualEntry.TABLE_NAME,
 				new String[]{
@@ -120,8 +120,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 						DatabaseContract.IndividualEntry.COLUMN_PLACE_OF_BIRTH,
 						DatabaseContract.IndividualEntry.COLUMN_GENDER,
 						DatabaseContract.IndividualEntry.COLUMN_WEIGHT,
-						DatabaseContract.IndividualEntry.COLUMN_SIZE,
-						DatabaseContract.IndividualEntry.COLUMN_IMAGE
+						DatabaseContract.IndividualEntry.COLUMN_SIZE
 				},
 				DatabaseContract.IndividualEntry.COLUMN_SPECIES_ID + " = ?",
 				new String[]{Integer.toString(species.getId())},
@@ -132,8 +131,9 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		List<Individual> individualList = new ArrayList<>();
 		String name, placeOfBirth, gender, weight, size;
 		Date dob = new Date();
-		byte[] imageBlob;
+		int id;
 		while (cursor.moveToNext()) {
+			id = cursor.getInt(cursor.getColumnIndex(DatabaseContract.IndividualEntry._ID));
 			name = cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_NAME));
 			try {
 				dob = individualDobFormat.parse(cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_DOB)));
@@ -144,9 +144,8 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 			gender = cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_GENDER));
 			weight = cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_WEIGHT));
 			size = cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_SIZE));
-			imageBlob = cursor.getBlob(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_IMAGE));
 			
-			individualList.add(new Individual(species, name, dob, placeOfBirth, gender, weight, size, BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length)));
+			individualList.add(new Individual(id, species, name, dob, placeOfBirth, gender, weight, size));
 		}
 		cursor.close();
 		return individualList;
@@ -178,5 +177,42 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		byte[] audioBlob = cursor.getBlob(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_AUDIO));
 		cursor.close();
 		return audioBlob;
+	}
+	
+	public Bitmap getIndividualImage(int individualID) {
+		Cursor cursor = database.query(
+				DatabaseContract.IndividualEntry.TABLE_NAME,
+				new String[]{
+						DatabaseContract.IndividualEntry.COLUMN_IMAGE
+				},
+				DatabaseContract.IndividualEntry._ID + " = ?",
+				new String[]{Integer.toString(individualID)},
+				null, null, null
+		);
+		cursor.moveToNext();
+		byte[] imageBlob = cursor.getBlob(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_IMAGE));
+		cursor.close();
+		return BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length);
+	}
+	
+	public List<Pair<String, String>> getIndividualAttributes(int individualID) {
+		List<Pair<String, String>> facts = new ArrayList<>();
+		Cursor cursor = database.rawQuery(
+				"select factsCat." + DatabaseContract.AnimalAttributeCategoryEntry.COLUMN_NAME + " , " +
+						" indFacts." + DatabaseContract.IndividualInfoEntry.COLUMN_FACT +
+						" from " + DatabaseContract.IndividualInfoEntry.TABLE_NAME + " as indFacts inner join " + DatabaseContract.AnimalAttributeCategoryEntry.TABLE_NAME + " as factsCat on " +
+						" indFacts." + DatabaseContract.IndividualInfoEntry.COLUMN_CATEGORY_ID + " = factsCat." + DatabaseContract.AnimalAttributeCategoryEntry._ID +
+						" where indFacts." + DatabaseContract.IndividualInfoEntry.COLUMN_INDIVIDUAL_ID + "=?",
+				new String[]{Integer.toString(individualID)}
+		);
+		while (cursor.moveToNext()) {
+			facts.add(new Pair<>(
+							cursor.getString(cursor.getColumnIndex(DatabaseContract.AnimalAttributeCategoryEntry.COLUMN_NAME)),
+							cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualInfoEntry.COLUMN_FACT))
+					)
+			);
+		}
+		cursor.close();
+		return facts;
 	}
 }

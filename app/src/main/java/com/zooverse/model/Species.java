@@ -40,11 +40,6 @@ public class Species {
 	}
 	
 	public List<Individual> getIndividualsList() {
-		return this.individualsList;
-	}
-	
-	public void setIndividualsList(List<Individual> individualsList) {
-		this.individualsList = individualsList;
-		Collections.sort(this.individualsList, (Individual i1, Individual i2) -> i1.getName().compareTo(i2.getName()));
+		return Model.getSpeciesIndividuals(this);
 	}
 }

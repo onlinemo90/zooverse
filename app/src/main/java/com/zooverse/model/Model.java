@@ -3,6 +3,7 @@ package com.zooverse.model;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Pair;
 
 import com.zooverse.model.database.DatabaseHandler;
 
@@ -69,5 +70,17 @@ public class Model {
 	
 	public static byte[] getSpeciesAudioDescription(int speciesID) {
 		return dbHandler.getSpeciesAudioDescription(speciesID);
+	}
+	
+	public static Bitmap getIndividualImage(int individualID) {
+		return dbHandler.getIndividualImage(individualID);
+	}
+	
+	public static List<Individual> getSpeciesIndividuals(Species species){
+		return dbHandler.getSpeciesIndividuals(species);
+	}
+	
+	public static List<Pair<String, String>> getIndividualAttributes(int individualID) {
+		return dbHandler.getIndividualAttributes(individualID);
 	}
 }
