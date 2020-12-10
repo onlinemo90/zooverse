@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.util.Pair;
 
 import com.zooverse.AssetManager;
@@ -160,17 +159,17 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 	private List<Pair<String, String>> getIndividualAttributes(int individualID) {
 		List<Pair<String, String>> facts = new ArrayList<>();
 		Cursor cursor = database.rawQuery(
-				"select attributeCat." + DatabaseContract.AnimalAttributeCategoryEntry.COLUMN_NAME + " , " +
+				"select attributeCat." + DatabaseContract.AttributeCategoryEntry.COLUMN_NAME + " , " +
 						" indAttributes." + DatabaseContract.IndividualAttributesEntry.COLUMN_ATTRIBUTE +
-						" from " + DatabaseContract.IndividualAttributesEntry.TABLE_NAME + " as indAttributes inner join " + DatabaseContract.AnimalAttributeCategoryEntry.TABLE_NAME + " as attributeCat on " +
-						" indAttributes." + DatabaseContract.IndividualAttributesEntry.COLUMN_CATEGORY_ID + " = attributeCat." + DatabaseContract.AnimalAttributeCategoryEntry._ID +
+						" from " + DatabaseContract.IndividualAttributesEntry.TABLE_NAME + " as indAttributes inner join " + DatabaseContract.AttributeCategoryEntry.TABLE_NAME + " as attributeCat on " +
+						" indAttributes." + DatabaseContract.IndividualAttributesEntry.COLUMN_CATEGORY_ID + " = attributeCat." + DatabaseContract.AttributeCategoryEntry._ID +
 						" where indAttributes." + DatabaseContract.IndividualAttributesEntry.COLUMN_INDIVIDUAL_ID + "=? " +
-						"order by attributeCat." + DatabaseContract.AnimalAttributeCategoryEntry.COLUMN_PRIORITY + " desc ",
+						"order by attributeCat." + DatabaseContract.AttributeCategoryEntry.COLUMN_PRIORITY + " desc ",
 				new String[]{Integer.toString(individualID)}
 		);
 		while (cursor.moveToNext()) {
 			facts.add(new Pair<>(
-							cursor.getString(cursor.getColumnIndex(DatabaseContract.AnimalAttributeCategoryEntry.COLUMN_NAME)),
+							cursor.getString(cursor.getColumnIndex(DatabaseContract.AttributeCategoryEntry.COLUMN_NAME)),
 							cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualAttributesEntry.COLUMN_ATTRIBUTE))
 					)
 			);
