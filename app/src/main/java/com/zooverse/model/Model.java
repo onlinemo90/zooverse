@@ -2,7 +2,6 @@ package com.zooverse.model;
 
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Pair;
 
 import com.zooverse.model.database.DatabaseHandler;
@@ -48,6 +47,12 @@ public class Model {
 		return false;
 	}
 	
+	public static void storeTicket(Ticket ticket) {
+		dbHandler.storeTicket(ticket);
+		storedTickets.add(ticket);
+		Collections.sort(storedTickets, (Ticket t1, Ticket t2) -> t1.getDate().compareTo(t2.getDate()));
+	}
+	
 	public static Map<Integer, Species> getSpecies() {
 		return species;
 	}
@@ -58,29 +63,11 @@ public class Model {
 		return speciesList;
 	}
 	
-	public static void storeTicket(Ticket ticket) {
-		dbHandler.storeTicket(ticket);
-		storedTickets.add(ticket);
-		Collections.sort(storedTickets, (Ticket t1, Ticket t2) -> t1.getDate().compareTo(t2.getDate()));
-	}
-	
-	public static String getSpeciesDescription(int speciesID) {
-		return dbHandler.getSpeciesDescription(speciesID);
-	}
-	
-	public static byte[] getSpeciesAudioDescription(int speciesID) {
-		return dbHandler.getSpeciesAudioDescription(speciesID);
+	public static byte[] getSpeciesAudio(int speciesID) {
+		return dbHandler.getSpeciesAudio(speciesID);
 	}
 	
 	public static Bitmap getIndividualImage(int individualID) {
 		return dbHandler.getIndividualImage(individualID);
-	}
-	
-	public static List<Individual> getSpeciesIndividuals(Species species){
-		return dbHandler.getSpeciesIndividuals(species);
-	}
-	
-	public static List<Pair<String, String>> getIndividualAttributes(int individualID) {
-		return dbHandler.getIndividualAttributes(individualID);
 	}
 }

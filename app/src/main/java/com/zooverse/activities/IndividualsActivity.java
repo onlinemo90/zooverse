@@ -2,6 +2,9 @@ package com.zooverse.activities;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.Pair;
+
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
@@ -25,7 +28,7 @@ public class IndividualsActivity extends AbstractBaseActivity {
 		setContentView(R.layout.activity_individuals);
 		
 		Species species = Model.getSpecies().get(getIntent().getIntExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, 0));
-		individuals = species.getIndividualsList();
+		individuals = species.getIndividuals();
 		
 		ViewPager2 viewPager = findViewById(R.id.individualsViewPager);
 		TabLayout tabLayout = findViewById(R.id.individualsTabLayout);

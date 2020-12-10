@@ -88,7 +88,7 @@ public class SpeciesActivity extends AbstractBaseActivity {
 			if (this.species.getImage() != null)
 				speciesImage.setImageBitmap(this.species.getImage());
 			
-			individualsCountTextView.setText(Integer.toString(this.species.getIndividualsList().size()));
+			individualsCountTextView.setText(Integer.toString(this.species.getIndividuals().size()));
 			individualsCountTextView.setTextColor(Theme.getColor(R.attr.themeColorBackground));
 			
 			speciesDescriptionTextView.setMovementMethod(new ScrollingMovementMethod());
@@ -97,7 +97,7 @@ public class SpeciesActivity extends AbstractBaseActivity {
 			
 			simplePlayer.stop();
 			playerView.hide();
-			byte[] speciesAudio = species.getAudioDescription();
+			byte[] speciesAudio = species.getAudio();
 			if (speciesAudio != null) {
 				simplePlayer.setMediaSource(new ProgressiveMediaSource.Factory(() -> new ByteArrayDataSource(speciesAudio)).createMediaSource(MediaItem.fromUri(Uri.EMPTY)));
 				simplePlayer.prepare();
@@ -161,7 +161,7 @@ public class SpeciesActivity extends AbstractBaseActivity {
 	}
 	
 	public void playAudio(View view) {
-		if (this.species.getAudioDescription() != null) {
+		if (this.species.getAudio() != null) {
 			if (!playerView.isVisible()) {
 				simplePlayer.play();
 				playerView.show();
@@ -175,7 +175,7 @@ public class SpeciesActivity extends AbstractBaseActivity {
 	}
 	
 	public void openSpeciesIndividuals(View view) {
-		if (this.species.getIndividualsList().size() > 0) {
+		if (this.species.getIndividuals().size() > 0) {
 			Intent intent = new Intent(MainApplication.getContext(), IndividualsActivity.class);
 			intent.putExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, this.species.getId());
 			startActivity(intent);

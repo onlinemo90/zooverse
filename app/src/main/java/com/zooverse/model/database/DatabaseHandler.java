@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.util.Pair;
 
 import com.zooverse.AssetManager;
@@ -23,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DatabaseHandler extends SQLiteAssetHelper {
-	private static final int DATABASE_VERSION = 26;
+	private static final int DATABASE_VERSION = 29;
 	
 	private static final SimpleDateFormat ticketDateFormat = new SimpleDateFormat(DatabaseContract.TicketEntry.DATE_FORMAT);
 	private static final SimpleDateFormat individualDobFormat = new SimpleDateFormat(DatabaseContract.IndividualEntry.DOB_FORMAT);
@@ -91,6 +92,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 				new String[]{
 						DatabaseContract.SpeciesEntry._ID,
 						DatabaseContract.SpeciesEntry.COLUMN_NAME,
+						DatabaseContract.SpeciesEntry.COLUMN_DESCRIPTION,
 						DatabaseContract.SpeciesEntry.COLUMN_IMAGE
 				},
 				null, null, null, null,
@@ -98,19 +100,23 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		);
 		Map<Integer, Species> speciesMap = new HashMap<>();
 		int id;
-		String name;
+		String name, description;
 		byte[] imageBlob;
+		Species tmpSpecies;
 		while (cursor.moveToNext()) {
 			id = cursor.getInt(cursor.getColumnIndex(DatabaseContract.SpeciesEntry._ID));
 			name = cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_NAME));
+			description = cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_DESCRIPTION));
 			imageBlob = cursor.getBlob(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_IMAGE));
-			speciesMap.put(id, new Species(id, name, BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length)));
+			tmpSpecies = new Species(id, name, description, BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length));
+			tmpSpecies.setIndividuals(this.getSpeciesIndividuals(tmpSpecies));
+			speciesMap.put(id, tmpSpecies);
 		}
 		cursor.close();
 		return speciesMap;
 	}
 	
-	public List<Individual> getSpeciesIndividuals(Species species) {
+	private List<Individual> getSpeciesIndividuals(Species species) {
 		Cursor cursor = database.query(
 				DatabaseContract.IndividualEntry.TABLE_NAME,
 				new String[]{
@@ -129,9 +135,9 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		);
 		
 		List<Individual> individualList = new ArrayList<>();
+		int id;
 		String name, placeOfBirth, gender, weight, size;
 		Date dob = new Date();
-		int id;
 		while (cursor.moveToNext()) {
 			id = cursor.getInt(cursor.getColumnIndex(DatabaseContract.IndividualEntry._ID));
 			name = cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_NAME));
@@ -145,27 +151,35 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 			weight = cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_WEIGHT));
 			size = cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_SIZE));
 			
-			individualList.add(new Individual(id, species, name, dob, placeOfBirth, gender, weight, size));
+			individualList.add(new Individual(id, species, name, dob, placeOfBirth, gender, weight, size, getIndividualAttributes(id)));
 		}
 		cursor.close();
 		return individualList;
 	}
 	
-	public String getSpeciesDescription(int speciesID) {
-		Cursor cursor = database.query(
-				DatabaseContract.SpeciesEntry.TABLE_NAME,
-				new String[]{DatabaseContract.SpeciesEntry.COLUMN_DESCRIPTION},
-				DatabaseContract.SpeciesEntry._ID + " = ?",
-				new String[]{String.valueOf(speciesID)},
-				null, null, null
+	private List<Pair<String, String>> getIndividualAttributes(int individualID) {
+		List<Pair<String, String>> facts = new ArrayList<>();
+		Cursor cursor = database.rawQuery(
+				"select attributeCat." + DatabaseContract.AnimalAttributeCategoryEntry.COLUMN_NAME + " , " +
+						" indAttributes." + DatabaseContract.IndividualAttributesEntry.COLUMN_ATTRIBUTE +
+						" from " + DatabaseContract.IndividualAttributesEntry.TABLE_NAME + " as indAttributes inner join " + DatabaseContract.AnimalAttributeCategoryEntry.TABLE_NAME + " as attributeCat on " +
+						" indAttributes." + DatabaseContract.IndividualAttributesEntry.COLUMN_CATEGORY_ID + " = attributeCat." + DatabaseContract.AnimalAttributeCategoryEntry._ID +
+						" where indAttributes." + DatabaseContract.IndividualAttributesEntry.COLUMN_INDIVIDUAL_ID + "=? " +
+						"order by attributeCat." + DatabaseContract.AnimalAttributeCategoryEntry.COLUMN_PRIORITY + " desc ",
+				new String[]{Integer.toString(individualID)}
 		);
-		cursor.moveToNext();
-		String description = cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_DESCRIPTION));
+		while (cursor.moveToNext()) {
+			facts.add(new Pair<>(
+							cursor.getString(cursor.getColumnIndex(DatabaseContract.AnimalAttributeCategoryEntry.COLUMN_NAME)),
+							cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualAttributesEntry.COLUMN_ATTRIBUTE))
+					)
+			);
+		}
 		cursor.close();
-		return description;
+		return facts;
 	}
 	
-	public byte[] getSpeciesAudioDescription(int speciesID) {
+	public byte[] getSpeciesAudio(int speciesID) {
 		Cursor cursor = database.query(
 				DatabaseContract.SpeciesEntry.TABLE_NAME,
 				new String[]{DatabaseContract.SpeciesEntry.COLUMN_AUDIO},
@@ -193,26 +207,5 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		byte[] imageBlob = cursor.getBlob(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_IMAGE));
 		cursor.close();
 		return BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length);
-	}
-	
-	public List<Pair<String, String>> getIndividualAttributes(int individualID) {
-		List<Pair<String, String>> facts = new ArrayList<>();
-		Cursor cursor = database.rawQuery(
-				"select factsCat." + DatabaseContract.AnimalAttributeCategoryEntry.COLUMN_NAME + " , " +
-						" indFacts." + DatabaseContract.IndividualInfoEntry.COLUMN_FACT +
-						" from " + DatabaseContract.IndividualInfoEntry.TABLE_NAME + " as indFacts inner join " + DatabaseContract.AnimalAttributeCategoryEntry.TABLE_NAME + " as factsCat on " +
-						" indFacts." + DatabaseContract.IndividualInfoEntry.COLUMN_CATEGORY_ID + " = factsCat." + DatabaseContract.AnimalAttributeCategoryEntry._ID +
-						" where indFacts." + DatabaseContract.IndividualInfoEntry.COLUMN_INDIVIDUAL_ID + "=?",
-				new String[]{Integer.toString(individualID)}
-		);
-		while (cursor.moveToNext()) {
-			facts.add(new Pair<>(
-							cursor.getString(cursor.getColumnIndex(DatabaseContract.AnimalAttributeCategoryEntry.COLUMN_NAME)),
-							cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualInfoEntry.COLUMN_FACT))
-					)
-			);
-		}
-		cursor.close();
-		return facts;
 	}
 }

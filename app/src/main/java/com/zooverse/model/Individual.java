@@ -20,8 +20,9 @@ public class Individual {
 	private final String gender;
 	private final String weight;
 	private final String size;
+	private final List<Pair<String, String>> attributes;
 	
-	public Individual(int id, Species species, String name, Date dob, String placeOfBirth, String gender, String weight, String size) {
+	public Individual(int id, Species species, String name, Date dob, String placeOfBirth, String gender, String weight, String size, List<Pair<String, String>> attributes) {
 		this.id = id;
 		this.species = species;
 		this.name = (name != null ? name : "");
@@ -30,9 +31,12 @@ public class Individual {
 		this.gender = gender;
 		this.weight = weight;
 		this.size = size;
+		this.attributes = attributes;
 	}
 	
-	public int getId(){ return id; }
+	public int getId() {
+		return id;
+	}
 	
 	public Species getSpecies() {
 		return species;
@@ -46,7 +50,7 @@ public class Individual {
 		return dob;
 	}
 	
-	public String getFormattedDOB(){
+	public String getFormattedDOB() {
 		return new SimpleDateFormat(MainApplication.getContext().getString(R.string.local_date_format)).format(this.getDOB());
 	}
 	
@@ -66,11 +70,11 @@ public class Individual {
 		return size;
 	}
 	
-	public Bitmap getImage() {
-		return Model.getIndividualImage(id);
+	public List<Pair<String, String>> getAttributes() {
+		return this.attributes;
 	}
 	
-	public List<Pair<String, String>> getAttributes(){
-		return Model.getIndividualAttributes(id);
+	public Bitmap getImage() {
+		return Model.getIndividualImage(id);
 	}
 }

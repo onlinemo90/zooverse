@@ -41,13 +41,14 @@ public final class DatabaseContract {
 		public static final String TABLE_NAME = "ANIMAL_ATTRIBUTE_CATEGORY";
 		
 		public static final String COLUMN_NAME = "name";
+		public static final String COLUMN_PRIORITY = "priority";
 	}
 	
-	public static final class IndividualInfoEntry implements BaseColumns{
+	public static final class IndividualAttributesEntry implements BaseColumns{
 		public static final String TABLE_NAME = "INDIVIDUALS_ATTRIBUTES";
 		
 		public static final String COLUMN_INDIVIDUAL_ID = "individual_id";
 		public static final String COLUMN_CATEGORY_ID = "category_id";
-		public static final String COLUMN_FACT = "attribute";
+		public static final String COLUMN_ATTRIBUTE = "attribute";
 	}
 }
