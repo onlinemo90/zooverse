@@ -37,8 +37,8 @@ public final class DatabaseContract {
 		public static final String DOB_FORMAT = "yyyyMMdd";
 	}
 	
-	public static final class AnimalAttributeCategoryEntry implements BaseColumns {
-		public static final String TABLE_NAME = "ANIMAL_ATTRIBUTE_CATEGORY";
+	public static final class AttributeCategoryEntry implements BaseColumns {
+		public static final String TABLE_NAME = "ATTRIBUTE_CATEGORY";
 		
 		public static final String COLUMN_NAME = "name";
 		public static final String COLUMN_PRIORITY = "priority";
