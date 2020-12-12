@@ -64,4 +64,9 @@ public class Theme {
 			}
 		}
 	}
+	public static void apply(ImageView... images) {
+		for (ImageView image : images){
+			image.setColorFilter(getColor(R.attr.themeColorForeground));
+		}
+	}
 }

@@ -20,10 +20,10 @@ public class ZooMenuActivity extends AbstractBaseActivity {
 		this.enableOptionsMenu();
 		
 		Theme.apply(
-				findViewById(R.id.cardViewTour),
-				findViewById(R.id.cardViewScanInfoPoint),
-				findViewById(R.id.cardViewSearchSpecies),
-				findViewById(R.id.cardViewZooInfo)
+				(CardView) findViewById(R.id.cardViewTour),
+				(CardView) findViewById(R.id.cardViewScanInfoPoint),
+				(CardView) findViewById(R.id.cardViewSearchSpecies),
+				(CardView) findViewById(R.id.cardViewZooInfo)
 		);
 	}
 	
@@ -32,7 +32,7 @@ public class ZooMenuActivity extends AbstractBaseActivity {
 	}
 	
 	public void openZooInformation(View view) {
-		Log.d("zoo menu", "'Zoo Information' button pressed");
+		startActivity(new Intent(MainApplication.getContext(), ZooInformationActivity.class));
 	}
 	
 	public void openSpeciesSearch(View view) {

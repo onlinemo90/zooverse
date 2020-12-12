@@ -19,10 +19,10 @@
 	<string name="main_upcoming_tickets">Your upcoming tickets:</string>
 	<string name="main_no_tickets">You currently have no tickets to this zoo</string>
 	<string name="main_scan_ticket_instructions">Scan your ticket QR code to register it and use the app</string>
-	
+
 	<!--activity_qr_code_scanner-->
 	<string name="qr_scanner_title">Please scan a QR code</string>
-	
+
 	<!--activity_species-->
 	<string name="species_image">Species Image</string>
 	<string name="individuals_image_view">species individuals icon</string>
@@ -31,6 +31,16 @@
 
 	<!--activity_species_search-->
 	<string name="species_search_criterion_hint">Search for an animal…</string>
+
+	<!--activity_zoo_menu-->
+	<string name="zoo_menu_tour_button">Go\non a Tour</string>
+	<string name="zoo_menu_species_search">Animal Search</string>
+	<string name="zoo_menu_scan_infopoint_button">Scan\nInfo point</string>
+	<string name="zoo_menu_zoo_information_button">More Information</string>
+
+	<!--activity_zoo_information-->
+	<string name="zoo_information_title">Welcome to our website</string>
+	<string name="zoo_information_url">https://www.zsl.org</string>
 
 	<!--QRCodeReaderActivity.class-->
 	<string name="scan_qr_code_future_ticket_stored">Your ticket has been stored.</string>
@@ -41,12 +51,6 @@
 	<string name="scan_qr_code_error_already_stored">You have already scanned that ticket.</string>
 	<string name="scan_qr_code_species_search_without_ticket">Register your zoo ticket to use the app!</string>
 
-	<!--Zoo Menu-->
-	<string name="zoo_menu_tour_button">Go\non a Tour</string>
-	<string name="zoo_menu_species_search">Animal Search</string>
-	<string name="zoo_menu_scan_infopoint_button">Scan\nInfo point</string>
-	<string name="zoo_menu_zoo_information_button">More Information</string>
-
 	<!--Settings Activity-->
 	<string name="title_activity_settings">Settings</string>
 	<string name="theme_title">Theme</string>
@@ -56,12 +60,22 @@
 
 	<string name="theme_pref_key">theme_pref_key</string>
 	<string name="theme_default">@string/theme_light</string>
-	
-	<!--Individual Activity-->
+
+	<!--Individuals Activity-->
 	<string name="individual_image">Individual Image</string>
-	<string name="individual_dob">Date of Birth:</string>
-	<string name="individual_place_of_birth">Place of Birth:</string>
-	<string name="individual_gender">Gender:</string>
-	<string name="individual_weight">Weight:</string>
-	<string name="individual_size">Size:</string>
+	<string name="our_species_title_prefix">Our</string>
+	<string name="our_species_title_suffix">s</string>
+	<string name="individual_gender_icon">Individual gender</string>
+	<string name="individual_age_icon">Individual age</string>
+	<string name="individual_size_icon">Individual size</string>
+	<string name="individual_origin_icon">Individual place of origin</string>
+	<string name="individual_weight_icon">Individual weight</string>
+
+	<!--IndividualsViewPagerAdapter.class-->
+	<string name="unknown_individual_name">unknown</string>
+
+	<!--Individual.class-->
+	<string name="year_abbreviation">y</string>
+	<string name="month_abbreviation">m</string>
+	<string name="day_abbreviation">d</string>
 </resources>

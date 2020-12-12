@@ -4,6 +4,7 @@
 
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.VIBRATE" />
+	<uses-permission android:name="android.permission.INTERNET"/>
 
 	<application
 		android:name=".MainApplication"
@@ -13,23 +14,25 @@
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme.Light">
-
 		<activity
 			android:name=".activities.SplashScreenActivity"
 			android:screenOrientation="portrait"
 			android:theme="@style/SplashTheme">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
+
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
+
 				<category android:name="android.intent.category.BROWSABLE" />
 				<category android:name="android.intent.category.DEFAULT" />
+
 				<data
 					android:host="zooverse.co.uk"
 					android:pathPrefix="/android"
-					android:scheme="https"  />
+					android:scheme="https" />
 			</intent-filter>
 		</activity>
 		<activity
@@ -42,22 +45,27 @@
 			android:screenOrientation="portrait" />
 		<activity
 			android:name=".activities.ZooMenuActivity"
-			android:screenOrientation="portrait"
-			android:launchMode="singleTop"/>
+			android:launchMode="singleTop"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".activities.ZooInformationActivity"
+			android:label="@string/zoo_information_title"
+			android:launchMode="singleTop"
+			android:screenOrientation="portrait"/>
 		<activity
 			android:name=".activities.SpeciesSearchActivity"
 			android:screenOrientation="portrait" />
 		<activity
 			android:name=".activities.SpeciesActivity"
-			android:screenOrientation="portrait"
-			android:launchMode="singleTop"/>
+			android:launchMode="singleTop"
+			android:screenOrientation="portrait" />
 		<activity
 			android:name=".activities.IndividualsActivity"
-			android:screenOrientation="portrait"/>
+			android:screenOrientation="portrait" />
 		<activity
 			android:name=".activities.QRCodeReaderActivity"
 			android:label="@string/qr_scanner_title"
-			android:screenOrientation="portrait"/>
+			android:screenOrientation="portrait" />
 	</application>
 
 </manifest>

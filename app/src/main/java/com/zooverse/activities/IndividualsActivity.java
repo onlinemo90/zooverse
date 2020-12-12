@@ -30,6 +30,8 @@ public class IndividualsActivity extends AbstractBaseActivity {
 		Species species = Model.getSpecies().get(getIntent().getIntExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, 0));
 		individuals = species.getIndividuals();
 		
+		setTitle(getString(R.string.our_species_title_prefix) + species.getName() + getString(R.string.our_species_title_suffix));
+		
 		ViewPager2 viewPager = findViewById(R.id.individualsViewPager);
 		TabLayout tabLayout = findViewById(R.id.individualsTabLayout);
 		tabLayout.setTabTextColors(Theme.getColor(R.attr.themeColorForeground),Theme.getColor(R.attr.themeColorPrimary));
@@ -42,7 +44,6 @@ public class IndividualsActivity extends AbstractBaseActivity {
 			tab.setIcon(R.drawable.icon_individuals).getIcon().setColorFilter(Theme.getColor(R.attr.themeColorForeground), PorterDuff.Mode.SRC_ATOP);
 			if (position == 0) {
 				tab.getIcon().setColorFilter(Theme.getColor(R.attr.themeColorPrimary), PorterDuff.Mode.SRC_ATOP);
-				this.setActivityTitle(position);
 			}
 		}).attach();
 		
@@ -50,7 +51,6 @@ public class IndividualsActivity extends AbstractBaseActivity {
 			@Override
 			public void onTabSelected(TabLayout.Tab tab) {
 				tab.getIcon().setColorFilter(Theme.getColor(R.attr.themeColorPrimary), PorterDuff.Mode.SRC_ATOP);
-				IndividualsActivity.this.setActivityTitle(tab.getPosition());
 			}
 			@Override
 			public void onTabUnselected(TabLayout.Tab tab) {
@@ -61,11 +61,4 @@ public class IndividualsActivity extends AbstractBaseActivity {
 		});
 	}
 	
-	private void setActivityTitle(int position){
-		Individual selectedIndividual = individuals.get(position);
-		if (!"".equals(selectedIndividual.getName())){
-			setTitle(selectedIndividual.getName());
-		}
-		else setTitle("Unnamed " + selectedIndividual.getSpecies().getName());
-	}
 }

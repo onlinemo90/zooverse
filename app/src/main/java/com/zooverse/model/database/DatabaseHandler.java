@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DatabaseHandler extends SQLiteAssetHelper {
-	private static final int DATABASE_VERSION = 29;
+	private static final int DATABASE_VERSION = 31;
 	
 	private static final SimpleDateFormat ticketDateFormat = new SimpleDateFormat(DatabaseContract.TicketEntry.DATE_FORMAT);
 	private static final SimpleDateFormat individualDobFormat = new SimpleDateFormat(DatabaseContract.IndividualEntry.DOB_FORMAT);
@@ -107,7 +107,10 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 			name = cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_NAME));
 			description = cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_DESCRIPTION));
 			imageBlob = cursor.getBlob(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_IMAGE));
-			tmpSpecies = new Species(id, name, description, BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length));
+			if (imageBlob != null)
+				tmpSpecies = new Species(id, name, description, BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length));
+			else
+				tmpSpecies = new Species(id, name, description, null);
 			tmpSpecies.setIndividuals(this.getSpeciesIndividuals(tmpSpecies));
 			speciesMap.put(id, tmpSpecies);
 		}
@@ -115,6 +118,21 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		return speciesMap;
 	}
 	
+	public byte[] getSpeciesAudio(int speciesID) {
+		Cursor cursor = database.query(
+				DatabaseContract.SpeciesEntry.TABLE_NAME,
+				new String[]{DatabaseContract.SpeciesEntry.COLUMN_AUDIO},
+				DatabaseContract.SpeciesEntry._ID + " = ?",
+				new String[]{String.valueOf(speciesID)},
+				null, null, null
+		);
+		cursor.moveToNext();
+		byte[] audioBlob = cursor.getBlob(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_AUDIO));
+		cursor.close();
+		return audioBlob;
+	}
+	
+	// Individuals----------------------------------------------------------
 	private List<Individual> getSpeciesIndividuals(Species species) {
 		Cursor cursor = database.query(
 				DatabaseContract.IndividualEntry.TABLE_NAME,
@@ -178,20 +196,6 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		return facts;
 	}
 	
-	public byte[] getSpeciesAudio(int speciesID) {
-		Cursor cursor = database.query(
-				DatabaseContract.SpeciesEntry.TABLE_NAME,
-				new String[]{DatabaseContract.SpeciesEntry.COLUMN_AUDIO},
-				DatabaseContract.SpeciesEntry._ID + " = ?",
-				new String[]{String.valueOf(speciesID)},
-				null, null, null
-		);
-		cursor.moveToNext();
-		byte[] audioBlob = cursor.getBlob(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_AUDIO));
-		cursor.close();
-		return audioBlob;
-	}
-	
 	public Bitmap getIndividualImage(int individualID) {
 		Cursor cursor = database.query(
 				DatabaseContract.IndividualEntry.TABLE_NAME,
@@ -205,6 +209,9 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		cursor.moveToNext();
 		byte[] imageBlob = cursor.getBlob(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_IMAGE));
 		cursor.close();
-		return BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length);
+		if (imageBlob != null)
+			return BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length);
+		else
+			return null;
 	}
 }

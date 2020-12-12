@@ -25,7 +25,7 @@ public class Model {
 	public static void init() {
 		// Empty method to initialise constants
 	}
-	
+	// Ticket-----------------------------------------------------------
 	private static List<Ticket> initStoredTickets() {
 		return dbHandler.getStoredTickets(new Date());
 	}
@@ -53,6 +53,7 @@ public class Model {
 		Collections.sort(storedTickets, (Ticket t1, Ticket t2) -> t1.getDate().compareTo(t2.getDate()));
 	}
 	
+	// Species----------------------------------------------------------
 	public static Map<Integer, Species> getSpecies() {
 		return species;
 	}
@@ -67,6 +68,7 @@ public class Model {
 		return dbHandler.getSpeciesAudio(speciesID);
 	}
 	
+	// Individuals----------------------------------------------------------
 	public static Bitmap getIndividualImage(int individualID) {
 		return dbHandler.getIndividualImage(individualID);
 	}

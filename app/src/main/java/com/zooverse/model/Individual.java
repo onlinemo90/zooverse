@@ -3,10 +3,12 @@ package com.zooverse.model;
 import android.graphics.Bitmap;
 import android.util.Pair;
 
-import com.zooverse.MainApplication;
+import static com.zooverse.MainApplication.getContext;
 import com.zooverse.R;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -50,8 +52,20 @@ public class Individual {
 		return dob;
 	}
 	
-	public String getFormattedDOB() {
-		return new SimpleDateFormat(MainApplication.getContext().getString(R.string.local_date_format)).format(this.getDOB());
+	public String getAge() {
+		
+		if ((this.getDOB() != null)) {
+			Period age = Period.between(getDOB().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), LocalDate.now());
+			
+			if (age.getYears() > 0) {
+				return age.getYears() + getContext().getString(R.string.year_abbreviation);
+			} else if (age.getMonths() > 0) {
+				return age.getMonths() + getContext().getString(R.string.month_abbreviation);
+			} else if (age.getDays() > 0) {
+				return age.getDays() + getContext().getString(R.string.day_abbreviation);
+			}
+		}
+		return null;
 	}
 	
 	public String getPlaceOfBirth() {

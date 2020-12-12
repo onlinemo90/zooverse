@@ -3,18 +3,8 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent">
-
-	<ImageView
-		android:id="@+id/individualImage"
-		android:layout_width="0dp"
-		android:layout_height="0dp"
-		android:contentDescription="@string/individual_image"
-		android:scaleType="centerCrop"
-		app:layout_constraintBottom_toTopOf="@+id/individualGuidelineTop"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
+	android:layout_height="match_parent"
+	android:contentDescription="@string/individual_gender_icon">
 
 	<androidx.constraintlayout.widget.Guideline
 		android:id="@+id/individualGuidelineTop"
@@ -23,66 +13,6 @@
 		android:orientation="horizontal"
 		app:layout_constraintGuide_percent="0.3" />
 
-	<TextView
-		android:id="@+id/dobTextViewLabel"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginStart="16dp"
-		android:layout_marginTop="64dp"
-		android:text="@string/individual_dob"
-		android:textSize="24sp"
-		android:textStyle="bold"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/individualGuidelineTop" />
-
-	<TextView
-		android:id="@+id/placeOfBirthTextViewLabel"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginStart="16dp"
-		android:layout_marginTop="24dp"
-		android:text="@string/individual_place_of_birth"
-		android:textSize="24sp"
-		android:textStyle="bold"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/dobTextViewLabel" />
-
-	<TextView
-		android:id="@+id/genderTextViewLabel"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginStart="16dp"
-		android:layout_marginTop="24dp"
-		android:text="@string/individual_gender"
-		android:textSize="24sp"
-		android:textStyle="bold"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/placeOfBirthTextViewLabel" />
-
-	<TextView
-		android:id="@+id/weightTextViewLabel"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginStart="16dp"
-		android:layout_marginTop="24dp"
-		android:text="@string/individual_weight"
-		android:textSize="24sp"
-		android:textStyle="bold"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/genderTextViewLabel" />
-
-	<TextView
-		android:id="@+id/sizeTextViewLabel"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginStart="16dp"
-		android:layout_marginTop="24dp"
-		android:text="@string/individual_size"
-		android:textSize="24sp"
-		android:textStyle="bold"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/weightTextViewLabel" />
-
 	<androidx.constraintlayout.widget.Guideline
 		android:id="@+id/individualGuidelineVertical"
 		android:layout_width="wrap_content"
@@ -90,45 +20,147 @@
 		android:orientation="vertical"
 		app:layout_constraintGuide_percent="0.5" />
 
-	<TextView
-		android:id="@+id/individualDobTextView"
+	<androidx.cardview.widget.CardView
+		android:id="@+id/cardViewIndividualImage"
 		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_margin="10dp"
+		app:cardBackgroundColor="@android:color/white"
+		app:cardElevation="10dp"
+		app:layout_constraintBottom_toTopOf="@+id/individualGuidelineTop"
+		app:layout_constraintEnd_toStartOf="@+id/individualGuidelineVertical"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
+
+		<ImageView
+			android:id="@+id/individualImage"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:contentDescription="@string/individual_image"
+			android:scaleType="centerCrop" />
+
+	</androidx.cardview.widget.CardView>
+
+
+	<TextView
+		android:id="@+id/individualNameTextView"
+		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:textSize="24sp"
-		app:layout_constraintStart_toStartOf="@+id/individualGuidelineVertical"
-		app:layout_constraintTop_toTopOf="@+id/dobTextViewLabel" />
+		app:layout_constraintBottom_toTopOf="@+id/individualAgeTextView"
+		app:layout_constraintStart_toStartOf="@+id/individualIconAge"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintVertical_bias="0.588" />
 
 	<TextView
 		android:id="@+id/individualPlaceOfBirthTextView"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
-		android:textSize="24sp"
-		app:layout_constraintStart_toStartOf="@+id/individualGuidelineVertical"
-		app:layout_constraintTop_toTopOf="@+id/placeOfBirthTextViewLabel" />
-
-	<TextView
-		android:id="@+id/individualGenderTextView"
-		android:layout_width="0dp"
-		android:layout_height="wrap_content"
-		android:textSize="24sp"
-		app:layout_constraintStart_toStartOf="@+id/individualGuidelineVertical"
-		app:layout_constraintTop_toTopOf="@+id/genderTextViewLabel" />
+		android:layout_marginStart="8dp"
+		android:textSize="20sp"
+		app:layout_constraintBottom_toBottomOf="@+id/individualIconOrigin"
+		app:layout_constraintStart_toEndOf="@+id/individualIconOrigin"
+		app:layout_constraintTop_toTopOf="@+id/individualIconOrigin" />
 
 	<TextView
 		android:id="@+id/individualWeightTextView"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
-		android:textSize="24sp"
-		app:layout_constraintStart_toStartOf="@+id/individualGuidelineVertical"
-		app:layout_constraintTop_toTopOf="@+id/weightTextViewLabel" />
+		android:layout_marginStart="8dp"
+		android:textSize="20sp"
+		app:layout_constraintBottom_toBottomOf="@+id/individualIconWeight"
+		app:layout_constraintStart_toEndOf="@+id/individualIconWeight"
+		app:layout_constraintTop_toTopOf="@+id/individualIconWeight" />
 
 	<TextView
 		android:id="@+id/individualSizeTextView"
-		android:layout_width="0dp"
+		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:textSize="24sp"
+		android:layout_marginBottom="8dp"
+		android:maxLines="1"
+		android:textAlignment="center"
+		android:textSize="20sp"
+		app:layout_constraintBottom_toTopOf="@+id/individualIconSize"
+		app:layout_constraintEnd_toEndOf="@+id/individualIconSize"
+		app:layout_constraintStart_toStartOf="@+id/individualIconSize" />
+
+	<TextView
+		android:id="@+id/individualAgeTextView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="8dp"
+		android:maxLines="1"
+		android:textAlignment="center"
+		android:textSize="20sp"
+		app:layout_constraintBottom_toTopOf="@+id/individualIconAge"
+		app:layout_constraintEnd_toEndOf="@+id/individualIconAge"
+		app:layout_constraintStart_toStartOf="@+id/individualIconAge" />
+
+	<ImageView
+		android:id="@+id/individualIconGender"
+		android:layout_width="40dp"
+		android:layout_height="40dp"
+		android:contentDescription="@string/individual_gender_icon"
+		android:translationZ="10dp"
+		app:layout_constraintBottom_toTopOf="@+id/individualGuidelineTop"
+		app:layout_constraintEnd_toStartOf="@+id/individualGuidelineVertical" />
+
+	<ImageView
+		android:id="@+id/individualIconAge"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="32dp"
+		android:layout_marginBottom="10dp"
+		android:contentDescription="@string/individual_age_icon"
+		android:visibility="invisible"
+		app:layout_constraintBottom_toTopOf="@+id/individualGuidelineTop"
 		app:layout_constraintStart_toStartOf="@+id/individualGuidelineVertical"
-		app:layout_constraintTop_toTopOf="@+id/sizeTextViewLabel" />
+		app:srcCompat="@drawable/icon_age" />
+
+	<ImageView
+		android:id="@+id/individualIconSize"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="32dp"
+		android:layout_marginBottom="10dp"
+		android:contentDescription="@string/individual_size_icon"
+		android:visibility="invisible"
+		app:layout_constraintBottom_toTopOf="@+id/individualGuidelineTop"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:srcCompat="@drawable/icon_size" />
+
+	<ImageView
+		android:id="@+id/individualIconOrigin"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="10dp"
+		android:layout_marginTop="50dp"
+		android:contentDescription="@string/individual_origin_icon"
+		android:visibility="invisible"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="@+id/individualGuidelineTop"
+		app:srcCompat="@drawable/icon_place_of_origin" />
+
+	<ImageView
+		android:id="@+id/individualIconWeight"
+		android:layout_width="40dp"
+		android:layout_height="40dp"
+		android:layout_marginTop="50dp"
+		android:contentDescription="@string/individual_weight_icon"
+		android:foregroundTint="#FFFFFF"
+		android:visibility="invisible"
+		app:layout_constraintStart_toStartOf="@+id/individualIconAge"
+		app:layout_constraintTop_toTopOf="@+id/individualGuidelineTop"
+		app:srcCompat="@drawable/icon_weight" />
+
+	<androidx.recyclerview.widget.RecyclerView
+		android:id="@+id/customAttributesRecyclerView"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/individualIconOrigin" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
