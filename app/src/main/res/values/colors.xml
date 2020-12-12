@@ -5,6 +5,7 @@
 	<color name="colorPrimary">#68b733</color>
 	<color name="colorPrimaryDark">#528F29</color>
 	<color name="colorForeground">#808080</color>
+	<color name="colorForegroundFaded">#C8C8C8</color>
 	<color name="colorBackground">#FFFFFF</color>
 	
 	<color name="colorNavigationBar">#50262626</color>
@@ -15,6 +16,7 @@
 	<color name="colorPrimary_dark">@color/colorPrimaryDark</color>
 	<color name="colorPrimaryDark_dark">#3b661e</color>
 	<color name="colorForeground_dark">@color/colorForeground</color>
+	<color name="colorForegroundFaded_dark">#464646</color>
 	<color name="colorBackground_dark">#262626</color>
 	
 	<color name="colorNavigationBar_dark">@color/colorBackground_dark</color>

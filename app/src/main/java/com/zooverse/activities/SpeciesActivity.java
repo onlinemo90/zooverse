@@ -88,8 +88,16 @@ public class SpeciesActivity extends AbstractBaseActivity {
 			if (this.species.getImage() != null)
 				speciesImage.setImageBitmap(this.species.getImage());
 			
-			individualsCountTextView.setText(Integer.toString(this.species.getIndividuals().size()));
-			individualsCountTextView.setTextColor(Theme.getColor(R.attr.themeColorBackground));
+			if (this.species.getIndividuals().size() > 0){
+				individualsCountTextView.setText(Integer.toString(this.species.getIndividuals().size()));
+				individualsCountTextView.setTextColor(Theme.getColor(R.attr.themeColorBackground));
+			} else
+			{
+				individualsCountTextView.setVisibility(View.GONE);
+				ImageView individualsImageView = findViewById(R.id.individualsImageView);
+				individualsImageView.setColorFilter(Theme.getColor(R.attr.themeColorForegroundFaded));
+			}
+			
 			
 			speciesDescriptionTextView.setMovementMethod(new ScrollingMovementMethod());
 			speciesDescriptionTextView.setOnClickListener(v -> playerView.hide());

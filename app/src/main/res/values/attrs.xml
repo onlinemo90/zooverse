@@ -6,6 +6,7 @@
 	<attr name="themeColorPrimaryDark" format="reference|color" />
 	<attr name="themeColorBackground" format="reference|color" />
 	<attr name="themeColorForeground" format="reference|color" />
+	<attr name="themeColorForegroundFaded" format="reference|color" />
 	
 	<attr name="themeColorCardBackground" format="reference|color" />
 	<attr name="themeColorExoPlayerButtons" format="reference|color" />
