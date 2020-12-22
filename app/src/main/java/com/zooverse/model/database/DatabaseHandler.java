@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.provider.BaseColumns;
 import android.util.Pair;
 
 import com.zooverse.AssetManager;
@@ -23,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DatabaseHandler extends SQLiteAssetHelper {
-	private static final int DATABASE_VERSION = 34;
+	private static final int DATABASE_VERSION = 38;
 	
 	private static final SimpleDateFormat ticketDateFormat = new SimpleDateFormat(DatabaseContract.TicketEntry.DATE_FORMAT);
 	private static final SimpleDateFormat individualDobFormat = new SimpleDateFormat(DatabaseContract.IndividualEntry.DOB_FORMAT);
@@ -102,17 +103,20 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		int id;
 		String name, description;
 		byte[] imageBlob;
+		Pair<Double, Double> location;
+		List<Pair<String, String>> attributes;
 		Species tmpSpecies;
 		while (cursor.moveToNext()) {
 			id = cursor.getInt(cursor.getColumnIndex(DatabaseContract.SpeciesEntry._ID));
 			name = cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_NAME));
 			description = cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_DESCRIPTION));
 			imageBlob = cursor.getBlob(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_IMAGE));
-			Pair<Double, Double> location = this.getLocation(cursor.getInt(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_LOCATION_ID)));
+			location = this.getLocation(cursor.getInt(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_LOCATION_ID)));
+			attributes = this.getSpeciesAttributes(id);
 			if (imageBlob != null)
-				tmpSpecies = new Species(id, name, description, BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length), location);
+				tmpSpecies = new Species(id, name, description, BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length), attributes, location);
 			else
-				tmpSpecies = new Species(id, name, description, null, location);
+				tmpSpecies = new Species(id, name, description, null, attributes, location);
 			tmpSpecies.setIndividuals(this.getSpeciesIndividuals(tmpSpecies));
 			speciesMap.put(id, tmpSpecies);
 		}
@@ -120,25 +124,8 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		return speciesMap;
 	}
 	
-	private Pair<Double, Double> getLocation(int locationID) {
-		Cursor cursor = database.query(
-				DatabaseContract.LocationEntry.TABLE_NAME,
-				new String[]{
-						DatabaseContract.LocationEntry.COLUMN_LATITUDE,
-						DatabaseContract.LocationEntry.COLUMN_LONGITUDE,
-				},
-				DatabaseContract.SpeciesEntry._ID + "= ?", new String[]{Integer.toString(locationID)},
-				null, null, null
-		);
-		Pair<Double, Double> location = null;
-		if (cursor.moveToNext()) {
-			location = new Pair<>(
-					cursor.getDouble(cursor.getColumnIndex(DatabaseContract.LocationEntry.COLUMN_LATITUDE)),
-					cursor.getDouble(cursor.getColumnIndex(DatabaseContract.LocationEntry.COLUMN_LONGITUDE))
-			);
-		}
-		cursor.close();
-		return location;
+	private List<Pair<String,String>> getSpeciesAttributes(int speciesID){
+		return getAttributes(speciesID, DatabaseContract.SpeciesAttributesEntry.TABLE_NAME);
 	}
 	
 	public byte[] getSpeciesAudio(int speciesID) {
@@ -191,32 +178,16 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 			weight = cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_WEIGHT));
 			size = cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_SIZE));
 			
-			individualList.add(new Individual(id, species, name, dob, placeOfBirth, gender, weight, size, getIndividualAttributes(id)));
+			individualList.add(
+					new Individual(id, species, name, dob, placeOfBirth, gender, weight, size, getIndividualAttributes(id))
+			);
 		}
 		cursor.close();
 		return individualList;
 	}
 	
 	private List<Pair<String, String>> getIndividualAttributes(int individualID) {
-		List<Pair<String, String>> facts = new ArrayList<>();
-		Cursor cursor = database.rawQuery(
-				"select attributeCat." + DatabaseContract.AttributeCategoryEntry.COLUMN_NAME + " , " +
-						" indAttributes." + DatabaseContract.IndividualAttributesEntry.COLUMN_ATTRIBUTE +
-						" from " + DatabaseContract.IndividualAttributesEntry.TABLE_NAME + " as indAttributes inner join " + DatabaseContract.AttributeCategoryEntry.TABLE_NAME + " as attributeCat on " +
-						" indAttributes." + DatabaseContract.IndividualAttributesEntry.COLUMN_CATEGORY_ID + " = attributeCat." + DatabaseContract.AttributeCategoryEntry._ID +
-						" where indAttributes." + DatabaseContract.IndividualAttributesEntry.COLUMN_INDIVIDUAL_ID + "=? " +
-						"order by attributeCat." + DatabaseContract.AttributeCategoryEntry.COLUMN_PRIORITY + " desc ",
-				new String[]{Integer.toString(individualID)}
-		);
-		while (cursor.moveToNext()) {
-			facts.add(new Pair<>(
-							cursor.getString(cursor.getColumnIndex(DatabaseContract.AttributeCategoryEntry.COLUMN_NAME)),
-							cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualAttributesEntry.COLUMN_ATTRIBUTE))
-					)
-			);
-		}
-		cursor.close();
-		return facts;
+		return getAttributes(individualID, DatabaseContract.IndividualAttributesEntry.TABLE_NAME);
 	}
 	
 	public Bitmap getIndividualImage(int individualID) {
@@ -236,5 +207,49 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 			return BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length);
 		else
 			return null;
+	}
+	
+	// Other----------------------------------------------------------------
+	private Pair<Double, Double> getLocation(int locationID) {
+		Cursor cursor = database.query(
+				DatabaseContract.LocationEntry.TABLE_NAME,
+				new String[]{
+						DatabaseContract.LocationEntry.COLUMN_LATITUDE,
+						DatabaseContract.LocationEntry.COLUMN_LONGITUDE,
+				},
+				DatabaseContract.SpeciesEntry._ID + "= ?", new String[]{Integer.toString(locationID)},
+				null, null, null
+		);
+		Pair<Double, Double> location = null;
+		if (cursor.moveToNext()) {
+			location = new Pair<>(
+					cursor.getDouble(cursor.getColumnIndex(DatabaseContract.LocationEntry.COLUMN_LATITUDE)),
+					cursor.getDouble(cursor.getColumnIndex(DatabaseContract.LocationEntry.COLUMN_LONGITUDE))
+			);
+		}
+		cursor.close();
+		return location;
+	}
+	
+	private List<Pair<String, String>> getAttributes(int subjectID, String tableName) {
+		List<Pair<String, String>> attributes = new ArrayList<>();
+		Cursor cursor = database.rawQuery(
+				"select attributeCategories." + DatabaseContract.AttributeCategoryEntry.COLUMN_NAME + " , " +
+						" subjectAttributes." + DatabaseContract.AnimalAttributesColumns.COLUMN_ATTRIBUTE +
+						" from " + tableName + " as subjectAttributes inner join " + DatabaseContract.AttributeCategoryEntry.TABLE_NAME + " as attributeCategories on " +
+						" subjectAttributes." + DatabaseContract.AnimalAttributesColumns.COLUMN_CATEGORY_ID + " = attributeCategories." + DatabaseContract.AttributeCategoryEntry._ID +
+						" where subjectAttributes." + DatabaseContract.AnimalAttributesColumns.COLUMN_SUBJECT_ID + "=? " +
+						"order by attributeCategories." + DatabaseContract.AttributeCategoryEntry.COLUMN_PRIORITY + " desc ",
+				new String[]{Integer.toString(subjectID)}
+		);
+		while (cursor.moveToNext()) {
+			attributes.add(new Pair<>(
+							cursor.getString(cursor.getColumnIndex(DatabaseContract.AttributeCategoryEntry.COLUMN_NAME)),
+							cursor.getString(cursor.getColumnIndex(DatabaseContract.AnimalAttributesColumns.COLUMN_ATTRIBUTE))
+					)
+			);
+		}
+		cursor.close();
+		return attributes;
 	}
 }

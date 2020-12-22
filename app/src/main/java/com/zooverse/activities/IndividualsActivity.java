@@ -30,7 +30,7 @@ public class IndividualsActivity extends AbstractBaseActivity {
 		Species species = Model.getSpecies().get(getIntent().getIntExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, 0));
 		individuals = species.getIndividuals();
 		
-		setTitle(getString(R.string.our_species_title_prefix) + species.getName() + getString(R.string.our_species_title_suffix));
+		setTitle(getString(R.string.our_species_title_prefix) + " " + species.getNamePlural());
 		
 		ViewPager2 viewPager = findViewById(R.id.individualsViewPager);
 		TabLayout tabLayout = findViewById(R.id.individualsTabLayout);
