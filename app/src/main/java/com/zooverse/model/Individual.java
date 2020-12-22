@@ -53,7 +53,6 @@ public class Individual {
 	}
 	
 	public String getAge() {
-		
 		if ((this.getDOB() != null)) {
 			Period age = Period.between(getDOB().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), LocalDate.now());
 			

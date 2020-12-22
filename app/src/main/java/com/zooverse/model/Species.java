@@ -31,6 +31,10 @@ public class Species {
 		return this.name;
 	}
 	
+	public String getNamePlural() {
+		return this.name + "s";
+	}
+	
 	public Bitmap getImage() {
 		return this.image;
 	}
@@ -43,13 +47,15 @@ public class Species {
 		return Model.getSpeciesAudio(this.id);
 	}
 	
-	public Pair<Double, Double> getLocation(){ return this.location; }
+	public Pair<Double, Double> getLocation() {
+		return this.location;
+	}
 	
 	public List<Individual> getIndividuals() {
 		return this.individuals;
 	}
 	
-	public void setIndividuals(List<Individual> individuals){
+	public void setIndividuals(List<Individual> individuals) {
 		this.individuals = individuals;
 	}
 }

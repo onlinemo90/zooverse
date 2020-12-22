@@ -64,18 +64,17 @@
 	<!--Individuals Activity-->
 	<string name="individual_image">Individual Image</string>
 	<string name="our_species_title_prefix">Our</string>
-	<string name="our_species_title_suffix">s</string>
-	<string name="individual_gender_icon">Individual gender</string>
-	<string name="individual_age_icon">Individual age</string>
-	<string name="individual_size_icon">Individual size</string>
-	<string name="individual_origin_icon">Individual place of origin</string>
-	<string name="individual_weight_icon">Individual weight</string>
+	<string name="individual_gender_icon">Gender</string>
+	<string name="individual_age_icon">Age</string>
+	<string name="individual_size_icon">Size</string>
+	<string name="individual_origin_icon">Place of origin</string>
+	<string name="individual_weight_icon">Weight</string>
 
 	<!--IndividualsViewPagerAdapter.class-->
 	<string name="unknown_individual_name">unknown</string>
 
 	<!--Individual.class-->
 	<string name="year_abbreviation">y</string>
-	<string name="month_abbreviation">m</string>
+	<string name="month_abbreviation">mon</string>
 	<string name="day_abbreviation">d</string>
 </resources>

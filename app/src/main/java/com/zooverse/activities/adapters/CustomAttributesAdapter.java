@@ -13,7 +13,7 @@ import com.zooverse.R;
 
 import java.util.List;
 
-public class CustomAttributesAdapter extends RecyclerView.Adapter<CustomAttributesAdapter.CustomAttributeViewHolder>{
+public class CustomAttributesAdapter extends RecyclerView.Adapter<CustomAttributesAdapter.CustomAttributeViewHolder> {
 	
 	private final List<Pair<String, String>> attributes;
 	
@@ -26,13 +26,15 @@ public class CustomAttributesAdapter extends RecyclerView.Adapter<CustomAttribut
 		private final TextView categoryTextView = itemView.findViewById(R.id.categoryTextView);
 		private final TextView attributeTextView = itemView.findViewById(R.id.attributeTextView);
 		
-		public CustomAttributeViewHolder(@NonNull View itemView) { super(itemView); }
+		public CustomAttributeViewHolder(@NonNull View itemView) {
+			super(itemView);
+		}
 	}
 	
 	@NonNull
 	@Override
 	public CustomAttributeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View customAttributesLayout = LayoutInflater.from (parent.getContext()).inflate(R.layout.layout_recyclerview_custom_attributes,parent,false);
+		View customAttributesLayout = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_recyclerview_custom_attributes, parent, false);
 		return new CustomAttributeViewHolder(customAttributesLayout);
 	}
 	
