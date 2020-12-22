@@ -34,7 +34,7 @@ public class IndividualDemographicsAdapter extends RecyclerView.Adapter<Individu
 		}
 		// Weight
 		if (individual.getWeight() != null){
-			demographicViewDataList.add(new DemographicViewData(R.string.individual_weight_icon, individual.getSize(), R.drawable.icon_weight));
+			demographicViewDataList.add(new DemographicViewData(R.string.individual_weight_icon, individual.getWeight(), R.drawable.icon_weight));
 		}
 		// Place of Birth
 		if (individual.getPlaceOfBirth() != null){
