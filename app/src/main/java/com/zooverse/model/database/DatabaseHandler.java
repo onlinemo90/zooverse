@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DatabaseHandler extends SQLiteAssetHelper {
-	private static final int DATABASE_VERSION = 31;
+	private static final int DATABASE_VERSION = 34;
 	
 	private static final SimpleDateFormat ticketDateFormat = new SimpleDateFormat(DatabaseContract.TicketEntry.DATE_FORMAT);
 	private static final SimpleDateFormat individualDobFormat = new SimpleDateFormat(DatabaseContract.IndividualEntry.DOB_FORMAT);
@@ -92,7 +92,8 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 						DatabaseContract.SpeciesEntry._ID,
 						DatabaseContract.SpeciesEntry.COLUMN_NAME,
 						DatabaseContract.SpeciesEntry.COLUMN_DESCRIPTION,
-						DatabaseContract.SpeciesEntry.COLUMN_IMAGE
+						DatabaseContract.SpeciesEntry.COLUMN_IMAGE,
+						DatabaseContract.SpeciesEntry.COLUMN_LOCATION_ID
 				},
 				null, null, null, null,
 				DatabaseContract.SpeciesEntry.COLUMN_NAME + " ASC"
@@ -107,15 +108,37 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 			name = cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_NAME));
 			description = cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_DESCRIPTION));
 			imageBlob = cursor.getBlob(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_IMAGE));
+			Pair<Double, Double> location = this.getLocation(cursor.getInt(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_LOCATION_ID)));
 			if (imageBlob != null)
-				tmpSpecies = new Species(id, name, description, BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length));
+				tmpSpecies = new Species(id, name, description, BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length), location);
 			else
-				tmpSpecies = new Species(id, name, description, null);
+				tmpSpecies = new Species(id, name, description, null, location);
 			tmpSpecies.setIndividuals(this.getSpeciesIndividuals(tmpSpecies));
 			speciesMap.put(id, tmpSpecies);
 		}
 		cursor.close();
 		return speciesMap;
+	}
+	
+	private Pair<Double, Double> getLocation(int locationID) {
+		Cursor cursor = database.query(
+				DatabaseContract.LocationEntry.TABLE_NAME,
+				new String[]{
+						DatabaseContract.LocationEntry.COLUMN_LATITUDE,
+						DatabaseContract.LocationEntry.COLUMN_LONGITUDE,
+				},
+				DatabaseContract.SpeciesEntry._ID + "= ?", new String[]{Integer.toString(locationID)},
+				null, null, null
+		);
+		Pair<Double, Double> location = null;
+		if (cursor.moveToNext()) {
+			location = new Pair<>(
+					cursor.getDouble(cursor.getColumnIndex(DatabaseContract.LocationEntry.COLUMN_LATITUDE)),
+					cursor.getDouble(cursor.getColumnIndex(DatabaseContract.LocationEntry.COLUMN_LONGITUDE))
+			);
+		}
+		cursor.close();
+		return location;
 	}
 	
 	public byte[] getSpeciesAudio(int speciesID) {

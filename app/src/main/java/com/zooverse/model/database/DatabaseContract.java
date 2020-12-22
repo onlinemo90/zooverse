@@ -20,6 +20,7 @@ public final class DatabaseContract {
 		public static final String COLUMN_IMAGE = "image";
 		public static final String COLUMN_DESCRIPTION = "description";
 		public static final String COLUMN_AUDIO = "audio";
+		public static final String COLUMN_LOCATION_ID = "location_id";
 	}
 	
 	public static final class IndividualEntry implements BaseColumns {
@@ -50,5 +51,12 @@ public final class DatabaseContract {
 		public static final String COLUMN_INDIVIDUAL_ID = "individual_id";
 		public static final String COLUMN_CATEGORY_ID = "category_id";
 		public static final String COLUMN_ATTRIBUTE = "attribute";
+	}
+	
+	public static final class LocationEntry implements BaseColumns{
+		public static final String TABLE_NAME = "LOCATION";
+		
+		public static final String COLUMN_LATITUDE = "latitude";
+		public static final String COLUMN_LONGITUDE = "longitude";
 	}
 }

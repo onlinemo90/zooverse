@@ -1,6 +1,7 @@
 package com.zooverse.model;
 
 import android.graphics.Bitmap;
+import android.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,13 +12,15 @@ public class Species {
 	private final String description;
 	private final Bitmap image;
 	private List<Individual> individuals;
+	private final Pair<Double, Double> location;
 	
-	public Species(int id, String name, String description, Bitmap image) {
+	public Species(int id, String name, String description, Bitmap image, Pair<Double, Double> location) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.image = image;
 		this.individuals = new ArrayList<>();
+		this.location = location;
 	}
 	
 	public int getId() {
@@ -39,6 +42,8 @@ public class Species {
 	public byte[] getAudio() {
 		return Model.getSpeciesAudio(this.id);
 	}
+	
+	public Pair<Double, Double> getLocation(){ return this.location; }
 	
 	public List<Individual> getIndividuals() {
 		return this.individuals;
