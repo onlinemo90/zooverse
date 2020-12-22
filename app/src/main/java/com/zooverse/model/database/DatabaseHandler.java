@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DatabaseHandler extends SQLiteAssetHelper {
-	private static final int DATABASE_VERSION = 38;
+	private static final int DATABASE_VERSION = 39;
 	
 	private static final SimpleDateFormat ticketDateFormat = new SimpleDateFormat(DatabaseContract.TicketEntry.DATE_FORMAT);
 	private static final SimpleDateFormat individualDobFormat = new SimpleDateFormat(DatabaseContract.IndividualEntry.DOB_FORMAT);
@@ -92,7 +92,6 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 				new String[]{
 						DatabaseContract.SpeciesEntry._ID,
 						DatabaseContract.SpeciesEntry.COLUMN_NAME,
-						DatabaseContract.SpeciesEntry.COLUMN_DESCRIPTION,
 						DatabaseContract.SpeciesEntry.COLUMN_IMAGE,
 						DatabaseContract.SpeciesEntry.COLUMN_LOCATION_ID
 				},
@@ -101,7 +100,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		);
 		Map<Integer, Species> speciesMap = new HashMap<>();
 		int id;
-		String name, description;
+		String name;
 		byte[] imageBlob;
 		Pair<Double, Double> location;
 		List<Pair<String, String>> attributes;
@@ -109,14 +108,13 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		while (cursor.moveToNext()) {
 			id = cursor.getInt(cursor.getColumnIndex(DatabaseContract.SpeciesEntry._ID));
 			name = cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_NAME));
-			description = cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_DESCRIPTION));
 			imageBlob = cursor.getBlob(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_IMAGE));
 			location = this.getLocation(cursor.getInt(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_LOCATION_ID)));
 			attributes = this.getSpeciesAttributes(id);
 			if (imageBlob != null)
-				tmpSpecies = new Species(id, name, description, BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length), attributes, location);
+				tmpSpecies = new Species(id, name, BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length), attributes, location);
 			else
-				tmpSpecies = new Species(id, name, description, null, attributes, location);
+				tmpSpecies = new Species(id, name, null, attributes, location);
 			tmpSpecies.setIndividuals(this.getSpeciesIndividuals(tmpSpecies));
 			speciesMap.put(id, tmpSpecies);
 		}

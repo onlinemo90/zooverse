@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.Player;
@@ -25,6 +27,7 @@ import com.google.android.exoplayer2.upstream.ByteArrayDataSource;
 import com.zooverse.MainApplication;
 import com.zooverse.R;
 import com.zooverse.Theme;
+import com.zooverse.activities.adapters.CustomAttributesAdapter;
 import com.zooverse.model.Model;
 import com.zooverse.model.Species;
 
@@ -79,8 +82,8 @@ public class SpeciesActivity extends AbstractBaseActivity {
 		// Does requested position exist?
 		if (speciesPosition > -1 && speciesPosition < Model.getSortedSpeciesList().size()) {
 			ImageView speciesImage = findViewById(R.id.speciesImage);
-			TextView speciesDescriptionTextView = findViewById(R.id.speciesDescriptionTextView);
 			TextView individualsCountTextView = findViewById(R.id.individualsCountTextView);
+			RecyclerView customAttributesRecyclerView = findViewById(R.id.speciesAttributesRecyclerView);
 			
 			this.species = Model.getSortedSpeciesList().get(speciesPosition);
 			setTitle(this.species.getName());
@@ -98,10 +101,10 @@ public class SpeciesActivity extends AbstractBaseActivity {
 				individualsImageView.setColorFilter(Theme.getColor(R.attr.themeColorForegroundFaded));
 			}
 			
-			
-			speciesDescriptionTextView.setMovementMethod(new ScrollingMovementMethod());
-			speciesDescriptionTextView.setOnClickListener(v -> playerView.hide());
-			speciesDescriptionTextView.setText(this.species.getDescription());
+			// Loading RecyclerView with custom attributes
+			CustomAttributesAdapter customAttributesAdapter = new CustomAttributesAdapter(species.getAttributes());
+			customAttributesRecyclerView.setAdapter(customAttributesAdapter);
+			customAttributesRecyclerView.setLayoutManager(new LinearLayoutManager(MainApplication.getContext()));
 			
 			simplePlayer.stop();
 			playerView.hide();
@@ -148,7 +151,7 @@ public class SpeciesActivity extends AbstractBaseActivity {
 					@Nullable
 					@Override
 					public CharSequence getCurrentContentText(Player player) {
-						return species.getDescription();
+						return "";
 					}
 					
 					@Nullable

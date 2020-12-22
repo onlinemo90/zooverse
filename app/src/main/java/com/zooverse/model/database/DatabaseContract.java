@@ -18,7 +18,6 @@ public final class DatabaseContract {
 		
 		public static final String COLUMN_NAME = "name";
 		public static final String COLUMN_IMAGE = "image";
-		public static final String COLUMN_DESCRIPTION = "description";
 		public static final String COLUMN_AUDIO = "audio";
 		public static final String COLUMN_LOCATION_ID = "location_id";
 	}
