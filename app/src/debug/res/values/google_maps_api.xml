@@ -1,0 +1,14 @@
+<resources>
+	<!--
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=6A:15:C0:35:56:B7:82:AF:12:B0:88:2A:10:F6:17:F1:ED:A0:DF:EE%3Bcom.zooverse.activities
+
+    Package name:
+    com.zooverse.activities
+
+    SHA-1 certificate fingerprint:
+    6A:15:C0:35:56:B7:82:AF:12:B0:88:2A:10:F6:17:F1:ED:A0:DF:EE
+
+    -->
+	<string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCxNRmB0sOLzAMVyTlroxIlGm6uXREpRfo</string>
+</resources>

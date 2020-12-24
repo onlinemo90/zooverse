@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DatabaseHandler extends SQLiteAssetHelper {
-	private static final int DATABASE_VERSION = 34;
+	private static final int DATABASE_VERSION = 35;
 	
 	private static final SimpleDateFormat ticketDateFormat = new SimpleDateFormat(DatabaseContract.TicketEntry.DATE_FORMAT);
 	private static final SimpleDateFormat individualDobFormat = new SimpleDateFormat(DatabaseContract.IndividualEntry.DOB_FORMAT);
@@ -136,6 +136,8 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 					cursor.getDouble(cursor.getColumnIndex(DatabaseContract.LocationEntry.COLUMN_LATITUDE)),
 					cursor.getDouble(cursor.getColumnIndex(DatabaseContract.LocationEntry.COLUMN_LONGITUDE))
 			);
+			if (location.first == 0 || location.second == 0)
+				location = null;
 		}
 		cursor.close();
 		return location;

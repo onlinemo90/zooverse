@@ -12,7 +12,12 @@ public class MainApplication extends Application {
 	private static Context appContext;
 	private static SharedPreferences appPreferences;
 	
+	//Intent Extras
 	public static final String INTENT_EXTRA_SPECIES_ID = "species_id";
+	
+	//Permission requests
+	public static final int PERMISSION_REQUEST_CAMERA = 1;
+	public static final int PERMISSION_REQUEST_LOCATION = 2;
 	
 	@Override
 	public void onCreate() {

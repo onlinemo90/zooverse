@@ -88,16 +88,27 @@ public class SpeciesActivity extends AbstractBaseActivity {
 			if (this.species.getImage() != null)
 				speciesImage.setImageBitmap(this.species.getImage());
 			
+			// show numbers of individuals, if 0 fade icon
 			if (this.species.getIndividuals().size() > 0){
 				individualsCountTextView.setText(Integer.toString(this.species.getIndividuals().size()));
 				individualsCountTextView.setTextColor(Theme.getColor(R.attr.themeColorBackground));
-			} else
-			{
+			} else {
 				individualsCountTextView.setVisibility(View.GONE);
 				ImageView individualsImageView = findViewById(R.id.individualsImageView);
 				individualsImageView.setColorFilter(Theme.getColor(R.attr.themeColorForegroundFaded));
 			}
 			
+			// fade location button if no location available
+			if (this.species.getLocation() == null){
+				ImageView locationImageView = findViewById(R.id.locationImageView);
+				locationImageView.setColorFilter(Theme.getColor(R.attr.themeColorForegroundFaded));
+			}
+			
+			//fade audio button if no audio available
+			if (this.species.getAudio() == null){
+				ImageView audioImageView = findViewById(R.id.audioImageView);
+				audioImageView.setColorFilter(Theme.getColor(R.attr.themeColorForegroundFaded));
+			}
 			
 			speciesDescriptionTextView.setMovementMethod(new ScrollingMovementMethod());
 			speciesDescriptionTextView.setOnClickListener(v -> playerView.hide());
@@ -179,7 +190,11 @@ public class SpeciesActivity extends AbstractBaseActivity {
 	}
 	
 	public void openSpeciesLocation(View view) {
-		//TODO: implement locator screen/logic
+		if (this.species.getLocation() != null) {
+			Intent intent = new Intent(MainApplication.getContext(), SpeciesLocationActivity.class);
+			intent.putExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, this.species.getId());
+			startActivity(intent);
+		}
 	}
 	
 	public void openSpeciesIndividuals(View view) {

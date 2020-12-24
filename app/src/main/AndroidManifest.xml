@@ -2,9 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.zooverse">
 
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.VIBRATE" />
-	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.INTERNET" />
 
 	<application
 		android:name=".MainApplication"
@@ -14,6 +15,14 @@
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme.Light">
+
+		<meta-data
+			android:name="com.google.android.geo.API_KEY"
+			android:value="@string/google_maps_key" />
+
+		<activity
+			android:name=".activities.SpeciesLocationActivity"
+			android:screenOrientation="portrait"></activity>
 		<activity
 			android:name=".activities.SplashScreenActivity"
 			android:screenOrientation="portrait"
@@ -51,7 +60,7 @@
 			android:name=".activities.ZooInformationActivity"
 			android:label="@string/zoo_information_title"
 			android:launchMode="singleTop"
-			android:screenOrientation="portrait"/>
+			android:screenOrientation="portrait" />
 		<activity
 			android:name=".activities.SpeciesSearchActivity"
 			android:screenOrientation="portrait" />

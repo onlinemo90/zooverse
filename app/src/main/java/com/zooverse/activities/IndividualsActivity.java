@@ -27,7 +27,7 @@ public class IndividualsActivity extends AbstractBaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_individuals);
 		
-		Species species = Model.getSpecies().get(getIntent().getIntExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, 0));
+		Species species = Model.getSpecies().get(getIntent().getIntExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, 1));
 		individuals = species.getIndividuals();
 		
 		setTitle(getString(R.string.our_species_title_prefix) + species.getName() + getString(R.string.our_species_title_suffix));
