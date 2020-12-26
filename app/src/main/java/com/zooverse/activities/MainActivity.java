@@ -39,14 +39,14 @@ public class MainActivity extends AbstractBaseActivity implements TicketListAdap
 	}
 	
 	@Override
-	protected void onStart() {
-		super.onStart();
-		ticketListAdapter.notifyDataSetChanged();
+	protected void onResume() {
+		super.onResume();
+		List<Ticket> storedTickets = Model.getStoredTickets();
 		
 		View noTicketLayoutView = findViewById(R.id.noTicketLayout);
 		View ticketListLayoutView = findViewById(R.id.ticketListLayout);
 		
-		List<Ticket> storedTickets = Model.getStoredTickets();
+		ticketListAdapter.notifyDataSetChanged();
 		if (storedTickets.isEmpty()) {
 			noTicketLayoutView.setVisibility(View.VISIBLE);
 			ticketListLayoutView.setVisibility(View.GONE);
@@ -57,7 +57,7 @@ public class MainActivity extends AbstractBaseActivity implements TicketListAdap
 	}
 	
 	public void openScanTicket(View view) {
-		startActivity(new Intent(MainApplication.getContext(), QRCodeReaderActivity.class));
+		startActivity(new Intent(MainApplication.getContext(), ZooMenuActivity.class));
 	}
 	
 	@Override

@@ -15,7 +15,6 @@ import java.util.Map;
 public class Model {
 	private static final DatabaseHandler dbHandler = new DatabaseHandler();
 	
-	private static final List<Ticket> storedTickets = initStoredTickets();
 	private static final Map<Integer, Species> species = initSpecies();
 	
 	private Model() {
@@ -25,32 +24,22 @@ public class Model {
 	public static void init() {
 		// Empty method to initialise constants
 	}
-	// Ticket-----------------------------------------------------------
-	private static List<Ticket> initStoredTickets() {
-		return dbHandler.getStoredTickets(new Date());
-	}
 	
 	private static Map<Integer, Species> initSpecies() {
 		return dbHandler.getAllSpecies();
 	}
 	
+	// Tickets----------------------------------------------------------
 	public static List<Ticket> getStoredTickets() {
-		return storedTickets;
+		return dbHandler.getStoredTickets(new Date());
 	}
 	
 	public static boolean hasTodayTicket() {
-		for (Ticket ticket : storedTickets) {
-			if (ticket.isForToday()) {
-				return true;
-			}
-		}
-		return false;
+		return dbHandler.hasTodayTicket();
 	}
 	
 	public static void storeTicket(Ticket ticket) {
 		dbHandler.storeTicket(ticket);
-		storedTickets.add(ticket);
-		Collections.sort(storedTickets, (Ticket t1, Ticket t2) -> t1.getDate().compareTo(t2.getDate()));
 	}
 	
 	// Species----------------------------------------------------------
