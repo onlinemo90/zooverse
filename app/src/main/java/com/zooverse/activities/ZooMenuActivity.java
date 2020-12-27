@@ -28,18 +28,22 @@ public class ZooMenuActivity extends AbstractBaseActivity {
 	}
 	
 	public void openTour(View view) {
-		Log.d("zoo menu", "'Go on a Tour' button pressed");
-	}
-	
-	public void openZooInformation(View view) {
-		startActivity(new Intent(MainApplication.getContext(), ZooInformationActivity.class));
+		Intent intent = new Intent(MainApplication.getContext(), SpeciesCatalogueActivity.class);
+		intent.putExtra(MainApplication.INTENT_EXTRA_SPECIES_CATALOGUE_MODE, SpeciesCatalogueActivity.CATALOGUE_MODE_TOUR);
+		startActivity(intent);
 	}
 	
 	public void openSpeciesSearch(View view) {
-		startActivity(new Intent(MainApplication.getContext(), SpeciesSearchActivity.class));
+		Intent intent = new Intent(MainApplication.getContext(), SpeciesCatalogueActivity.class);
+		intent.putExtra(MainApplication.INTENT_EXTRA_SPECIES_CATALOGUE_MODE, SpeciesCatalogueActivity.CATALOGUE_MODE_SEARCH);
+		startActivity(intent);
 	}
 	
 	public void openInfoPointScan(View view) {
 		startActivity(new Intent(MainApplication.getContext(), QRCodeReaderActivity.class));
+	}
+	
+	public void openZooInformation(View view) {
+		startActivity(new Intent(MainApplication.getContext(), ZooInformationActivity.class));
 	}
 }

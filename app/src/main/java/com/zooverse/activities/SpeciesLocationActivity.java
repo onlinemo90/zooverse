@@ -52,11 +52,11 @@ public class SpeciesLocationActivity extends FragmentActivity implements OnMapRe
 		markerOptions.icon(BitmapDescriptorFactory.fromBitmap(buildMapsPin(speciesBitmap)));
 		
 		zooMap.addMarker(markerOptions);
-		zooMap.moveCamera(CameraUpdateFactory.newLatLngZoom(speciesCoordinates,16));
+		zooMap.moveCamera(CameraUpdateFactory.newLatLngZoom(speciesCoordinates,this.getResources().getInteger(R.integer.initial_zoom_out)));
 		zooMap.getUiSettings().setMyLocationButtonEnabled(true);
 		zooMap.getUiSettings().setZoomControlsEnabled(true);
 		zooMap.getUiSettings().setCompassEnabled(true);
-		zooMap.setMinZoomPreference(14);
+		zooMap.setMinZoomPreference(this.getResources().getInteger(R.integer.boundary_zoom_out));
 		
 		if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 			//Location Permission already granted
@@ -75,23 +75,23 @@ public class SpeciesLocationActivity extends FragmentActivity implements OnMapRe
 				if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
 					// Permission granted
 					zooMap.setMyLocationEnabled(true);
-				else
-					// permission denied
-					Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
 			}
+			else
+				// permission denied
+				Toast.makeText(this, getString(R.string.location_on_map_permission_denied), Toast.LENGTH_LONG).show();
 		}
 	}
 	
 	public Bitmap buildMapsPin (Bitmap speciesBitmap) {
 		Bitmap pinBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_pin);
-		pinBitmap = Bitmap.createScaledBitmap(pinBitmap, 256, 256, true);
+		pinBitmap = Bitmap.createScaledBitmap(pinBitmap, this.getResources().getInteger(R.integer.bitmap_dimensions_pin), this.getResources().getInteger(R.integer.bitmap_dimensions_pin), true);
 		
 		if (speciesBitmap.getWidth() >= speciesBitmap.getHeight()) {
 			speciesBitmap = Bitmap.createBitmap(speciesBitmap, speciesBitmap.getWidth()/2 - speciesBitmap.getHeight()/2, 0, speciesBitmap.getHeight(), speciesBitmap.getHeight());
 		} else {
 			speciesBitmap = Bitmap.createBitmap(speciesBitmap, 0, speciesBitmap.getHeight()/2 - speciesBitmap.getWidth()/2, speciesBitmap.getWidth(), speciesBitmap.getWidth());
 		}
-		speciesBitmap = Bitmap.createScaledBitmap(speciesBitmap, 180, 180, true);
+		speciesBitmap = Bitmap.createScaledBitmap(speciesBitmap, this.getResources().getInteger(R.integer.bitmap_dimensions_species), this.getResources().getInteger(R.integer.bitmap_dimensions_species), true);
 		
 		Bitmap mapsPin = Bitmap.createBitmap(pinBitmap.getWidth(), pinBitmap.getHeight(), pinBitmap.getConfig());
 		Canvas canvas = new Canvas(mapsPin);

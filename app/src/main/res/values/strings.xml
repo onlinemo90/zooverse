@@ -29,8 +29,19 @@
 	<string name="audio_image_view">species audio icon</string>
 	<string name="location_image_view">species location icon</string>
 
-	<!--activity_species_search-->
+	<!--activity_species_catalogue-->
 	<string name="species_search_criterion_hint">Search for an animal…</string>
+	<string name="speciesImageView">Species Image</string>
+	<string name="speciesLocationIcon">Species Location</string>
+
+	<!--SpeciesCatalogueActivity.class-->
+	<string name="meter_abbreviation">m</string>
+	<string name="kilometer_abbreviation">km</string>
+	<string name="no_location">unknown</string>
+	<string name="location_permission_denied">Tour can only be used with shared location</string>
+
+	<!--SpeciesLocationActivity.class-->
+	<string name="location_on_map_permission_denied">own location not visible</string>
 
 	<!--activity_zoo_menu-->
 	<string name="zoo_menu_tour_button">Go\non a Tour</string>

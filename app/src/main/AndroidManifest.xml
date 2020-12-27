@@ -62,7 +62,7 @@
 			android:launchMode="singleTop"
 			android:screenOrientation="portrait" />
 		<activity
-			android:name=".activities.SpeciesSearchActivity"
+			android:name=".activities.SpeciesCatalogueActivity"
 			android:screenOrientation="portrait" />
 		<activity
 			android:name=".activities.SpeciesActivity"

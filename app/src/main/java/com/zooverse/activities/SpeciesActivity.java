@@ -87,28 +87,34 @@ public class SpeciesActivity extends AbstractBaseActivity {
 			
 			if (this.species.getImage() != null)
 				speciesImage.setImageBitmap(this.species.getImage());
+			else
+				speciesImage.setImageBitmap(null);
 			
 			// show numbers of individuals, if 0 fade icon
+			ImageView individualsImageView = findViewById(R.id.individualsImageView);
 			if (this.species.getIndividuals().size() > 0){
+				individualsCountTextView.setVisibility(View.VISIBLE);
 				individualsCountTextView.setText(Integer.toString(this.species.getIndividuals().size()));
 				individualsCountTextView.setTextColor(Theme.getColor(R.attr.themeColorBackground));
+				individualsImageView.setColorFilter(Theme.getColor(R.attr.themeColorForeground));
 			} else {
-				individualsCountTextView.setVisibility(View.GONE);
-				ImageView individualsImageView = findViewById(R.id.individualsImageView);
+				individualsCountTextView.setVisibility(View.INVISIBLE);
 				individualsImageView.setColorFilter(Theme.getColor(R.attr.themeColorForegroundFaded));
 			}
 			
 			// fade location button if no location available
-			if (this.species.getLocation() == null){
-				ImageView locationImageView = findViewById(R.id.locationImageView);
+			ImageView locationImageView = findViewById(R.id.locationImageView);
+			if (this.species.getLocation() == null)
 				locationImageView.setColorFilter(Theme.getColor(R.attr.themeColorForegroundFaded));
-			}
+			else
+				locationImageView.setColorFilter(Theme.getColor(R.attr.themeColorForeground));
 			
 			//fade audio button if no audio available
-			if (this.species.getAudio() == null){
-				ImageView audioImageView = findViewById(R.id.audioImageView);
+			ImageView audioImageView = findViewById(R.id.audioImageView);
+			if (this.species.getAudio() == null)
 				audioImageView.setColorFilter(Theme.getColor(R.attr.themeColorForegroundFaded));
-			}
+			else
+				audioImageView.setColorFilter(Theme.getColor(R.attr.themeColorForeground));
 			
 			speciesDescriptionTextView.setMovementMethod(new ScrollingMovementMethod());
 			speciesDescriptionTextView.setOnClickListener(v -> playerView.hide());

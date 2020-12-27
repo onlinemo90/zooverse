@@ -24,13 +24,13 @@ import static org.hamcrest.Matchers.*;
 public class SpeciesSearchActivityTest {
 	
 	@Rule
-	public ActivityScenarioRule<SpeciesSearchActivity> mNoteListActivityRule =
-			new ActivityScenarioRule<>(SpeciesSearchActivity.class);
+	public ActivityScenarioRule<SpeciesCatalogueActivity> mNoteListActivityRule =
+			new ActivityScenarioRule<>(SpeciesCatalogueActivity.class);
 	
 	@Test
 	public void selectSpeciesTest() {
 		onView(withId(R.id.searchCriterionEditText)).perform(typeText("Gira"));
-		onView(withId(R.id.searchResults)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+		onView(withId(R.id.speciesList)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 		onView(allOf(isAssignableFrom(TextView.class), withParent(isAssignableFrom(Toolbar.class)))).check(matches(withText("Giraffe")));
 	}
 }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<integer name="initial_zoom_out">16</integer>
+	<integer name="boundary_zoom_out">14</integer>
+
+	<integer name="bitmap_dimensions_pin">256</integer>
+	<integer name="bitmap_dimensions_species">180</integer>
+</resources>
