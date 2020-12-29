@@ -73,6 +73,20 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		return ticketList;
 	}
 	
+	public boolean hasTodayTicket(){
+		String todayDateStr = ticketDateFormat.format(new Date());
+		Cursor cursor = database.query(
+				DatabaseContract.TicketEntry.TABLE_NAME,
+				new String[]{},
+				DatabaseContract.TicketEntry.COLUMN_DATE + "= ?",
+				new String[]{todayDateStr},
+				null, null, null
+		);
+		boolean hasTodayTicket = cursor.moveToNext();
+		cursor.close();
+		return hasTodayTicket;
+	}
+	
 	public void storeTicket(Ticket ticket) {
 		ContentValues insertValues = new ContentValues();
 		insertValues.put(DatabaseContract.TicketEntry.COLUMN_ZOO_ID, ticket.getZooID());
