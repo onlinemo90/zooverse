@@ -44,44 +44,8 @@
 		android:layout_height="wrap_content"
 		android:orientation="vertical"
 		app:layout_constraintGuide_percent="0.5" />
-
-	<TextView
-		android:id="@+id/speciesDescriptionTextView"
-		android:layout_width="0dp"
-		android:layout_height="0dp"
-		android:layout_marginStart="8dp"
-		android:layout_marginTop="8dp"
-		android:layout_marginEnd="8dp"
-		android:layout_marginBottom="8dp"
-		android:clickable="true"
-		android:focusable="true"
-		android:scrollbars="vertical"
-		android:textIsSelectable="false"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="@+id/speciesGuidelineMiddle" />
-
-	<com.google.android.exoplayer2.ui.PlayerControlView
-		android:id="@+id/exoAudioPlayer"
-		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		app:background="?attr/themeColorPrimary"
-		app:buffered_color="?attr/themeColorForeground"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/speciesGuidelineBottom"
-		app:played_color="?attr/themeColorPrimary"
-		app:scrubber_color="?attr/themeColorPrimary"
-		app:show_buffering="always"
-		app:show_fastforward_button="false"
-		app:show_rewind_button="false"
-		app:show_shuffle_button="false"
-		app:show_timeout="0"
-		app:unplayed_color="?attr/themeColorBackground" />
-
-
+	
+	
 	<ImageView
 		android:id="@+id/locationImageView"
 		android:layout_width="wrap_content"
@@ -139,5 +103,33 @@
 		app:layout_constraintBottom_toBottomOf="@+id/individualsImageView"
 		app:layout_constraintEnd_toEndOf="@+id/individualsImageView"
 		app:layout_constraintStart_toStartOf="@+id/individualsImageView" />
+	
+	<androidx.recyclerview.widget.RecyclerView
+		android:id="@+id/speciesAttributesRecyclerView"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="@+id/speciesGuidelineMiddle" />
+	
+	<com.google.android.exoplayer2.ui.PlayerControlView
+		android:id="@+id/exoAudioPlayer"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		app:background="?attr/themeColorPrimary"
+		app:buffered_color="?attr/themeColorForeground"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/speciesGuidelineBottom"
+		app:played_color="?attr/themeColorPrimary"
+		app:scrubber_color="?attr/themeColorPrimary"
+		app:show_buffering="always"
+		app:show_fastforward_button="false"
+		app:show_rewind_button="false"
+		app:show_shuffle_button="false"
+		app:show_timeout="0"
+		app:unplayed_color="?attr/themeColorBackground" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

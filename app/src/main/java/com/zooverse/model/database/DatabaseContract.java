@@ -18,7 +18,6 @@ public final class DatabaseContract {
 		
 		public static final String COLUMN_NAME = "name";
 		public static final String COLUMN_IMAGE = "image";
-		public static final String COLUMN_DESCRIPTION = "description";
 		public static final String COLUMN_AUDIO = "audio";
 		public static final String COLUMN_LOCATION_ID = "location_id";
 	}
@@ -45,12 +44,18 @@ public final class DatabaseContract {
 		public static final String COLUMN_PRIORITY = "priority";
 	}
 	
-	public static final class IndividualAttributesEntry implements BaseColumns{
+	public interface AnimalAttributesColumns extends BaseColumns{
+		String COLUMN_SUBJECT_ID = "subject_id";
+		String COLUMN_CATEGORY_ID = "category_id";
+		String COLUMN_ATTRIBUTE = "attribute";
+	}
+	
+	public static final class IndividualAttributesEntry implements AnimalAttributesColumns{
 		public static final String TABLE_NAME = "INDIVIDUALS_ATTRIBUTES";
-		
-		public static final String COLUMN_INDIVIDUAL_ID = "individual_id";
-		public static final String COLUMN_CATEGORY_ID = "category_id";
-		public static final String COLUMN_ATTRIBUTE = "attribute";
+	}
+	
+	public static final class SpeciesAttributesEntry implements AnimalAttributesColumns{
+		public static final String TABLE_NAME = "SPECIES_ATTRIBUTES";
 	}
 	
 	public static final class LocationEntry implements BaseColumns{

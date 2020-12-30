@@ -6,14 +6,16 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.Player;
@@ -25,6 +27,7 @@ import com.google.android.exoplayer2.upstream.ByteArrayDataSource;
 import com.zooverse.MainApplication;
 import com.zooverse.R;
 import com.zooverse.Theme;
+import com.zooverse.activities.adapters.CustomAttributesAdapter;
 import com.zooverse.model.Model;
 import com.zooverse.model.Species;
 
@@ -65,6 +68,7 @@ public class SpeciesActivity extends AbstractBaseActivity {
 		return true;
 	}
 	
+	@SuppressLint("ClickableViewAccessibility")
 	private void populateSpeciesPage(int speciesId, int requestedSpecies) {
 		// identify species position in sorted list
 		int speciesPosition = -1;
@@ -79,8 +83,8 @@ public class SpeciesActivity extends AbstractBaseActivity {
 		// Does requested position exist?
 		if (speciesPosition > -1 && speciesPosition < Model.getSortedSpeciesList().size()) {
 			ImageView speciesImage = findViewById(R.id.speciesImage);
-			TextView speciesDescriptionTextView = findViewById(R.id.speciesDescriptionTextView);
 			TextView individualsCountTextView = findViewById(R.id.individualsCountTextView);
+			RecyclerView customAttributesRecyclerView = findViewById(R.id.speciesAttributesRecyclerView);
 			
 			this.species = Model.getSortedSpeciesList().get(speciesPosition);
 			setTitle(this.species.getName());
@@ -116,11 +120,21 @@ public class SpeciesActivity extends AbstractBaseActivity {
 			else
 				audioImageView.setColorFilter(Theme.getColor(R.attr.themeColorForeground));
 			
-			speciesDescriptionTextView.setMovementMethod(new ScrollingMovementMethod());
-			speciesDescriptionTextView.setOnClickListener(v -> playerView.hide());
-			speciesDescriptionTextView.setText(this.species.getDescription());
-			
-			simplePlayer.stop();
+			// Loading RecyclerView with custom attributes
+			CustomAttributesAdapter customAttributesAdapter = new CustomAttributesAdapter(species.getAttributes());
+			customAttributesRecyclerView.setAdapter(customAttributesAdapter);
+			customAttributesRecyclerView.setLayoutManager(new LinearLayoutManager(MainApplication.getContext()));
+			customAttributesRecyclerView.setOnTouchListener((v, event) -> {
+				//handle only simple touch
+				if (event.getAction() == MotionEvent.ACTION_DOWN) {
+					playerView.hide();
+					return true;
+				}
+				//leave other touch events like scrolling to recyclerView
+				return false;
+			});
+					
+					simplePlayer.stop();
 			playerView.hide();
 			byte[] speciesAudio = species.getAudio();
 			if (speciesAudio != null) {
@@ -165,7 +179,7 @@ public class SpeciesActivity extends AbstractBaseActivity {
 					@Nullable
 					@Override
 					public CharSequence getCurrentContentText(Player player) {
-						return species.getDescription();
+						return "";
 					}
 					
 					@Nullable
