@@ -44,17 +44,17 @@ public final class DatabaseContract {
 		public static final String COLUMN_PRIORITY = "priority";
 	}
 	
-	public interface AnimalAttributesColumns extends BaseColumns{
+	public interface AttributesColumns extends BaseColumns{
 		String COLUMN_SUBJECT_ID = "subject_id";
 		String COLUMN_CATEGORY_ID = "category_id";
 		String COLUMN_ATTRIBUTE = "attribute";
 	}
 	
-	public static final class IndividualAttributesEntry implements AnimalAttributesColumns{
+	public static final class IndividualAttributesEntry implements AttributesColumns {
 		public static final String TABLE_NAME = "INDIVIDUALS_ATTRIBUTES";
 	}
 	
-	public static final class SpeciesAttributesEntry implements AnimalAttributesColumns{
+	public static final class SpeciesAttributesEntry implements AttributesColumns {
 		public static final String TABLE_NAME = "SPECIES_ATTRIBUTES";
 	}
 	

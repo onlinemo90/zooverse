@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.provider.BaseColumns;
 import android.util.Pair;
 
 import com.zooverse.AssetManager;
@@ -245,17 +244,17 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		List<Pair<String, String>> attributes = new ArrayList<>();
 		Cursor cursor = database.rawQuery(
 				"select attributeCategories." + DatabaseContract.AttributeCategoryEntry.COLUMN_NAME + " , " +
-						" subjectAttributes." + DatabaseContract.AnimalAttributesColumns.COLUMN_ATTRIBUTE +
+						" subjectAttributes." + DatabaseContract.AttributesColumns.COLUMN_ATTRIBUTE +
 						" from " + tableName + " as subjectAttributes inner join " + DatabaseContract.AttributeCategoryEntry.TABLE_NAME + " as attributeCategories on " +
-						" subjectAttributes." + DatabaseContract.AnimalAttributesColumns.COLUMN_CATEGORY_ID + " = attributeCategories." + DatabaseContract.AttributeCategoryEntry._ID +
-						" where subjectAttributes." + DatabaseContract.AnimalAttributesColumns.COLUMN_SUBJECT_ID + "=? " +
+						" subjectAttributes." + DatabaseContract.AttributesColumns.COLUMN_CATEGORY_ID + " = attributeCategories." + DatabaseContract.AttributeCategoryEntry._ID +
+						" where subjectAttributes." + DatabaseContract.AttributesColumns.COLUMN_SUBJECT_ID + "=? " +
 						"order by attributeCategories." + DatabaseContract.AttributeCategoryEntry.COLUMN_PRIORITY + " desc ",
 				new String[]{Integer.toString(subjectID)}
 		);
 		while (cursor.moveToNext()) {
 			attributes.add(new Pair<>(
 							cursor.getString(cursor.getColumnIndex(DatabaseContract.AttributeCategoryEntry.COLUMN_NAME)),
-							cursor.getString(cursor.getColumnIndex(DatabaseContract.AnimalAttributesColumns.COLUMN_ATTRIBUTE))
+							cursor.getString(cursor.getColumnIndex(DatabaseContract.AttributesColumns.COLUMN_ATTRIBUTE))
 					)
 			);
 		}
