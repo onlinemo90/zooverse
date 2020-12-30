@@ -3,6 +3,9 @@ package com.zooverse.model;
 import android.graphics.Bitmap;
 import android.util.Pair;
 
+import com.zooverse.MainApplication;
+import com.zooverse.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +35,7 @@ public class Species {
 	}
 	
 	public String getNamePlural() {
-		return this.getName() + "s";
+		return this.getName() + MainApplication.getContext().getString(R.string.species_title_suffix);
 	}
 	
 	public Bitmap getImage() {

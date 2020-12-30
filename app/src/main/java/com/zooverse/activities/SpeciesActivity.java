@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -68,6 +68,7 @@ public class SpeciesActivity extends AbstractBaseActivity {
 		return true;
 	}
 	
+	@SuppressLint("ClickableViewAccessibility")
 	private void populateSpeciesPage(int speciesId, int requestedSpecies) {
 		// identify species position in sorted list
 		int speciesPosition = -1;
@@ -105,8 +106,17 @@ public class SpeciesActivity extends AbstractBaseActivity {
 			CustomAttributesAdapter customAttributesAdapter = new CustomAttributesAdapter(species.getAttributes());
 			customAttributesRecyclerView.setAdapter(customAttributesAdapter);
 			customAttributesRecyclerView.setLayoutManager(new LinearLayoutManager(MainApplication.getContext()));
-			
-			simplePlayer.stop();
+			customAttributesRecyclerView.setOnTouchListener((v, event) -> {
+				//handle only simple touch
+				if (event.getAction() == MotionEvent.ACTION_DOWN) {
+					playerView.hide();
+					return true;
+				}
+				//leave other touch events like scrolling to recyclerView
+				return false;
+			});
+					
+					simplePlayer.stop();
 			playerView.hide();
 			byte[] speciesAudio = species.getAudio();
 			if (speciesAudio != null) {

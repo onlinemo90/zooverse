@@ -176,9 +176,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 			weight = cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_WEIGHT));
 			size = cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_SIZE));
 			
-			individualList.add(
-					new Individual(id, species, name, dob, placeOfBirth, gender, weight, size, getIndividualAttributes(id))
-			);
+			individualList.add(new Individual(id, species, name, dob, placeOfBirth, gender, weight, size, getIndividualAttributes(id)));
 		}
 		cursor.close();
 		return individualList;

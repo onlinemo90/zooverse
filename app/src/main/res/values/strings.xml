@@ -77,4 +77,7 @@
 	<string name="year_abbreviation">y</string>
 	<string name="month_abbreviation">m</string>
 	<string name="day_abbreviation">d</string>
+
+	<!--Species.class-->
+	<string name="species_title_suffix">s</string>
 </resources>
