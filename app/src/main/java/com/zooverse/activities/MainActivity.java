@@ -57,7 +57,7 @@ public class MainActivity extends AbstractBaseActivity implements TicketListAdap
 	}
 	
 	public void openScanTicket(View view) {
-		startActivity(new Intent(MainApplication.getContext(), ZooMenuActivity.class));
+		startActivity(new Intent(MainApplication.getContext(), QRCodeReaderActivity.class));
 	}
 	
 	@Override

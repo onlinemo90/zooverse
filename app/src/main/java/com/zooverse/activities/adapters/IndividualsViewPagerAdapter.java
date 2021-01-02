@@ -1,5 +1,6 @@
 package com.zooverse.activities.adapters;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,10 @@ public class IndividualsViewPagerAdapter extends RecyclerView.Adapter<Individual
 		private final ImageView individualImageView = itemView.findViewById(R.id.individualImage);
 		private final ImageView genderImageView = itemView.findViewById(R.id.individualIconGender);
 		private final RecyclerView customAttributesRecyclerView = itemView.findViewById(R.id.customAttributesRecyclerView);
-		private final RecyclerView demographicsRecyclerView = itemView.findViewById(R.id.individualDemographicsRecyclerView);
+		private final TextView individualAgeTextView = itemView.findViewById(R.id.individualAgeTextView);
+		private final TextView individualPlaceOfBirthTextView = itemView.findViewById(R.id.individualOriginTextView);
+		private final TextView individualWeightTextView = itemView.findViewById(R.id.individualWeightTextView);
+		private final TextView individualSizeTextView = itemView.findViewById(R.id.individualSizeTextView);
 		
 		public IndividualViewHolder(@NonNull View itemView) {
 			super(itemView);
@@ -51,19 +55,36 @@ public class IndividualsViewPagerAdapter extends RecyclerView.Adapter<Individual
 			viewHolder.individualImageView.setImageBitmap(this.individuals.get(position).getImage());
 		
 		if (individual.getGender() != null && individual.getGender().toUpperCase().equals("M"))
-			viewHolder.genderImageView.setImageResource(R.drawable.icon_gender_male);
+			viewHolder.genderImageView.setImageDrawable(MainApplication.getContext().getDrawable(R.drawable.icon_gender_male));
 		else if (individual.getGender() != null && individual.getGender().toUpperCase().equals("F"))
-			viewHolder.genderImageView.setImageResource(R.drawable.icon_gender_female);
+			viewHolder.genderImageView.setImageDrawable(MainApplication.getContext().getDrawable(R.drawable.icon_gender_female));
+		
+		if (individual.getAge() != null)
+			viewHolder.individualAgeTextView.setText(individual.getAge());
+		else
+			viewHolder.individualAgeTextView.setVisibility(View.GONE);
+		
+		if (individual.getSize() != null)
+			viewHolder.individualSizeTextView.setText(individual.getSize());
+		else
+			viewHolder.individualSizeTextView.setVisibility(View.GONE);
+		
+		if (individual.getWeight() != null)
+			viewHolder.individualWeightTextView.setText(individual.getWeight());
+		else
+			viewHolder.individualWeightTextView.setVisibility(View.GONE);
+		
+		if (individual.getPlaceOfBirth() != null) {
+			viewHolder.individualPlaceOfBirthTextView.setText(individual.getPlaceOfBirth());
+		}
+		else {
+			viewHolder.individualPlaceOfBirthTextView.setVisibility(View.GONE);
+		}
 		
 		// Loading RecyclerView with custom attributes
 		CustomAttributesAdapter customAttributesAdapter = new CustomAttributesAdapter(individual.getAttributes());
 		viewHolder.customAttributesRecyclerView.setAdapter(customAttributesAdapter);
 		viewHolder.customAttributesRecyclerView.setLayoutManager(new LinearLayoutManager(MainApplication.getContext()));
-		
-		// Loading RecyclerView with demographics
-		IndividualDemographicsAdapter demographicsAdapter = new IndividualDemographicsAdapter(individual);
-		viewHolder.demographicsRecyclerView.setAdapter(demographicsAdapter);
-		viewHolder.demographicsRecyclerView.setLayoutManager(new LinearLayoutManager(MainApplication.getContext()));
 	}
 	
 	@Override
