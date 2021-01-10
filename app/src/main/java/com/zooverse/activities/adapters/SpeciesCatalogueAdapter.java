@@ -79,10 +79,7 @@ public class SpeciesCatalogueAdapter extends RecyclerView.Adapter<SpeciesCatalog
 	public void onBindViewHolder(@NonNull SpeciesCatalogueViewHolder viewHolder, int position) {
 		if (this.catalogueMode == SpeciesCatalogueActivity.CATALOGUE_MODE_SEARCH) {
 			viewHolder.speciesNameTextView.setText(this.filteredSpeciesList.get(position).getName());
-			if (this.filteredSpeciesList.get(position).getImage() != null)
-				viewHolder.speciesImageView.setImageBitmap(this.filteredSpeciesList.get(position).getImage());
-			else
-				viewHolder.speciesImageView.setImageBitmap(null);
+			viewHolder.speciesImageView.setImageBitmap(this.filteredSpeciesList.get(position).getImage());
 		} else {
 			viewHolder.speciesNameTextView.setText(this.speciesWithDistanceSorted.get(position).getKey().getName());
 			int distance = this.speciesWithDistanceSorted.get(position).getValue();
@@ -104,10 +101,7 @@ public class SpeciesCatalogueAdapter extends RecyclerView.Adapter<SpeciesCatalog
 				viewHolder.speciesDistanceTextView.setText(MainApplication.getContext().getString(R.string.no_location));
 				viewHolder.speciesLocationImageView.setColorFilter(Theme.getColor(R.attr.themeColorForegroundFaded));
 			}
-			if (this.speciesWithDistanceSorted.get(position).getKey().getImage() != null)
-				viewHolder.speciesImageView.setImageBitmap(this.speciesWithDistanceSorted.get(position).getKey().getImage());
-			else
-				viewHolder.speciesImageView.setImageBitmap(null);
+			viewHolder.speciesImageView.setImageBitmap(this.speciesWithDistanceSorted.get(position).getKey().getImage());
 		}
 	}
 	

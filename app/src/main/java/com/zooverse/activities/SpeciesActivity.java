@@ -89,10 +89,7 @@ public class SpeciesActivity extends AbstractBaseActivity {
 			this.species = Model.getSortedSpeciesList().get(speciesPosition);
 			setTitle(this.species.getName());
 			
-			if (this.species.getImage() != null)
-				speciesImage.setImageBitmap(this.species.getImage());
-			else
-				speciesImage.setImageBitmap(null);
+			speciesImage.setImageBitmap(this.species.getImage());
 			
 			// show numbers of individuals, if 0 fade icon
 			ImageView individualsImageView = findViewById(R.id.individualsImageView);
