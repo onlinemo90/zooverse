@@ -1,6 +1,8 @@
 package com.zooverse;
 
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,9 +66,16 @@ public class Theme {
 			}
 		}
 	}
+	
 	public static void apply(ImageView... images) {
-		for (ImageView image : images){
+		for (ImageView image : images) {
 			image.setColorFilter(getColor(R.attr.themeColorForeground));
+		}
+	}
+	
+	public static void apply(Drawable... drawables){
+		for (Drawable drawable : drawables) {
+			drawable.setColorFilter(getColor(R.attr.themeColorForeground), PorterDuff.Mode.SRC_ATOP);
 		}
 	}
 }
