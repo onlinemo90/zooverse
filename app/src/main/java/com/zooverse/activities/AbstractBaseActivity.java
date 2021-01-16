@@ -90,7 +90,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
 	}
 	
 	private void processExternalRequestTicket(Ticket ticket) {
-		if (ticket.getZooID().equals(getString(R.string.zoo_id))) {
+		if (ticket.getZooID().equalsIgnoreCase(getString(R.string.zoo_id))) {
 			if (ticket.isExpired()) {
 				Toast.makeText(MainApplication.getContext(), R.string.scan_qr_code_error_past_ticket, Toast.LENGTH_SHORT).show();
 			} else {

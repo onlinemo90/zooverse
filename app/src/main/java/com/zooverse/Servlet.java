@@ -9,12 +9,28 @@ import com.zooverse.utils.EncryptionHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class Servlet {
-	private static final String FIELD_SEPARATOR = "|";
-	private static final String TICKET_ID = "T";
-	private static final String INFO_POINT_ID = "I";
+	private static final String FIELD_SEPARATOR = "&";
+	private static final String KEY_VALUE_SEPARATOR = "=";
+	
+	// Common keys
+	private static final String TYPE_KEY = "type";
+	private static final String ZOO_KEY = "zoo";
+	
+	// Type values
+	private static final String TICKET_TYPE = "ticket";
+	private static final String SPECIES_TYPE = "species";
+	
+	// Ticket keys
+	private static final String TICKET_DATE_KEY = "date";
+	
+	// Species keys
+	private static final String SPECIES_ID_KEY = "id";
 	
 	private static SimpleDateFormat TICKET_DATE_FORMAT = new SimpleDateFormat("yyyyMMdd");
 	
@@ -31,12 +47,17 @@ public class Servlet {
 		try {
 			String request = EncryptionHelper.decrypt(encryptedRequest);
 			Log.d("decryptedRequest", request);
-			String[] requestFields = request.split(Pattern.quote(FIELD_SEPARATOR));
-			String requestTypeId = requestFields[0];
-			if (TICKET_ID.equals(requestTypeId)) {
-				return processTicket(requestFields);
-			} else if (INFO_POINT_ID.equals(requestTypeId)) {
-				return processInfoPoint(requestFields);
+			Map<String, String> requestMap = new HashMap<>();
+			for (String field : request.split(Pattern.quote(FIELD_SEPARATOR))) {
+				String key = field.trim().toLowerCase().split(Pattern.quote(KEY_VALUE_SEPARATOR))[0];
+				String value = field.trim().toLowerCase().split(Pattern.quote(KEY_VALUE_SEPARATOR))[1];
+				requestMap.put(key, value);
+			}
+			String requestType = requestMap.get(TYPE_KEY);
+			if (TICKET_TYPE.equals(requestType)) {
+				return processTicket(requestMap);
+			} else if (SPECIES_TYPE.equals(requestType)) {
+				return processSpecies(requestMap);
 			}
 		} catch (Exception e) {
 			return null;
@@ -44,20 +65,23 @@ public class Servlet {
 		return null;
 	}
 	
-	private static Ticket processTicket(String[] requestFields) throws ParseException {
-		String zooID = requestFields[1];
-		String dateString = requestFields[2];
-		if (dateString.length() == TICKET_DATE_FORMAT.toPattern().length() && dateString.matches("[0-9]+")) {
+	private static Ticket processTicket(Map<String, String> requestMap) throws ParseException {
+		String zooID = requestMap.get(ZOO_KEY);
+		String dateString = requestMap.get(TICKET_DATE_KEY);
+		if (zooID != null && dateString.length() == TICKET_DATE_FORMAT.toPattern().length()) {
 			return new Ticket(zooID, TICKET_DATE_FORMAT.parse(dateString));
 		}
 		return null;
 	}
 	
-	private static Species processInfoPoint(String[] requestFields) {
-		int speciesId = Integer.parseInt(requestFields[1]);
-		if (Model.getSpecies().containsKey(speciesId)){
-			return Model.getSpecies().get(speciesId);
+	private static Species processSpecies(Map<String, String> requestMap) {
+		if (MainApplication.getContext().getString(R.string.zoo_id).equalsIgnoreCase(requestMap.get(ZOO_KEY))) {
+			int speciesId = Integer.parseInt(Objects.requireNonNull(requestMap.get(SPECIES_ID_KEY)));
+			if (Model.getSpecies().containsKey(speciesId)) {
+				return Model.getSpecies().get(speciesId);
+			}
 		}
 		return null;
 	}
+	
 }
