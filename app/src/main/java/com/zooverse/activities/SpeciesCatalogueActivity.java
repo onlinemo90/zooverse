@@ -91,6 +91,7 @@ public class SpeciesCatalogueActivity extends AbstractBaseActivity implements Sp
 		int selectedSpeciesId = speciesCatalogueAdapter.getSelectedSpecies(position).getId();
 		Intent intent = new Intent(MainApplication.getContext(), SpeciesActivity.class);
 		intent.putExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, selectedSpeciesId);
+		intent.putIntegerArrayListExtra(MainApplication.INTENT_EXTRA_SPECIES_VIEWPAGER_FILTERED_LIST, speciesCatalogueAdapter.getFilteredSpeciesList());
 		startActivity(intent);
 	}
 	

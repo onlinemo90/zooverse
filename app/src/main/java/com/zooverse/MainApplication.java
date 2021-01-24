@@ -15,6 +15,7 @@ public class MainApplication extends Application {
 	//Intent Extras
 	public static final String INTENT_EXTRA_SPECIES_ID = "species_id";
 	public static final String INTENT_EXTRA_SPECIES_CATALOGUE_MODE = "species_catalogue_mode";
+	public static final String INTENT_EXTRA_SPECIES_VIEWPAGER_FILTERED_LIST = "species_filtered_list";
 	
 	//Permission requests
 	public static final int PERMISSION_REQUEST_CAMERA = 1;
