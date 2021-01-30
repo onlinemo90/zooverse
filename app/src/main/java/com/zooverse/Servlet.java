@@ -6,6 +6,7 @@ import com.zooverse.model.Model;
 import com.zooverse.model.Species;
 import com.zooverse.model.Ticket;
 import com.zooverse.utils.EncryptionHelper;
+import static com.zooverse.MainApplication.getContext;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,6 +18,10 @@ import java.util.regex.Pattern;
 public class Servlet {
 	private static final String FIELD_SEPARATOR = "&";
 	private static final String KEY_VALUE_SEPARATOR = "=";
+	private static final String url =
+		getContext().getString(R.string.url_scheme) + "://" +
+		getContext().getString(R.string.url_host) +
+		getContext().getString(R.string.url_pathPrefix) +"?";
 	
 	// Common keys
 	private static final String TYPE_KEY = "type";
@@ -45,6 +50,9 @@ public class Servlet {
 	
 	public static Object process(String encryptedRequest) {
 		try {
+			if (encryptedRequest.contains(url))
+				encryptedRequest = encryptedRequest.trim().toLowerCase().split(Pattern.quote(url))[1];
+			
 			String request = EncryptionHelper.decrypt(encryptedRequest);
 			Log.d("decryptedRequest", request);
 			Map<String, String> requestMap = new HashMap<>();

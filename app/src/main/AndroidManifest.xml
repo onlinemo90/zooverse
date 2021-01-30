@@ -39,9 +39,9 @@
 				<category android:name="android.intent.category.DEFAULT" />
 
 				<data
-					android:host="zooverse.co.uk"
-					android:pathPrefix="/android"
-					android:scheme="https" />
+					android:host="@string/url_host"
+					android:pathPrefix="@string/url_pathPrefix"
+					android:scheme="@string/url_scheme" />
 			</intent-filter>
 		</activity>
 		<activity
