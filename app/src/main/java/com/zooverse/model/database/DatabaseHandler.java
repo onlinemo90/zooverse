@@ -25,8 +25,7 @@ import java.util.Map;
 public class DatabaseHandler extends SQLiteAssetHelper {
 	private static final int DATABASE_VERSION = 48;
 	
-	private static final SimpleDateFormat ticketDateFormat = new SimpleDateFormat(DatabaseContract.TicketEntry.DATE_FORMAT);
-	private static final SimpleDateFormat individualDobFormat = new SimpleDateFormat(DatabaseContract.IndividualEntry.DOB_FORMAT);
+	private static final SimpleDateFormat dateFormat = new SimpleDateFormat(DatabaseContract.DATE_FORMAT);
 	
 	private final SQLiteDatabase database;
 	
@@ -39,7 +38,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 	
 	// Ticket-----------------------------------------------------------
 	public List<Ticket> getStoredTickets(Date afterDate) {
-		String afterDateString = ticketDateFormat.format(afterDate);
+		String afterDateString = dateFormat.format(afterDate);
 		String[] columns = {
 				DatabaseContract.TicketEntry.COLUMN_ZOO_ID,
 				DatabaseContract.TicketEntry.COLUMN_DATE
@@ -63,7 +62,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		while (cursor.moveToNext()) {
 			zooID = cursor.getString(cursor.getColumnIndex(DatabaseContract.TicketEntry.COLUMN_ZOO_ID));
 			try {
-				date = ticketDateFormat.parse(cursor.getString(cursor.getColumnIndex(DatabaseContract.TicketEntry.COLUMN_DATE)));
+				date = dateFormat.parse(cursor.getString(cursor.getColumnIndex(DatabaseContract.TicketEntry.COLUMN_DATE)));
 			} catch (ParseException e) {
 				continue;
 			}
@@ -74,7 +73,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 	}
 	
 	public boolean hasTodayTicket(){
-		String todayDateStr = ticketDateFormat.format(new Date());
+		String todayDateStr = dateFormat.format(new Date());
 		Cursor cursor = database.query(
 				DatabaseContract.TicketEntry.TABLE_NAME,
 				new String[]{},
@@ -90,7 +89,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 	public void storeTicket(Ticket ticket) {
 		ContentValues insertValues = new ContentValues();
 		insertValues.put(DatabaseContract.TicketEntry.COLUMN_ZOO_ID, ticket.getZooID());
-		insertValues.put(DatabaseContract.TicketEntry.COLUMN_DATE, ticketDateFormat.format(ticket.getDate()));
+		insertValues.put(DatabaseContract.TicketEntry.COLUMN_DATE, dateFormat.format(ticket.getDate()));
 		database.insert(
 				DatabaseContract.TicketEntry.TABLE_NAME,
 				null,
@@ -180,7 +179,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 			id = cursor.getInt(cursor.getColumnIndex(DatabaseContract.IndividualEntry._ID));
 			name = cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_NAME));
 			try {
-				dob = individualDobFormat.parse(cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_DOB)));
+				dob = dateFormat.parse(cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_DOB)));
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
