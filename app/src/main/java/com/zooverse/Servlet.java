@@ -21,7 +21,7 @@ public class Servlet {
 	private static final String url =
 		getContext().getString(R.string.url_scheme) + "://" +
 		getContext().getString(R.string.url_host) +
-		getContext().getString(R.string.url_pathPrefix) +"?";
+		getContext().getString(R.string.url_pathPrefix) + "?";
 	
 	// Common keys
 	private static final String TYPE_KEY = "type";
@@ -48,27 +48,30 @@ public class Servlet {
 		// prevent instantiation
 	}
 	
-	public static Object process(String encryptedRequest) {
-		try {
-			if (encryptedRequest.contains(url))
-				encryptedRequest = encryptedRequest.trim().toLowerCase().split(Pattern.quote(url))[1];
-			
-			String request = EncryptionHelper.decrypt(encryptedRequest);
-			Log.d("decryptedRequest", request);
-			Map<String, String> requestMap = new HashMap<>();
-			for (String field : request.split(Pattern.quote(FIELD_SEPARATOR))) {
-				String key = field.trim().toLowerCase().split(Pattern.quote(KEY_VALUE_SEPARATOR))[0];
-				String value = field.trim().toLowerCase().split(Pattern.quote(KEY_VALUE_SEPARATOR))[1];
-				requestMap.put(key, value);
+	public static Object process(String requestURL) {
+		if (requestURL.trim().toLowerCase().startsWith(url)){
+			try {
+				String encryptedRequest = requestURL.trim().substring(url.length());
+				String request = EncryptionHelper.decrypt(encryptedRequest).toLowerCase();
+				Log.d("decryptedRequest", request);
+				Map<String, String> requestMap = new HashMap<>();
+				for (String field : request.split(Pattern.quote(FIELD_SEPARATOR))) {
+					String key = field.trim().split(Pattern.quote(KEY_VALUE_SEPARATOR))[0];
+					String value = field.trim().split(Pattern.quote(KEY_VALUE_SEPARATOR))[1];
+					requestMap.put(key, value);
+				}
+				String requestType = requestMap.get(TYPE_KEY);
+				if (TICKET_TYPE.equals(requestType)) {
+					return processTicket(requestMap);
+				} else if (MainApplication.getContext().getString(R.string.zoo_id).equalsIgnoreCase(requestMap.get(ZOO_KEY))) {
+					switch(requestType){
+						case SPECIES_TYPE: return processSpecies(requestMap);
+						// add new request types here
+					}
+				}
+			} catch (Exception e) {
+				return null;
 			}
-			String requestType = requestMap.get(TYPE_KEY);
-			if (TICKET_TYPE.equals(requestType)) {
-				return processTicket(requestMap);
-			} else if (SPECIES_TYPE.equals(requestType)) {
-				return processSpecies(requestMap);
-			}
-		} catch (Exception e) {
-			return null;
 		}
 		return null;
 	}
@@ -83,11 +86,9 @@ public class Servlet {
 	}
 	
 	private static Species processSpecies(Map<String, String> requestMap) {
-		if (MainApplication.getContext().getString(R.string.zoo_id).equalsIgnoreCase(requestMap.get(ZOO_KEY))) {
-			int speciesId = Integer.parseInt(Objects.requireNonNull(requestMap.get(SPECIES_ID_KEY)));
-			if (Model.getSpecies().containsKey(speciesId)) {
-				return Model.getSpecies().get(speciesId);
-			}
+		int speciesId = Integer.parseInt(Objects.requireNonNull(requestMap.get(SPECIES_ID_KEY)));
+		if (Model.getSpecies().containsKey(speciesId)) {
+			return Model.getSpecies().get(speciesId);
 		}
 		return null;
 	}
