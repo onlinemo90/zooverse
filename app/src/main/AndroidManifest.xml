@@ -15,6 +15,7 @@
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme.Light">
+		<activity android:name=".activities.GroupActivity"></activity>
 
 		<meta-data
 			android:name="com.google.android.geo.API_KEY"
@@ -22,7 +23,7 @@
 
 		<activity
 			android:name=".activities.SpeciesLocationActivity"
-			android:screenOrientation="portrait"></activity>
+			android:screenOrientation="portrait" />
 		<activity
 			android:name=".activities.SplashScreenActivity"
 			android:screenOrientation="portrait"

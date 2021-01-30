@@ -10,6 +10,7 @@ import android.util.Pair;
 import com.zooverse.AssetManager;
 import com.zooverse.MainApplication;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
+import com.zooverse.model.Group;
 import com.zooverse.model.Individual;
 import com.zooverse.model.Species;
 import com.zooverse.model.Ticket;
@@ -23,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DatabaseHandler extends SQLiteAssetHelper {
-	private static final int DATABASE_VERSION = 48;
+	private static final int DATABASE_VERSION = 54;
 	
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat(DatabaseContract.DATE_FORMAT);
 	
@@ -95,6 +96,63 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 				null,
 				insertValues
 		);
+	}
+	
+	// Groups----------------------------------------------------------
+	public Map<Integer, Group> getAllGroups() {
+		Cursor cursor = database.query(
+				DatabaseContract.GroupEntry.TABLE_NAME,
+				new String[]{
+						DatabaseContract.GroupEntry._ID,
+						DatabaseContract.GroupEntry.COLUMN_NAME,
+						DatabaseContract.GroupEntry.COLUMN_IMAGE
+				},
+				null, null, null, null,
+				DatabaseContract.GroupEntry.COLUMN_NAME + " ASC"
+		);
+		
+		Map<Integer, Group> groupMap = new HashMap<>();
+		int id;
+		String name;
+		byte[] imageBlob;
+		
+		Group tmpGroup;
+		while (cursor.moveToNext()) {
+			id = cursor.getInt(cursor.getColumnIndex(DatabaseContract.GroupEntry._ID));
+			name = cursor.getString(cursor.getColumnIndex(DatabaseContract.GroupEntry.COLUMN_NAME));
+			imageBlob = cursor.getBlob(cursor.getColumnIndex(DatabaseContract.GroupEntry.COLUMN_IMAGE));
+			if (imageBlob != null)
+				tmpGroup = new Group(id, name, BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length));
+			else
+				tmpGroup = new Group(id, name, null);
+			
+			groupMap.put(id, tmpGroup);
+		}
+		cursor.close();
+		return groupMap;
+	}
+	
+	public List<Pair<Integer, Integer>> getSpeciesInGroups() {
+		List<Pair<Integer, Integer>> speciesInGroups = new ArrayList<>();
+		
+		Cursor cursor = database.query(
+				DatabaseContract.GroupsSpeciesEntry.TABLE_NAME,
+				new String[]{
+						DatabaseContract.GroupsSpeciesEntry._ID,
+						DatabaseContract.GroupsSpeciesEntry.COLUMN_GROUP_ID,
+						DatabaseContract.GroupsSpeciesEntry.COLUMN_SPECIES_ID
+				},
+				null, null, null, null, null
+		);
+		
+		while (cursor.moveToNext()) {
+			speciesInGroups.add(new Pair<>(
+					cursor.getInt(cursor.getColumnIndex(DatabaseContract.GroupsSpeciesEntry.COLUMN_GROUP_ID)),
+					cursor.getInt(cursor.getColumnIndex(DatabaseContract.GroupsSpeciesEntry.COLUMN_SPECIES_ID))
+			));
+		}
+		cursor.close();
+		return speciesInGroups;
 	}
 	
 	// Species----------------------------------------------------------

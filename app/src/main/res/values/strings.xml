@@ -23,6 +23,9 @@
 	<!--activity_qr_code_scanner-->
 	<string name="qr_scanner_title">Please scan a QR code</string>
 
+	<!--activity_group-->
+	<string name="group_image">Group Image</string>
+
 	<!--activity_species-->
 	<string name="species_image">Species Image</string>
 	<string name="individuals_image_view">species individuals icon</string>

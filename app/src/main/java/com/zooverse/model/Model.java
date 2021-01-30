@@ -16,6 +16,8 @@ public class Model {
 	private static final DatabaseHandler dbHandler = new DatabaseHandler();
 	
 	private static final Map<Integer, Species> species = initSpecies();
+	private static final Map<Integer, Group> groups = initGroups();
+	private static final List<Pair<Integer,Integer>> speciesInGroupsRegister = initSpeciesInGroupsRegister();
 	
 	private Model() {
 		// prevent class initialisation
@@ -23,10 +25,6 @@ public class Model {
 	
 	public static void init() {
 		// Empty method to initialise constants
-	}
-	
-	private static Map<Integer, Species> initSpecies() {
-		return dbHandler.getAllSpecies();
 	}
 	
 	// Tickets----------------------------------------------------------
@@ -42,7 +40,33 @@ public class Model {
 		dbHandler.storeTicket(ticket);
 	}
 	
+	// Groups----------------------------------------------------------
+	private static Map<Integer, Group> initGroups() {
+		return dbHandler.getAllGroups();
+	}
+	
+	private static List<Pair<Integer,Integer>> initSpeciesInGroupsRegister() {
+		return dbHandler.getSpeciesInGroups();
+	}
+	
+	public static Map<Integer, Group> getGroups() {
+		return groups;
+	}
+	
+	public static List<Species> getSpeciesOfGroup(int groupId) {
+		List<Species> speciesOfGroup= new ArrayList<>();
+		for (Pair<Integer, Integer> speciesInGroup : speciesInGroupsRegister) {
+			if (speciesInGroup.first == groupId)
+				speciesOfGroup.add(species.get(speciesInGroup.second));
+		}
+		return speciesOfGroup;
+	}
+	
 	// Species----------------------------------------------------------
+	private static Map<Integer, Species> initSpecies() {
+		return dbHandler.getAllSpecies();
+	}
+	
 	public static Map<Integer, Species> getSpecies() {
 		return species;
 	}

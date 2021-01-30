@@ -27,8 +27,8 @@ import com.zooverse.R;
 import com.zooverse.activities.adapters.SpeciesCatalogueAdapter;
 
 public class SpeciesCatalogueActivity extends AbstractBaseActivity implements SpeciesCatalogueAdapter.SpeciesOnClickListener {
-	public static final int CATALOGUE_MODE_SEARCH = 0;
-	public static final int CATALOGUE_MODE_AROUND_ME = 1;
+	public static final int CATALOGUE_MODE_WITHOUT_LOCATION = 0;
+	public static final int CATALOGUE_MODE_WITH_LOCATION = 1;
 	private SpeciesCatalogueAdapter speciesCatalogueAdapter;
 	private FusedLocationProviderClient locationProviderClient;
 	private LocationCallback locationCallback;
@@ -49,7 +49,7 @@ public class SpeciesCatalogueActivity extends AbstractBaseActivity implements Sp
 		
 		EditText searchCriterionEditText = findViewById(R.id.searchCriterionEditText);
 		
-		if (catalogueMode == CATALOGUE_MODE_SEARCH) {
+		if (catalogueMode == CATALOGUE_MODE_WITHOUT_LOCATION) {
 			searchCriterionEditText.addTextChangedListener(new TextWatcher() {
 				@Override
 				public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -74,14 +74,14 @@ public class SpeciesCatalogueActivity extends AbstractBaseActivity implements Sp
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (catalogueMode == CATALOGUE_MODE_AROUND_ME)
+		if (catalogueMode == CATALOGUE_MODE_WITH_LOCATION)
 			requestUserLocation();
 	}
 	
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if (catalogueMode == CATALOGUE_MODE_AROUND_ME && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+		if (catalogueMode == CATALOGUE_MODE_WITH_LOCATION && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
 			locationProviderClient.removeLocationUpdates(locationCallback);
 	}
 	

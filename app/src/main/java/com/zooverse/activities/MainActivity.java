@@ -57,7 +57,11 @@ public class MainActivity extends AbstractBaseActivity implements TicketListAdap
 	}
 	
 	public void openScanTicket(View view) {
-		startActivity(new Intent(MainApplication.getContext(), QRCodeReaderActivity.class));
+		//startActivity(new Intent(MainApplication.getContext(), QRCodeReaderActivity.class));
+		//TODO: remove the test code below which is only for testing the group activity.
+		Intent intent = new Intent(new Intent(MainApplication.getContext(), GroupActivity.class));
+		intent.putExtra(MainApplication.INTENT_EXTRA_GROUP_ID, 1);
+		startActivity(intent);
 	}
 	
 	@Override

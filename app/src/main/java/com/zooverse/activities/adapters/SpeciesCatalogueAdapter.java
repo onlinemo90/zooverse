@@ -16,6 +16,7 @@ import com.zooverse.R;
 import com.zooverse.Theme;
 import com.zooverse.activities.SpeciesCatalogueActivity;
 import com.zooverse.activities.SpeciesLocationActivity;
+import com.zooverse.model.Group;
 import com.zooverse.model.Model;
 import com.zooverse.model.Species;
 
@@ -37,7 +38,7 @@ public class SpeciesCatalogueAdapter extends RecyclerView.Adapter<SpeciesCatalog
 	public SpeciesCatalogueAdapter(SpeciesOnClickListener speciesOnClickListener, int catalogueMode) {
 		this.speciesOnClickListener = speciesOnClickListener;
 		this.catalogueMode = catalogueMode;
-		if (this.catalogueMode == SpeciesCatalogueActivity.CATALOGUE_MODE_AROUND_ME)
+		if (this.catalogueMode == SpeciesCatalogueActivity.CATALOGUE_MODE_WITH_LOCATION)
 			buildLocationBasedList(null);
 	}
 	
@@ -55,7 +56,7 @@ public class SpeciesCatalogueAdapter extends RecyclerView.Adapter<SpeciesCatalog
 			this.speciesOnClickListener = speciesOnClickListener;
 			itemView.setOnClickListener(this);
 			
-			if (catalogueMode == SpeciesCatalogueActivity.CATALOGUE_MODE_SEARCH) {
+			if (catalogueMode == SpeciesCatalogueActivity.CATALOGUE_MODE_WITHOUT_LOCATION) {
 				speciesDistanceTextView.setVisibility(View.GONE);
 				speciesLocationImageView.setVisibility(View.GONE);
 			}
@@ -77,7 +78,7 @@ public class SpeciesCatalogueAdapter extends RecyclerView.Adapter<SpeciesCatalog
 	
 	@Override
 	public void onBindViewHolder(@NonNull SpeciesCatalogueViewHolder viewHolder, int position) {
-		if (this.catalogueMode == SpeciesCatalogueActivity.CATALOGUE_MODE_SEARCH) {
+		if (this.catalogueMode == SpeciesCatalogueActivity.CATALOGUE_MODE_WITHOUT_LOCATION) {
 			viewHolder.speciesNameTextView.setText(this.filteredSpeciesList.get(position).getName());
 			viewHolder.speciesImageView.setImageBitmap(this.filteredSpeciesList.get(position).getImage());
 		} else {
@@ -111,7 +112,7 @@ public class SpeciesCatalogueAdapter extends RecyclerView.Adapter<SpeciesCatalog
 	}
 	
 	public Species getSelectedSpecies(int position) {
-		if (catalogueMode == SpeciesCatalogueActivity.CATALOGUE_MODE_SEARCH)
+		if (catalogueMode == SpeciesCatalogueActivity.CATALOGUE_MODE_WITHOUT_LOCATION)
 			return this.filteredSpeciesList.get(position);
 		else
 			return this.speciesWithDistanceSorted.get(position).getKey();
@@ -124,6 +125,10 @@ public class SpeciesCatalogueAdapter extends RecyclerView.Adapter<SpeciesCatalog
 				this.filteredSpeciesList.add(species);
 			}
 		}
+	}
+	
+	public void updateCursor(Group group) {
+		this.filteredSpeciesList = group.getSpecies();
 	}
 	
 	public void updateCursor(Location userLocation) {
