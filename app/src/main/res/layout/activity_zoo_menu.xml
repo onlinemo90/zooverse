@@ -51,13 +51,13 @@
 			app:layout_constraintGuide_percent="0.5" />
 
 		<androidx.cardview.widget.CardView
-			android:id="@+id/cardViewTour"
+			android:id="@+id/cardViewAroundMe"
 			android:layout_width="150dp"
 			android:layout_height="150dp"
 			android:layout_weight="1"
 			android:clickable="true"
 			android:focusable="true"
-			android:onClick="openTour"
+			android:onClick="openAroundMe"
 			app:cardCornerRadius="20dp"
 			app:cardElevation="6dp"
 			app:layout_constraintBottom_toBottomOf="parent"
@@ -69,30 +69,30 @@
 			<androidx.constraintlayout.widget.ConstraintLayout
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				android:onClick="openTour"
+				android:onClick="openAroundMe"
 				android:paddingTop="20dp"
 				android:paddingBottom="10dp">
 
 				<ImageView
-					android:id="@+id/iconTour"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
+					android:id="@+id/iconAroundMe"
+					android:layout_width="50dp"
+					android:layout_height="50dp"
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintStart_toStartOf="parent"
 					app:layout_constraintTop_toTopOf="parent"
-					app:srcCompat="@drawable/icon_location" />
+					app:srcCompat="@drawable/icon_around_me" />
 
 				<TextView
-					android:id="@+id/tourTextView"
+					android:id="@+id/aroundMeTextView"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="10dp"
-					android:text="@string/zoo_menu_tour_button"
+					android:text="@string/zoo_menu_around_me_button"
 					android:textAlignment="center"
 					android:textSize="20sp"
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toBottomOf="@id/iconTour" />
+					app:layout_constraintTop_toBottomOf="@id/iconAroundMe" />
 			</androidx.constraintlayout.widget.ConstraintLayout>
 
 		</androidx.cardview.widget.CardView>

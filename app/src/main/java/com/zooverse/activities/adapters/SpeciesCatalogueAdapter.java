@@ -37,7 +37,7 @@ public class SpeciesCatalogueAdapter extends RecyclerView.Adapter<SpeciesCatalog
 	public SpeciesCatalogueAdapter(SpeciesOnClickListener speciesOnClickListener, int catalogueMode) {
 		this.speciesOnClickListener = speciesOnClickListener;
 		this.catalogueMode = catalogueMode;
-		if (this.catalogueMode == SpeciesCatalogueActivity.CATALOGUE_MODE_TOUR)
+		if (this.catalogueMode == SpeciesCatalogueActivity.CATALOGUE_MODE_AROUND_ME)
 			buildLocationBasedList(null);
 	}
 	

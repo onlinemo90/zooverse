@@ -28,7 +28,7 @@ import com.zooverse.activities.adapters.SpeciesCatalogueAdapter;
 
 public class SpeciesCatalogueActivity extends AbstractBaseActivity implements SpeciesCatalogueAdapter.SpeciesOnClickListener {
 	public static final int CATALOGUE_MODE_SEARCH = 0;
-	public static final int CATALOGUE_MODE_TOUR = 1;
+	public static final int CATALOGUE_MODE_AROUND_ME = 1;
 	private SpeciesCatalogueAdapter speciesCatalogueAdapter;
 	private FusedLocationProviderClient locationProviderClient;
 	private LocationCallback locationCallback;
@@ -74,14 +74,14 @@ public class SpeciesCatalogueActivity extends AbstractBaseActivity implements Sp
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (catalogueMode == CATALOGUE_MODE_TOUR)
+		if (catalogueMode == CATALOGUE_MODE_AROUND_ME)
 			requestUserLocation();
 	}
 	
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if (catalogueMode == CATALOGUE_MODE_TOUR && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+		if (catalogueMode == CATALOGUE_MODE_AROUND_ME && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
 			locationProviderClient.removeLocationUpdates(locationCallback);
 	}
 	
