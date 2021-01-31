@@ -49,32 +49,29 @@ public class Servlet {
 	}
 	
 	public static Object process(String requestURL) {
-		String encryptedRequest;
-		if (requestURL.trim().toLowerCase().startsWith(url))
-			encryptedRequest = requestURL.trim().substring(url.length());
-		else
-			encryptedRequest = requestURL;
-			try {
-				String request = EncryptionHelper.decrypt(encryptedRequest).toLowerCase();
-				Log.d("decryptedRequest", request);
-				Map<String, String> requestMap = new HashMap<>();
-				for (String field : request.split(Pattern.quote(FIELD_SEPARATOR))) {
-					String key = field.trim().split(Pattern.quote(KEY_VALUE_SEPARATOR))[0];
-					String value = field.trim().split(Pattern.quote(KEY_VALUE_SEPARATOR))[1];
-					requestMap.put(key, value);
-				}
-				String requestType = requestMap.get(TYPE_KEY);
-				if (TICKET_TYPE.equals(requestType)) {
-					return processTicket(requestMap);
-				} else if (MainApplication.getContext().getString(R.string.zoo_id).equalsIgnoreCase(requestMap.get(ZOO_KEY))) {
-					switch(requestType){
-						case SPECIES_TYPE: return processSpecies(requestMap);
-						// add new request types here
-					}
-				}
-			} catch (Exception e) {
-				return null;
+		String encryptedRequest = requestURL.trim().toLowerCase().startsWith(url) ? requestURL.trim().substring(url.length()) : requestURL;
+		try {
+			String request = EncryptionHelper.decrypt(encryptedRequest).toLowerCase();
+			Log.d("decryptedRequest", request);
+			Map<String, String> requestMap = new HashMap<>();
+			for (String field : request.split(Pattern.quote(FIELD_SEPARATOR))) {
+				String key = field.trim().split(Pattern.quote(KEY_VALUE_SEPARATOR))[0];
+				String value = field.trim().split(Pattern.quote(KEY_VALUE_SEPARATOR))[1];
+				requestMap.put(key, value);
 			}
+			String requestType = requestMap.get(TYPE_KEY);
+			if (TICKET_TYPE.equals(requestType)) {
+				return processTicket(requestMap);
+			} else if (MainApplication.getContext().getString(R.string.zoo_id).equalsIgnoreCase(requestMap.get(ZOO_KEY))) {
+				switch (requestType) {
+					case SPECIES_TYPE:
+						return processSpecies(requestMap);
+					// add new request types here
+				}
+			}
+		} catch (Exception e) {
+			return null;
+		}
 		return null;
 	}
 	
