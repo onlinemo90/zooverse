@@ -2,7 +2,6 @@ package com.zooverse.model;
 
 
 import android.graphics.Bitmap;
-import android.util.Pair;
 
 import com.zooverse.model.database.DatabaseHandler;
 
@@ -17,7 +16,6 @@ public class Model {
 	
 	private static final Map<Integer, Species> species = initSpecies();
 	private static final Map<Integer, Group> groups = initGroups();
-	private static final List<Pair<Integer,Integer>> speciesInGroupsRegister = initSpeciesInGroupsRegister();
 	
 	private Model() {
 		// prevent class initialisation
@@ -42,24 +40,23 @@ public class Model {
 	
 	// Groups----------------------------------------------------------
 	private static Map<Integer, Group> initGroups() {
-		return dbHandler.getAllGroups();
-	}
-	
-	private static List<Pair<Integer,Integer>> initSpeciesInGroupsRegister() {
-		return dbHandler.getSpeciesInGroups();
+		Map<Integer, Group> groups = dbHandler.getAllGroups();
+		Map<Integer, List<Integer>> groupsSpeciesIdsMap = dbHandler.getGroupsSpeciesIdsMap();
+		List<Species> groupSpeciesList;
+		for (Group group : groups.values()){
+			if (groupsSpeciesIdsMap.containsKey(group.getId())){
+				groupSpeciesList = new ArrayList<>();
+				for (Integer speciesId : groupsSpeciesIdsMap.get(group.getId())){
+					groupSpeciesList.add(species.get(speciesId));
+				}
+				group.setMembers(groupSpeciesList);
+			}
+		}
+		return groups;
 	}
 	
 	public static Map<Integer, Group> getGroups() {
 		return groups;
-	}
-	
-	public static List<Species> getSpeciesOfGroup(int groupId) {
-		List<Species> speciesOfGroup= new ArrayList<>();
-		for (Pair<Integer, Integer> speciesInGroup : speciesInGroupsRegister) {
-			if (speciesInGroup.first == groupId)
-				speciesOfGroup.add(species.get(speciesInGroup.second));
-		}
-		return speciesOfGroup;
 	}
 	
 	// Species----------------------------------------------------------
@@ -73,7 +70,7 @@ public class Model {
 	
 	public static List<Species> getSortedSpeciesList() {
 		List<Species> speciesList = new ArrayList<>(species.values());
-		Collections.sort(speciesList, (Species s1, Species s2) -> s1.getName().compareTo(s2.getName()));
+		speciesList.sort((Species s1, Species s2) -> s1.getName().compareTo(s2.getName()));
 		return speciesList;
 	}
 	

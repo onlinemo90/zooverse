@@ -9,7 +9,7 @@ public class Group {
 	private final int id;
 	private final String name;
 	private final Bitmap image;
-	private List<Species> speciesList;
+	private List<Species> members;
 	
 	public Group(int id, String name, Bitmap image) {
 		this.id = id;
@@ -30,10 +30,11 @@ public class Group {
 	}
 	
 	public List<Species> getSpecies() {
-		if (speciesList == null) {
-			speciesList = Model.getSpeciesOfGroup(this.id);
-			Collections.sort(speciesList, (Species s1, Species s2) -> s1.getName().compareTo(s2.getName()));
-		}
-		return this.speciesList;
+		return this.members;
+	}
+	
+	public void setMembers(List<Species> members){
+		this.members = members;
+		this.members.sort((Species s1, Species s2) -> s1.getName().compareTo(s2.getName()));
 	}
 }

@@ -132,8 +132,8 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		return groupMap;
 	}
 	
-	public List<Pair<Integer, Integer>> getSpeciesInGroups() {
-		List<Pair<Integer, Integer>> speciesInGroups = new ArrayList<>();
+	public Map<Integer, List<Integer>> getGroupsSpeciesIdsMap(){
+		Map<Integer, List<Integer>> groupsSpeciesMap = new HashMap<>();
 		
 		Cursor cursor = database.query(
 				DatabaseContract.GroupsSpeciesEntry.TABLE_NAME,
@@ -144,15 +144,18 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 				},
 				null, null, null, null, null
 		);
-		
+		int groupId, speciesId;
 		while (cursor.moveToNext()) {
-			speciesInGroups.add(new Pair<>(
-					cursor.getInt(cursor.getColumnIndex(DatabaseContract.GroupsSpeciesEntry.COLUMN_GROUP_ID)),
-					cursor.getInt(cursor.getColumnIndex(DatabaseContract.GroupsSpeciesEntry.COLUMN_SPECIES_ID))
-			));
+			groupId = cursor.getInt(cursor.getColumnIndex(DatabaseContract.GroupsSpeciesEntry.COLUMN_GROUP_ID));
+			speciesId = cursor.getInt(cursor.getColumnIndex(DatabaseContract.GroupsSpeciesEntry.COLUMN_SPECIES_ID));
+			if (!groupsSpeciesMap.containsKey(groupId)){
+				groupsSpeciesMap.put(groupId, new ArrayList<>());
+				
+			}
+			groupsSpeciesMap.get(groupId).add(speciesId);
 		}
 		cursor.close();
-		return speciesInGroups;
+		return groupsSpeciesMap;
 	}
 	
 	// Species----------------------------------------------------------
