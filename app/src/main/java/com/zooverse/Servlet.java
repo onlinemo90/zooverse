@@ -49,9 +49,12 @@ public class Servlet {
 	}
 	
 	public static Object process(String requestURL) {
-		if (requestURL.trim().toLowerCase().startsWith(url)){
+		String encryptedRequest;
+		if (requestURL.trim().toLowerCase().startsWith(url))
+			encryptedRequest = requestURL.trim().substring(url.length());
+		else
+			encryptedRequest = requestURL;
 			try {
-				String encryptedRequest = requestURL.trim().substring(url.length());
 				String request = EncryptionHelper.decrypt(encryptedRequest).toLowerCase();
 				Log.d("decryptedRequest", request);
 				Map<String, String> requestMap = new HashMap<>();
@@ -72,7 +75,6 @@ public class Servlet {
 			} catch (Exception e) {
 				return null;
 			}
-		}
 		return null;
 	}
 	
