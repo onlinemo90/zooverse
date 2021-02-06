@@ -48,8 +48,8 @@ public class Servlet {
 		// prevent instantiation
 	}
 	
-	public static Object process(String requestURL) {
-		String encryptedRequest = requestURL.trim().toLowerCase().startsWith(url) ? requestURL.trim().substring(url.length()) : requestURL;
+	public static Object process(String externalRequest) {
+		String encryptedRequest = externalRequest.trim().toLowerCase().startsWith(url) ? externalRequest.trim().substring(url.length()) : externalRequest;
 		try {
 			String request = EncryptionHelper.decrypt(encryptedRequest).toLowerCase();
 			Log.d("decryptedRequest", request);
