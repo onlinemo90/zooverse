@@ -78,19 +78,19 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
 		return true;
 	}
 	
-	protected void processExternalRequest(String request) {
-		Object requestResult = Servlet.process(request);
+	protected void processExternalRequest(String requestURL) {
+		Object requestResult = Servlet.process(requestURL);
 		if (requestResult instanceof Ticket) {
 			this.processExternalRequestTicket((Ticket) requestResult);
 		} else if (requestResult instanceof Species) {
-			this.processExternalRequestInfoPoint((Species) requestResult);
+			this.processExternalRequestSpecies((Species) requestResult);
 		} else {
 			Toast.makeText(MainApplication.getContext(), R.string.scan_qr_code_error_invalid_qr, Toast.LENGTH_SHORT).show();
 		}
 	}
 	
 	private void processExternalRequestTicket(Ticket ticket) {
-		if (ticket.getZooID().equals(getString(R.string.zoo_id))) {
+		if (ticket.getZooID().equalsIgnoreCase(getString(R.string.zoo_id))) {
 			if (ticket.isExpired()) {
 				Toast.makeText(MainApplication.getContext(), R.string.scan_qr_code_error_past_ticket, Toast.LENGTH_SHORT).show();
 			} else {
@@ -114,8 +114,8 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
 		}
 	}
 	
-	private void processExternalRequestInfoPoint(Species species) {
-		if (Model.hasTodayTicket() && Model.getSpecies().containsKey(species.getId())) {
+	private void processExternalRequestSpecies(Species species) {
+		if (Model.hasTodayTicket()) {
 			Intent intent = new Intent(MainApplication.getContext(), SpeciesActivity.class);
 			intent.putExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, species.getId());
 			startActivity(intent);

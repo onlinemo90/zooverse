@@ -63,7 +63,7 @@ public class QRCodeReaderActivity extends AbstractBaseActivity implements Activi
 	public void assignCamera(SurfaceView surfaceView, Activity currentActivity) {
 		final Handler handler = new Handler();
 		final BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.QR_CODE).build(); //makes sure it ONLY scans QR-codes
-		final CameraSource cameraSource = new CameraSource.Builder(this, barcodeDetector).setRequestedPreviewSize(640, 480).build();
+		final CameraSource cameraSource = new CameraSource.Builder(this, barcodeDetector).setAutoFocusEnabled(true).setRequestedPreviewSize(640, 480).build();
 		surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
 			
 			@RequiresApi(api = Build.VERSION_CODES.M)
