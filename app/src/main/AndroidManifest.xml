@@ -16,13 +16,19 @@
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme.Light">
 
+		<receiver
+			android:name=".utils.TicketNotificationReceiver"
+			android:enabled="true"
+			android:exported="true">
+		</receiver>
+
 		<meta-data
 			android:name="com.google.android.geo.API_KEY"
 			android:value="@string/google_maps_key" />
 
 		<activity
 			android:name=".activities.SpeciesLocationActivity"
-			android:screenOrientation="portrait"></activity>
+			android:screenOrientation="portrait" />
 		<activity
 			android:name=".activities.SplashScreenActivity"
 			android:screenOrientation="portrait"
