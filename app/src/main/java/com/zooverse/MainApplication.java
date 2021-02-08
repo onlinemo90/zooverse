@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
 
 import com.zooverse.model.Model;
-import com.zooverse.utils.TicketNotificationHelper;
+import com.zooverse.notifications.TicketNotificationHandler;
 
 public class MainApplication extends Application {
 	private static Context appContext;
@@ -31,7 +31,7 @@ public class MainApplication extends Application {
 		AssetManager.init();
 		Model.init();
 		Theme.init();
-		TicketNotificationHelper.createNotificationChannel();
+		TicketNotificationHandler.createNotificationChannel();
 	}
 	
 	public static Context getContext() {

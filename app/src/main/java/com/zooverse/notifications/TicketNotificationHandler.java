@@ -1,9 +1,11 @@
-package com.zooverse.utils;
+package com.zooverse.notifications;
 
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,7 +23,12 @@ import java.util.Date;
 import static android.content.Context.ALARM_SERVICE;
 import static com.zooverse.MainApplication.getContext;
 
-public class TicketNotificationHelper {
+public class TicketNotificationHandler extends BroadcastReceiver {
+	
+	@Override
+	public void onReceive(Context context, Intent intent) {
+		notify(intent.getStringExtra(MainApplication.INTENT_EXTRA_TICKET_DATE));
+	}
 	
 	private static final String CHANNEL_ID = "TICKET_NOTIFICATION_CHANNEL";
 	private static final int NOTIFICATION_ID = 1;
@@ -46,7 +53,7 @@ public class TicketNotificationHelper {
 	}
 	
 	public static void setNotification(Date date, String formattedDate) {
-		Intent intent = new Intent(getContext(), TicketNotificationReceiver.class);
+		Intent intent = new Intent(getContext(), TicketNotificationHandler.class);
 		intent.putExtra(MainApplication.INTENT_EXTRA_TICKET_DATE, formattedDate);
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 		

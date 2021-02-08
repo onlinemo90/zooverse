@@ -19,7 +19,8 @@ import com.zooverse.Theme;
 import com.zooverse.model.Model;
 import com.zooverse.model.Species;
 import com.zooverse.model.Ticket;
-import com.zooverse.utils.TicketNotificationHelper;
+
+import com.zooverse.notifications.TicketNotificationHandler;
 
 public abstract class AbstractBaseActivity extends AppCompatActivity {
 	private int themeResourceId;
@@ -98,7 +99,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
 				if (ticket.isForToday()) {
 					if (!Model.getStoredTickets().contains(ticket)) {
 						//TODO: Delete notification here after testing
-						TicketNotificationHelper.setNotification(ticket.getDate(), ticket.getFormattedDate());
+						TicketNotificationHandler.setNotification(ticket.getDate(), ticket.getFormattedDate());
 						Model.storeTicket(ticket);
 					}
 					finish();
@@ -108,7 +109,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
 						Toast.makeText(MainApplication.getContext(), R.string.scan_qr_code_error_already_stored, Toast.LENGTH_SHORT).show();
 					} else {
 						Model.storeTicket(ticket);
-						TicketNotificationHelper.setNotification(ticket.getDate(), ticket.getFormattedDate());
+						TicketNotificationHandler.setNotification(ticket.getDate(), ticket.getFormattedDate());
 						Toast.makeText(MainApplication.getContext(), R.string.scan_qr_code_future_ticket_stored, Toast.LENGTH_SHORT).show();
 					}
 				}

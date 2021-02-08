@@ -17,7 +17,7 @@
 		android:theme="@style/AppTheme.Light">
 
 		<receiver
-			android:name=".utils.TicketNotificationReceiver"
+			android:name=".notifications.TicketNotificationHandler"
 			android:enabled="true"
 			android:exported="true">
 		</receiver>
