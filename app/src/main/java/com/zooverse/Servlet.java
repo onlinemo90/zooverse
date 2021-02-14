@@ -93,8 +93,6 @@ public class Servlet {
 				} else {
 					if (ticket.isForToday()) {
 						if (!Model.getStoredTickets().contains(ticket)) {
-							//TODO: Delete notification here after testing
-							TicketNotificationHandler.setNotification(ticket.getDate(), ticket.getFormattedDate());
 							Model.storeTicket(ticket);
 						}
 						activity.finish();
