@@ -14,14 +14,14 @@ public final class DatabaseContract {
 	}
 	
 	public static final class GroupEntry implements BaseColumns {
-		public static final String TABLE_NAME = "COLLECTION";
+		public static final String TABLE_NAME = "_GROUP_";
 		
 		public static final String COLUMN_NAME = "name";
 		public static final String COLUMN_IMAGE = "image";
 	}
 	
 	public static final class GroupsSpeciesEntry implements BaseColumns {
-		public static final String TABLE_NAME = "COLLECTIONS_SPECIES";
+		public static final String TABLE_NAME = "GROUPS_SPECIES";
 		
 		public static final String COLUMN_GROUP_ID = "group_id";
 		public static final String COLUMN_SPECIES_ID = "species_id";
