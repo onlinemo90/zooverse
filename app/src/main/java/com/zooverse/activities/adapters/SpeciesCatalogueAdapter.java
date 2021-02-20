@@ -126,6 +126,19 @@ public class SpeciesCatalogueAdapter extends RecyclerView.Adapter<SpeciesCatalog
 		}
 	}
 	
+	public ArrayList<Integer> getFilteredSpeciesList() {
+		ArrayList<Integer> filterSpeciesListIntentExtra = new ArrayList<>();
+		if (catalogueMode == SpeciesCatalogueActivity.CATALOGUE_MODE_SEARCH)
+			for (Species species : filteredSpeciesList) {
+				filterSpeciesListIntentExtra.add(species.getId());
+			}
+		else
+			for (Entry<Species, Integer> species : speciesWithDistanceSorted) {
+				filterSpeciesListIntentExtra.add(species.getKey().getId());
+			}
+		return filterSpeciesListIntentExtra;
+	}
+	
 	public void updateCursor(Location userLocation) {
 		buildLocationBasedList(userLocation);
 	}
