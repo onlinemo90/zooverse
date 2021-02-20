@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
 
 import com.zooverse.model.Model;
+import com.zooverse.notifications.TicketNotificationHandler;
 
 public class MainApplication extends Application {
 	private static Context appContext;
@@ -16,6 +17,7 @@ public class MainApplication extends Application {
 	public static final String INTENT_EXTRA_SPECIES_ID = "species_id";
 	public static final String INTENT_EXTRA_SPECIES_CATALOGUE_MODE = "species_catalogue_mode";
 	public static final String INTENT_EXTRA_SPECIES_VIEWPAGER_FILTERED_LIST = "species_filtered_list";
+	public static final String INTENT_EXTRA_TICKET_DATE = "ticket_date";
 	
 	//Permission requests
 	public static final int PERMISSION_REQUEST_CAMERA = 1;
@@ -30,6 +32,7 @@ public class MainApplication extends Application {
 		AssetManager.init();
 		Model.init();
 		Theme.init();
+		TicketNotificationHandler.createNotificationChannel();
 	}
 	
 	public static Context getContext() {

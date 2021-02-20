@@ -20,6 +20,8 @@ import com.zooverse.model.Model;
 import com.zooverse.model.Species;
 import com.zooverse.model.Ticket;
 
+import com.zooverse.notifications.TicketNotificationHandler;
+
 public abstract class AbstractBaseActivity extends AppCompatActivity {
 	private int themeResourceId;
 	private boolean isOptionsMenuEnabled = false;
@@ -79,48 +81,6 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
 	}
 	
 	protected void processExternalRequest(String requestURL) {
-		Object requestResult = Servlet.process(requestURL);
-		if (requestResult instanceof Ticket) {
-			this.processExternalRequestTicket((Ticket) requestResult);
-		} else if (requestResult instanceof Species) {
-			this.processExternalRequestSpecies((Species) requestResult);
-		} else {
-			Toast.makeText(MainApplication.getContext(), R.string.scan_qr_code_error_invalid_qr, Toast.LENGTH_SHORT).show();
-		}
-	}
-	
-	private void processExternalRequestTicket(Ticket ticket) {
-		if (ticket.getZooID().equalsIgnoreCase(getString(R.string.zoo_id))) {
-			if (ticket.isExpired()) {
-				Toast.makeText(MainApplication.getContext(), R.string.scan_qr_code_error_past_ticket, Toast.LENGTH_SHORT).show();
-			} else {
-				if (ticket.isForToday()) {
-					if (!Model.getStoredTickets().contains(ticket)) {
-						Model.storeTicket(ticket);
-					}
-					finish();
-					startActivity(new Intent(MainApplication.getContext(), ZooMenuActivity.class));
-				} else { // Future Ticket
-					if (Model.getStoredTickets().contains(ticket)) {
-						Toast.makeText(MainApplication.getContext(), R.string.scan_qr_code_error_already_stored, Toast.LENGTH_SHORT).show();
-					} else {
-						Model.storeTicket(ticket);
-						Toast.makeText(MainApplication.getContext(), R.string.scan_qr_code_future_ticket_stored, Toast.LENGTH_SHORT).show();
-					}
-				}
-			}
-		} else {
-			Toast.makeText(MainApplication.getContext(), R.string.scan_qr_code_error_wrong_zoo, Toast.LENGTH_SHORT).show();
-		}
-	}
-	
-	private void processExternalRequestSpecies(Species species) {
-		if (Model.hasTodayTicket()) {
-			Intent intent = new Intent(MainApplication.getContext(), SpeciesActivity.class);
-			intent.putExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, species.getId());
-			startActivity(intent);
-		} else {
-			Toast.makeText(MainApplication.getContext(), R.string.scan_qr_code_species_search_without_ticket, Toast.LENGTH_SHORT).show();
-		}
+		Servlet.process(requestURL, this);
 	}
 }

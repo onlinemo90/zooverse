@@ -1,10 +1,17 @@
 package com.zooverse;
 
+import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.zooverse.activities.SpeciesActivity;
+import com.zooverse.activities.ZooMenuActivity;
 import com.zooverse.model.Model;
 import com.zooverse.model.Species;
 import com.zooverse.model.Ticket;
+import com.zooverse.notifications.TicketNotificationHandler;
 import com.zooverse.utils.EncryptionHelper;
 import static com.zooverse.MainApplication.getContext;
 
@@ -48,7 +55,7 @@ public class Servlet {
 		// prevent instantiation
 	}
 	
-	public static Object process(String externalRequest) {
+	public static void process(String externalRequest, AppCompatActivity activity) {
 		String encryptedRequest = externalRequest.trim().toLowerCase().startsWith(url) ? externalRequest.trim().substring(url.length()) : externalRequest;
 		try {
 			String request = EncryptionHelper.decrypt(encryptedRequest).toLowerCase();
@@ -61,35 +68,63 @@ public class Servlet {
 			}
 			String requestType = requestMap.get(TYPE_KEY);
 			if (TICKET_TYPE.equals(requestType)) {
-				return processTicket(requestMap);
-			} else if (MainApplication.getContext().getString(R.string.zoo_id).equalsIgnoreCase(requestMap.get(ZOO_KEY))) {
+				processTicket(requestMap, activity);
+			} else if (activity.getString(R.string.zoo_id).equalsIgnoreCase(requestMap.get(ZOO_KEY))) {
 				switch (requestType) {
 					case SPECIES_TYPE:
-						return processSpecies(requestMap);
+						processSpecies(requestMap, activity);
 					// add new request types here
 				}
-			}
+			} else
+				Toast.makeText(activity, R.string.scan_qr_code_error_invalid_qr, Toast.LENGTH_SHORT).show();
 		} catch (Exception e) {
-			return null;
+			Toast.makeText(activity, R.string.scan_qr_code_error_invalid_qr, Toast.LENGTH_SHORT).show();
 		}
-		return null;
 	}
 	
-	private static Ticket processTicket(Map<String, String> requestMap) throws ParseException {
+	private static void processTicket(Map<String, String> requestMap, AppCompatActivity activity) throws ParseException {
 		String zooID = requestMap.get(ZOO_KEY);
 		String dateString = requestMap.get(TICKET_DATE_KEY);
 		if (zooID != null && dateString.length() == TICKET_DATE_FORMAT.toPattern().length()) {
-			return new Ticket(zooID, TICKET_DATE_FORMAT.parse(dateString));
+			Ticket ticket = new Ticket(zooID, TICKET_DATE_FORMAT.parse(dateString));
+			if (ticket.getZooID().equalsIgnoreCase(activity.getString(R.string.zoo_id))) {
+				if (ticket.isExpired()) {
+					Toast.makeText(activity, R.string.scan_qr_code_error_past_ticket, Toast.LENGTH_SHORT).show();
+				} else {
+					if (ticket.isForToday()) {
+						if (!Model.getStoredTickets().contains(ticket)) {
+							Model.storeTicket(ticket);
+						}
+						activity.finish();
+						activity.startActivity(new Intent(activity, ZooMenuActivity.class));
+					} else { // Future Ticket
+						if (Model.getStoredTickets().contains(ticket)) {
+							Toast.makeText(activity, R.string.scan_qr_code_error_already_stored, Toast.LENGTH_SHORT).show();
+						} else {
+							Model.storeTicket(ticket);
+							TicketNotificationHandler.setNotification(ticket.getDate(), ticket.getFormattedDate());
+							Toast.makeText(activity, R.string.scan_qr_code_future_ticket_stored, Toast.LENGTH_SHORT).show();
+						}
+					}
+				}
+			} else {
+				Toast.makeText(MainApplication.getContext(), R.string.scan_qr_code_error_wrong_zoo, Toast.LENGTH_SHORT).show();
+			}
 		}
-		return null;
 	}
 	
-	private static Species processSpecies(Map<String, String> requestMap) {
+	private static void processSpecies(Map<String, String> requestMap, AppCompatActivity activity) {
 		int speciesId = Integer.parseInt(Objects.requireNonNull(requestMap.get(SPECIES_ID_KEY)));
 		if (Model.getSpecies().containsKey(speciesId)) {
-			return Model.getSpecies().get(speciesId);
+			Species species = Model.getSpecies().get(speciesId);
+			if (Model.hasTodayTicket()) {
+				Intent intent = new Intent(MainApplication.getContext(), SpeciesActivity.class);
+				intent.putExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, species.getId());
+				activity.startActivity(intent);
+			} else {
+				Toast.makeText(activity, R.string.scan_qr_code_species_search_without_ticket, Toast.LENGTH_SHORT).show();
+			}
 		}
-		return null;
 	}
 	
 }

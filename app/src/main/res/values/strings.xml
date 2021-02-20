@@ -9,6 +9,11 @@
 	<string name="url_pathPrefix">/android</string>
 	<string name="url_scheme">https</string>
 
+	<!--Ticket Notifications-->
+	<string name="notification_channel_name">Ticket Notifications</string>
+	<string name="notification_channel_description">The app sends you a reminder on the day you have a ticket to the zoo.</string>
+	<string name="notification_title">You have a zoo ticket for today!</string>
+
 	<!--menu_bar-->
 	<string name="menu_bar_ticket_scan">Scan ticket</string>
 	<string name="menu_bar_settings">@string/title_activity_settings</string>
