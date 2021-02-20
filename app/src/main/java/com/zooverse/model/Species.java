@@ -9,37 +9,20 @@ import com.zooverse.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Species {
-	private final int id;
-	private final String name;
-	private final Bitmap image;
+public class Species extends Subject{
 	private List<Individual> individuals;
 	private final List<Pair<String, String>> attributes;
 	private final Pair<Double, Double> location;
 	
 	public Species(int id, String name, Bitmap image, List<Pair<String, String>> attributes, Pair<Double, Double> location) {
-		this.id = id;
-		this.name = name;
-		this.image = image;
+		super (id, name, image);
 		this.individuals = new ArrayList<>();
 		this.attributes = attributes;
 		this.location = location;
 	}
 	
-	public int getId() {
-		return this.id;
-	}
-	
-	public String getName() {
-		return this.name;
-	}
-	
 	public String getNamePlural() {
 		return this.getName() + MainApplication.getContext().getString(R.string.species_title_suffix);
-	}
-	
-	public Bitmap getImage() {
-		return this.image;
 	}
 	
 	public byte[] getAudio() {

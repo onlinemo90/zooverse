@@ -24,8 +24,8 @@ import static org.hamcrest.Matchers.*;
 public class SpeciesSearchActivityTest {
 	
 	@Rule
-	public ActivityScenarioRule<SpeciesCatalogueActivity> mNoteListActivityRule =
-			new ActivityScenarioRule<>(SpeciesCatalogueActivity.class);
+	public ActivityScenarioRule<SubjectCatalogueSearchActivity> mNoteListActivityRule =
+			new ActivityScenarioRule<>(SubjectCatalogueSearchActivity.class);
 	
 	@Test
 	public void selectSpeciesTest() {

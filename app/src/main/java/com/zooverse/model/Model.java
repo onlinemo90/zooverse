@@ -38,11 +38,19 @@ public class Model {
 		dbHandler.storeTicket(ticket);
 	}
 	
+	// Subjects----------------------------------------------------------
+	public static List<Subject> getSortedSubjectList() {
+		List<Subject> subjectList = new ArrayList<>(species.values());
+		subjectList.addAll(new ArrayList<>(groups.values()));
+		subjectList.sort((Subject s1, Subject s2) -> s1.getName().compareTo(s2.getName()));
+		return subjectList;
+	}
+	
 	// Groups----------------------------------------------------------
 	private static Map<Integer, Group> initGroups() {
 		Map<Integer, Group> groups = dbHandler.getAllGroups();
 		Map<Integer, List<Integer>> groupsSpeciesIdsMap = dbHandler.getGroupsSpeciesIdsMap();
-		List<Species> groupSpeciesList;
+		List<Subject> groupSpeciesList;
 		for (Group group : groups.values()){
 			if (groupsSpeciesIdsMap.containsKey(group.getId())){
 				groupSpeciesList = new ArrayList<>();
