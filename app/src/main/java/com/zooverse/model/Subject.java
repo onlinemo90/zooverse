@@ -2,12 +2,12 @@ package com.zooverse.model;
 
 import android.graphics.Bitmap;
 
-public abstract class AbstractSubject  {
+public abstract class Subject {
 	protected final int id;
 	protected final String name;
 	protected final Bitmap image;
 	
-	public AbstractSubject(int id, String name, Bitmap image) {
+	public Subject(int id, String name, Bitmap image) {
 		this.id = id;
 		this.name = name;
 		this.image = image;

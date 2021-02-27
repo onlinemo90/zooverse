@@ -10,14 +10,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zooverse.R;
-import com.zooverse.model.AbstractSubject;
+import com.zooverse.model.Subject;
 import com.zooverse.model.Group;
 import com.zooverse.model.Model;
 
 import java.util.List;
 
 public abstract class AbstractSubjectCatalogueAdapter extends RecyclerView.Adapter<AbstractSubjectCatalogueAdapter.AbstractSubjectCatalogueViewHolder> {
-	protected final List<AbstractSubject> fullSubjectList = Model.getSortedSubjectList();
+	protected final List<Subject> fullSubjectList = Model.getSortedSubjectList();
 	protected final SubjectOnClickListener subjectOnClickListener;
 	
 	public AbstractSubjectCatalogueAdapter(SubjectOnClickListener subjectOnClickListener) {
@@ -48,7 +48,7 @@ public abstract class AbstractSubjectCatalogueAdapter extends RecyclerView.Adapt
 	
 	//public abstract void onBindViewHolder(@NonNull AbstractSubjectCatalogueViewHolder viewHolder, int position);
 	
-	public abstract AbstractSubject getSelectedSubject(int position);
+	public abstract Subject getSelectedSubject(int position);
 	
 	public abstract void updateCursor(String searchCriterion);
 	

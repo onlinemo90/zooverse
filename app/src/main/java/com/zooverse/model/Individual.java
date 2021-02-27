@@ -13,7 +13,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
-public class Individual extends AbstractSubject {
+public class Individual extends Subject {
 	private final Species species;
 	private final Date dob;
 	private final String placeOfBirth;

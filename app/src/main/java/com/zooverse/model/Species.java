@@ -9,7 +9,7 @@ import com.zooverse.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Species extends AbstractSubject{
+public class Species extends Subject {
 	private List<Individual> individuals;
 	private final List<Pair<String, String>> attributes;
 	private final Pair<Double, Double> location;

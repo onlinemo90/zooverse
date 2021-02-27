@@ -14,7 +14,7 @@ import com.zooverse.Theme;
 import com.zooverse.activities.SpeciesLocationActivity;
 import com.zooverse.model.Group;
 import com.zooverse.model.Species;
-import com.zooverse.model.AbstractSubject;
+import com.zooverse.model.Subject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -92,7 +92,7 @@ public class SubjectCatalogueLocationAdapter extends AbstractSubjectCatalogueAda
 	
 	private void buildLocationBasedList(Location location) {
 		Map<Species, Integer> speciesWithDistance = new HashMap<>();
-		for (AbstractSubject subject : fullSubjectList) {
+		for (Subject subject : fullSubjectList) {
 			Location speciesLocation = new Location("");
 			int distance = MAX_MEASURED_DISTANCE;
 			if (subject instanceof Species) {

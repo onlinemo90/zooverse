@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.zooverse.MainApplication;
 import com.zooverse.R;
 import com.zooverse.activities.adapters.AbstractSubjectCatalogueAdapter;
-import com.zooverse.model.AbstractSubject;
+import com.zooverse.model.Subject;
 import com.zooverse.model.Group;
 import com.zooverse.model.Species;
 
@@ -28,7 +28,7 @@ public abstract class AbstractSubjectCatalogueActivity extends AbstractBaseActiv
 	
 	@Override
 	public void onSubjectClick(int position) {
-		AbstractSubject selectedSubject = subjectCatalogueAdapter.getSelectedSubject(position);
+		Subject selectedSubject = subjectCatalogueAdapter.getSelectedSubject(position);
 		
 		if (selectedSubject instanceof Group) {
 			Intent intent = new Intent(MainApplication.getContext(), SubjectCatalogueGroupActivity.class);
