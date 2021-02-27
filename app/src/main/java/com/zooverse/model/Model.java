@@ -39,10 +39,10 @@ public class Model {
 	}
 	
 	// Subjects----------------------------------------------------------
-	public static List<Subject> getSortedSubjectList() {
-		List<Subject> subjectList = new ArrayList<>(species.values());
+	public static List<AbstractSubject> getSortedSubjectList() {
+		List<AbstractSubject> subjectList = new ArrayList<>(species.values());
 		subjectList.addAll(new ArrayList<>(groups.values()));
-		subjectList.sort((Subject s1, Subject s2) -> s1.getName().compareTo(s2.getName()));
+		subjectList.sort((AbstractSubject s1, AbstractSubject s2) -> s1.getName().compareTo(s2.getName()));
 		return subjectList;
 	}
 	
@@ -50,7 +50,7 @@ public class Model {
 	private static Map<Integer, Group> initGroups() {
 		Map<Integer, Group> groups = dbHandler.getAllGroups();
 		Map<Integer, List<Integer>> groupsSpeciesIdsMap = dbHandler.getGroupsSpeciesIdsMap();
-		List<Subject> groupSpeciesList;
+		List<AbstractSubject> groupSpeciesList;
 		for (Group group : groups.values()){
 			if (groupsSpeciesIdsMap.containsKey(group.getId())){
 				groupSpeciesList = new ArrayList<>();

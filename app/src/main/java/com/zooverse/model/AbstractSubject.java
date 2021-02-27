@@ -2,7 +2,7 @@ package com.zooverse.model;
 
 import android.graphics.Bitmap;
 
-public abstract class AbstractSubject implements Subject {
+public abstract class AbstractSubject  {
 	protected final int id;
 	protected final String name;
 	protected final Bitmap image;

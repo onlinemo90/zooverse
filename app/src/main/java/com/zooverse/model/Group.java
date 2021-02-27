@@ -7,18 +7,18 @@ import java.util.List;
 
 public class Group extends AbstractSubject{
 
-	private List<Subject> members;
+	private List<AbstractSubject> members;
 	
 	public Group(int id, String name, Bitmap image) {
 		super (id, name, image);
 	}
 	
-	public List<Subject> getMembers() {
+	public List<AbstractSubject> getMembers() {
 		return this.members;
 	}
 	
-	public void setMembers(List<Subject> members){
+	public void setMembers(List<AbstractSubject> members){
 		this.members = members;
-		this.members.sort((Subject s1, Subject s2) -> s1.getName().compareTo(s2.getName()));
+		this.members.sort((AbstractSubject s1, AbstractSubject s2) -> s1.getName().compareTo(s2.getName()));
 	}
 }

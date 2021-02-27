@@ -9,14 +9,14 @@ import androidx.annotation.NonNull;
 
 import com.zooverse.MainApplication;
 import com.zooverse.R;
+import com.zooverse.model.AbstractSubject;
 import com.zooverse.model.Group;
-import com.zooverse.model.Subject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SubjectCatalogueDefaultAdapter extends AbstractSubjectCatalogueAdapter {
-	protected List<Subject> filteredSubjectList = fullSubjectList;
+	protected List<AbstractSubject> filteredSubjectList = fullSubjectList;
 	
 	public SubjectCatalogueDefaultAdapter(SubjectOnClickListener subjectOnClickListener) {
 		super(subjectOnClickListener);
@@ -45,14 +45,14 @@ public class SubjectCatalogueDefaultAdapter extends AbstractSubjectCatalogueAdap
 	}
 	
 	@Override
-	public Subject getSelectedSubject(int position) {
+	public AbstractSubject getSelectedSubject(int position) {
 		return this.filteredSubjectList.get(position);
 	}
 	
 	@Override
 	public void updateCursor(String searchCriterion) {
 		this.filteredSubjectList = new ArrayList<>();
-		for (Subject subject : this.fullSubjectList) {
+		for (AbstractSubject subject : this.fullSubjectList) {
 			if (subject.getName().toLowerCase().startsWith(searchCriterion.toLowerCase())) {
 				this.filteredSubjectList.add(subject);
 			}
