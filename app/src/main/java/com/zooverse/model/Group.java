@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import java.util.Collections;
 import java.util.List;
 
-public class Group extends Subject{
+public class Group extends AbstractSubject{
 
 	private List<Subject> members;
 	

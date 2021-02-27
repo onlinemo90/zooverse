@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.util.Pair;
 
 import static com.zooverse.MainApplication.getContext;
+
 import com.zooverse.R;
 
 import java.time.LocalDate;
@@ -12,11 +13,8 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
-public class Individual {
-	
-	private final int id;
+public class Individual extends AbstractSubject {
 	private final Species species;
-	private final String name;
 	private final Date dob;
 	private final String placeOfBirth;
 	private final String gender;
@@ -25,9 +23,8 @@ public class Individual {
 	private final List<Pair<String, String>> attributes;
 	
 	public Individual(int id, Species species, String name, Date dob, String placeOfBirth, String gender, String weight, String size, List<Pair<String, String>> attributes) {
-		this.id = id;
+		super(id, name, null);
 		this.species = species;
-		this.name = (name != null ? name : "");
 		this.dob = dob;
 		this.placeOfBirth = placeOfBirth;
 		this.gender = gender;
@@ -36,16 +33,13 @@ public class Individual {
 		this.attributes = attributes;
 	}
 	
-	public int getId() {
-		return id;
-	}
-	
 	public Species getSpecies() {
 		return species;
 	}
 	
-	public String getName() {
-		return name;
+	@Override
+	public Bitmap getImage() {
+		return Model.getIndividualImage(id);
 	}
 	
 	public Date getDOB() {
@@ -85,9 +79,5 @@ public class Individual {
 	
 	public List<Pair<String, String>> getAttributes() {
 		return this.attributes;
-	}
-	
-	public Bitmap getImage() {
-		return Model.getIndividualImage(id);
 	}
 }
