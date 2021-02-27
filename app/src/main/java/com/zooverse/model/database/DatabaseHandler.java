@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DatabaseHandler extends SQLiteAssetHelper {
-	private static final int DATABASE_VERSION = 55;
+	private static final int DATABASE_VERSION = 57;
 	
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat(DatabaseContract.DATE_FORMAT);
 	
@@ -166,14 +166,16 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 						DatabaseContract.SpeciesEntry._ID,
 						DatabaseContract.SpeciesEntry.COLUMN_NAME,
 						DatabaseContract.SpeciesEntry.COLUMN_IMAGE,
-						DatabaseContract.SpeciesEntry.COLUMN_LOCATION_ID
+						DatabaseContract.SpeciesEntry.COLUMN_LOCATION_ID,
+						DatabaseContract.SpeciesEntry.COLUMN_WEIGHT,
+						DatabaseContract.SpeciesEntry.COLUMN_SIZE
 				},
 				null, null, null, null,
 				DatabaseContract.SpeciesEntry.COLUMN_NAME + " ASC"
 		);
 		Map<Integer, Species> speciesMap = new HashMap<>();
 		int id;
-		String name;
+		String name, weight, size;
 		byte[] imageBlob;
 		Pair<Double, Double> location;
 		List<Pair<String, String>> attributes;
@@ -183,11 +185,13 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 			name = cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_NAME));
 			imageBlob = cursor.getBlob(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_IMAGE));
 			location = this.getLocation(cursor.getInt(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_LOCATION_ID)));
+			weight = cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_WEIGHT));
+			size = cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_SIZE));
 			attributes = this.getSpeciesAttributes(id);
 			if (imageBlob != null)
-				tmpSpecies = new Species(id, name, BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length), attributes, location);
+				tmpSpecies = new Species(id, name, BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length), weight, size, attributes, location);
 			else
-				tmpSpecies = new Species(id, name, null, attributes, location);
+				tmpSpecies = new Species(id, name, null, weight, size, attributes, location);
 			tmpSpecies.setIndividuals(this.getSpeciesIndividuals(tmpSpecies));
 			speciesMap.put(id, tmpSpecies);
 		}
@@ -223,8 +227,6 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 						DatabaseContract.IndividualEntry.COLUMN_DOB,
 						DatabaseContract.IndividualEntry.COLUMN_PLACE_OF_BIRTH,
 						DatabaseContract.IndividualEntry.COLUMN_GENDER,
-						DatabaseContract.IndividualEntry.COLUMN_WEIGHT,
-						DatabaseContract.IndividualEntry.COLUMN_SIZE
 				},
 				DatabaseContract.IndividualEntry.COLUMN_SPECIES_ID + " = ?",
 				new String[]{Integer.toString(species.getId())},
@@ -234,7 +236,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		
 		List<Individual> individualList = new ArrayList<>();
 		int id;
-		String name, placeOfBirth, gender, weight, size;
+		String name, placeOfBirth, gender;
 		Date dob = new Date();
 		while (cursor.moveToNext()) {
 			id = cursor.getInt(cursor.getColumnIndex(DatabaseContract.IndividualEntry._ID));
@@ -246,10 +248,8 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 			}
 			placeOfBirth = cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_PLACE_OF_BIRTH));
 			gender = cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_GENDER));
-			weight = cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_WEIGHT));
-			size = cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_SIZE));
 			
-			individualList.add(new Individual(id, species, name, dob, placeOfBirth, gender, weight, size, getIndividualAttributes(id)));
+			individualList.add(new Individual(id, species, name, dob, placeOfBirth, gender, getIndividualAttributes(id)));
 		}
 		cursor.close();
 		return individualList;

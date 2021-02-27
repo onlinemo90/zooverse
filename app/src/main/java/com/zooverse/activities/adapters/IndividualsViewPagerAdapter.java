@@ -32,8 +32,6 @@ public class IndividualsViewPagerAdapter extends RecyclerView.Adapter<Individual
 		private final RecyclerView customAttributesRecyclerView = itemView.findViewById(R.id.customAttributesRecyclerView);
 		private final TextView individualAgeTextView = itemView.findViewById(R.id.individualAgeTextView);
 		private final TextView individualPlaceOfBirthTextView = itemView.findViewById(R.id.individualOriginTextView);
-		private final TextView individualWeightTextView = itemView.findViewById(R.id.individualWeightTextView);
-		private final TextView individualSizeTextView = itemView.findViewById(R.id.individualSizeTextView);
 		
 		public IndividualViewHolder(@NonNull View itemView) {
 			super(itemView);
@@ -63,16 +61,6 @@ public class IndividualsViewPagerAdapter extends RecyclerView.Adapter<Individual
 			viewHolder.individualAgeTextView.setText(individual.getAge());
 		else
 			viewHolder.individualAgeTextView.setVisibility(View.GONE);
-		
-		if (individual.getSize() != null)
-			viewHolder.individualSizeTextView.setText(individual.getSize());
-		else
-			viewHolder.individualSizeTextView.setVisibility(View.GONE);
-		
-		if (individual.getWeight() != null)
-			viewHolder.individualWeightTextView.setText(individual.getWeight());
-		else
-			viewHolder.individualWeightTextView.setVisibility(View.GONE);
 		
 		if (individual.getPlaceOfBirth() != null) {
 			viewHolder.individualPlaceOfBirthTextView.setText(individual.getPlaceOfBirth());

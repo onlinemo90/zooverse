@@ -20,7 +20,9 @@ public abstract class AbstractSubjectCatalogueActivity extends AbstractBaseActiv
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.enableOptionsMenu();
-		
+	}
+	
+	protected void setAdapter () {
 		RecyclerView speciesList = findViewById(R.id.speciesList);
 		speciesList.setAdapter(subjectCatalogueAdapter);
 		speciesList.setLayoutManager(new LinearLayoutManager(this));

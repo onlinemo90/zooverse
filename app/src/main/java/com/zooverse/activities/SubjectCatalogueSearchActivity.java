@@ -13,9 +13,11 @@ public class SubjectCatalogueSearchActivity extends AbstractSubjectCatalogueActi
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		subjectCatalogueAdapter = new SubjectCatalogueDefaultAdapter(this);
-		setContentView(R.layout.activity_subject_catalogue);
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_subject_catalogue);
+		
+		subjectCatalogueAdapter = new SubjectCatalogueDefaultAdapter(this);
+		super.setAdapter();
 
 		EditText searchCriterionEditText = findViewById(R.id.searchCriterionEditText);
 		searchCriterionEditText.setVisibility(View.VISIBLE);

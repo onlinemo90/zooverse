@@ -18,18 +18,14 @@ public class Individual extends Subject {
 	private final Date dob;
 	private final String placeOfBirth;
 	private final String gender;
-	private final String weight;
-	private final String size;
 	private final List<Pair<String, String>> attributes;
 	
-	public Individual(int id, Species species, String name, Date dob, String placeOfBirth, String gender, String weight, String size, List<Pair<String, String>> attributes) {
+	public Individual(int id, Species species, String name, Date dob, String placeOfBirth, String gender, List<Pair<String, String>> attributes) {
 		super(id, name, null);
 		this.species = species;
 		this.dob = dob;
 		this.placeOfBirth = placeOfBirth;
 		this.gender = gender;
-		this.weight = weight;
-		this.size = size;
 		this.attributes = attributes;
 	}
 	
@@ -67,14 +63,6 @@ public class Individual extends Subject {
 	
 	public String getGender() {
 		return gender;
-	}
-	
-	public String getWeight() {
-		return weight;
-	}
-	
-	public String getSize() {
-		return size;
 	}
 	
 	public List<Pair<String, String>> getAttributes() {

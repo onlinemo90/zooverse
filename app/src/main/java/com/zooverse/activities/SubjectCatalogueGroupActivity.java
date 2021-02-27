@@ -16,9 +16,11 @@ public class SubjectCatalogueGroupActivity extends AbstractSubjectCatalogueActiv
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		subjectCatalogueAdapter = new SubjectCatalogueDefaultAdapter(this);
-		setContentView(R.layout.activity_group);
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_group);
+		
+		subjectCatalogueAdapter = new SubjectCatalogueDefaultAdapter(this);
+		super.setAdapter();
 		
 		Group group = Model.getGroups().get(getIntent().getIntExtra(MainApplication.INTENT_EXTRA_GROUP_ID, 0));
 		

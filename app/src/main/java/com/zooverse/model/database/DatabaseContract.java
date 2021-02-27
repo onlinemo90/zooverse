@@ -34,6 +34,8 @@ public final class DatabaseContract {
 		public static final String COLUMN_IMAGE = "image";
 		public static final String COLUMN_AUDIO = "audio";
 		public static final String COLUMN_LOCATION_ID = "location_id";
+		public static final String COLUMN_WEIGHT = "weight";
+		public static final String COLUMN_SIZE = "size";
 	}
 	
 	public static final class IndividualEntry implements BaseColumns {
@@ -44,8 +46,6 @@ public final class DatabaseContract {
 		public static final String COLUMN_DOB = "dob";
 		public static final String COLUMN_PLACE_OF_BIRTH = "place_of_birth";
 		public static final String COLUMN_GENDER = "gender";
-		public static final String COLUMN_WEIGHT = "weight";
-		public static final String COLUMN_SIZE = "size";
 		public static final String COLUMN_IMAGE = "image";
 	}
 	

@@ -85,6 +85,8 @@ public class SpeciesActivity extends AbstractBaseActivity {
 			ImageView speciesImage = findViewById(R.id.speciesImage);
 			TextView individualsCountTextView = findViewById(R.id.individualsCountTextView);
 			RecyclerView customAttributesRecyclerView = findViewById(R.id.speciesAttributesRecyclerView);
+			TextView speciesWeightTextView = findViewById(R.id.speciesWeightTextView);
+			TextView speciesSizeTextView = findViewById(R.id.speciesSizeTextView);
 			
 			this.species = Model.getSortedSpeciesList().get(speciesPosition);
 			setTitle(this.species.getName());
@@ -116,6 +118,16 @@ public class SpeciesActivity extends AbstractBaseActivity {
 				audioImageView.setColorFilter(Theme.getColor(R.attr.themeColorForegroundFaded));
 			else
 				audioImageView.setColorFilter(Theme.getColor(R.attr.themeColorForeground));
+			
+			if (this.species.getSize() != null)
+				speciesSizeTextView.setText(this.species.getSize());
+			else
+				speciesSizeTextView.setVisibility(View.GONE);
+			
+			if (this.species.getWeight() != null)
+				speciesWeightTextView.setText(this.species.getWeight());
+			else
+				speciesWeightTextView.setVisibility(View.GONE);
 			
 			// Loading RecyclerView with custom attributes
 			CustomAttributesAdapter customAttributesAdapter = new CustomAttributesAdapter(species.getAttributes());

@@ -28,9 +28,11 @@ public class SubjectCatalogueLocationActivity extends AbstractSubjectCatalogueAc
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		subjectCatalogueAdapter = new SubjectCatalogueLocationAdapter(this);
-		setContentView(R.layout.activity_subject_catalogue);
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_subject_catalogue);
+		
+		subjectCatalogueAdapter = new SubjectCatalogueLocationAdapter(this);
+		super.setAdapter();
 	}
 	
 	@Override
