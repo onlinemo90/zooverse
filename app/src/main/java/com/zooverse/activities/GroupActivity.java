@@ -12,7 +12,7 @@ import com.zooverse.activities.adapters.SubjectCatalogueDefaultAdapter;
 import com.zooverse.model.Group;
 import com.zooverse.model.Model;
 
-public class SubjectCatalogueGroupActivity extends AbstractSubjectCatalogueActivity {
+public class GroupActivity extends AbstractSubjectCatalogueActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

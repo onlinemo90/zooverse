@@ -33,7 +33,7 @@ public abstract class AbstractSubjectCatalogueActivity extends AbstractBaseActiv
 		Subject selectedSubject = subjectCatalogueAdapter.getSelectedSubject(position);
 		
 		if (selectedSubject instanceof Group) {
-			Intent intent = new Intent(MainApplication.getContext(), SubjectCatalogueGroupActivity.class);
+			Intent intent = new Intent(MainApplication.getContext(), GroupActivity.class);
 			intent.putExtra(MainApplication.INTENT_EXTRA_GROUP_ID, selectedSubject.getId());
 			startActivity(intent);
 		} else if (selectedSubject instanceof Species) {
