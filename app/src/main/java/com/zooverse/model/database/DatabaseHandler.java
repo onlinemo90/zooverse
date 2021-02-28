@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DatabaseHandler extends SQLiteAssetHelper {
-	private static final int DATABASE_VERSION = 57;
+	private static final int DATABASE_VERSION = 58;
 	
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat(DatabaseContract.DATE_FORMAT);
 	
@@ -308,7 +308,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 						" from " + tableName + " as subjectAttributes inner join " + DatabaseContract.AttributeCategoryEntry.TABLE_NAME + " as attributeCategories on " +
 						" subjectAttributes." + DatabaseContract.AttributesColumns.COLUMN_CATEGORY_ID + " = attributeCategories." + DatabaseContract.AttributeCategoryEntry._ID +
 						" where subjectAttributes." + DatabaseContract.AttributesColumns.COLUMN_SUBJECT_ID + "=? " +
-						"order by attributeCategories." + DatabaseContract.AttributeCategoryEntry.COLUMN_PRIORITY + " desc ",
+						"order by attributeCategories." + DatabaseContract.AttributeCategoryEntry.COLUMN_POSITION + " asc ",
 				new String[]{Integer.toString(subjectID)}
 		);
 		while (cursor.moveToNext()) {

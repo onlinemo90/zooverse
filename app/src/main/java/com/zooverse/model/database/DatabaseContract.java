@@ -53,7 +53,7 @@ public final class DatabaseContract {
 		public static final String TABLE_NAME = "ATTRIBUTE_CATEGORY";
 		
 		public static final String COLUMN_NAME = "name";
-		public static final String COLUMN_PRIORITY = "priority";
+		public static final String COLUMN_POSITION = "position";
 	}
 	
 	public interface AttributesColumns extends BaseColumns{
