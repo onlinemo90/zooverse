@@ -25,6 +25,8 @@
 
 	<!--activity_group-->
 	<string name="group_image">Group Image</string>
+	<string name="group_tab1">Animals</string>
+	<string name="group_tab2">Learn more</string>
 
 	<!--activity_species-->
 	<string name="species_image">Species Image</string>

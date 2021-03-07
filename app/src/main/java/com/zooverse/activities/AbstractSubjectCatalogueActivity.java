@@ -22,10 +22,14 @@ public abstract class AbstractSubjectCatalogueActivity extends AbstractBaseActiv
 		this.enableOptionsMenu();
 	}
 	
-	protected void setAdapter () {
+	protected void setAdapter() {
 		RecyclerView speciesList = findViewById(R.id.speciesList);
 		speciesList.setAdapter(subjectCatalogueAdapter);
 		speciesList.setLayoutManager(new LinearLayoutManager(this));
+	}
+	
+	public AbstractSubjectCatalogueAdapter getAdapter() {
+		return subjectCatalogueAdapter;
 	}
 	
 	@Override

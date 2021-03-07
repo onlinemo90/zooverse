@@ -1,6 +1,7 @@
 package com.zooverse.model;
 
 import android.graphics.Bitmap;
+import android.util.Pair;
 
 import java.util.List;
 
@@ -8,8 +9,8 @@ public class Group extends Subject {
 
 	private List<Subject> members;
 	
-	public Group(int id, String name, Bitmap image) {
-		super (id, name, image);
+	public Group(int id, String name, Bitmap image, List<Pair<String, String>> attributes) {
+		super (id, name, image, attributes);
 	}
 	
 	public List<Subject> getMembers() {

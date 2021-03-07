@@ -62,12 +62,17 @@ public final class DatabaseContract {
 		String COLUMN_ATTRIBUTE = "attribute";
 	}
 	
-	public static final class IndividualAttributesEntry implements AttributesColumns {
-		public static final String TABLE_NAME = "INDIVIDUALS_ATTRIBUTES";
+	public static final class GroupAttributesEntry implements AttributesColumns {
+		public static final String TABLE_NAME = "GROUPS_ATTRIBUTES";
 	}
 	
 	public static final class SpeciesAttributesEntry implements AttributesColumns {
 		public static final String TABLE_NAME = "SPECIES_ATTRIBUTES";
+	}
+	
+	public static final class IndividualAttributesEntry implements AttributesColumns {
+		public static final String TABLE_NAME = "INDIVIDUALS_ATTRIBUTES";
+	
 	}
 	
 	public static final class LocationEntry implements BaseColumns{

@@ -18,15 +18,13 @@ public class Individual extends Subject {
 	private final Date dob;
 	private final String placeOfBirth;
 	private final String gender;
-	private final List<Pair<String, String>> attributes;
 	
 	public Individual(int id, Species species, String name, Date dob, String placeOfBirth, String gender, List<Pair<String, String>> attributes) {
-		super(id, name, null);
+		super(id, name, null, attributes);
 		this.species = species;
 		this.dob = dob;
 		this.placeOfBirth = placeOfBirth;
 		this.gender = gender;
-		this.attributes = attributes;
 	}
 	
 	public Species getSpecies() {
@@ -63,9 +61,5 @@ public class Individual extends Subject {
 	
 	public String getGender() {
 		return gender;
-	}
-	
-	public List<Pair<String, String>> getAttributes() {
-		return this.attributes;
 	}
 }

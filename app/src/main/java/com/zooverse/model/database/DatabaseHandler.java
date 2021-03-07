@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DatabaseHandler extends SQLiteAssetHelper {
-	private static final int DATABASE_VERSION = 58;
+	private static final int DATABASE_VERSION = 60;
 	
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat(DatabaseContract.DATE_FORMAT);
 	
@@ -122,14 +122,18 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 			name = cursor.getString(cursor.getColumnIndex(DatabaseContract.GroupEntry.COLUMN_NAME));
 			imageBlob = cursor.getBlob(cursor.getColumnIndex(DatabaseContract.GroupEntry.COLUMN_IMAGE));
 			if (imageBlob != null)
-				tmpGroup = new Group(id, name, BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length));
+				tmpGroup = new Group(id, name, BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length), getGroupAttributes(id));
 			else
-				tmpGroup = new Group(id, name, null);
+				tmpGroup = new Group(id, name, null, getGroupAttributes(id));
 			
 			groupMap.put(id, tmpGroup);
 		}
 		cursor.close();
 		return groupMap;
+	}
+	
+	private List<Pair<String,String>> getGroupAttributes(int groupID){
+		return getAttributes(groupID, DatabaseContract.GroupAttributesEntry.TABLE_NAME);
 	}
 	
 	public Map<Integer, List<Integer>> getGroupsSpeciesIdsMap(){

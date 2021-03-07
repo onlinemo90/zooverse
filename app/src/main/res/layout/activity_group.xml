@@ -24,13 +24,25 @@
 		android:orientation="horizontal"
 		app:layout_constraintGuide_percent="0.3" />
 
-	<androidx.recyclerview.widget.RecyclerView
-		android:id="@+id/speciesList"
+	<LinearLayout
 		android:layout_width="0dp"
 		android:layout_height="0dp"
+		android:orientation="vertical"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="@+id/groupGuidelineTop" />
+		app:layout_constraintTop_toBottomOf="@+id/groupGuidelineTop">
+
+		<com.google.android.material.tabs.TabLayout
+			android:id="@+id/groupMenuTabLayout"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="10dp"/>
+
+		<androidx.viewpager2.widget.ViewPager2
+			android:id="@+id/groupsViewPager"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"/>
+	</LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
