@@ -67,7 +67,6 @@
 
 		app:drawableLeftCompat="@drawable/icon_weight"
 		app:drawableTint="@color/colorForeground"
-		app:layout_constraintBottom_toTopOf="@+id/individualOriginTextView"
 		app:layout_constraintStart_toStartOf="@+id/speciesSizeTextView"
 		app:layout_constraintTop_toBottomOf="@+id/speciesSizeTextView" />
 
