@@ -19,6 +19,8 @@ import com.zooverse.activities.SpeciesLocationActivity;
 import com.zooverse.model.Model;
 import com.zooverse.model.Species;
 
+import org.apache.commons.text.similarity.LevenshteinDistance;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -118,11 +120,13 @@ public class SpeciesCatalogueAdapter extends RecyclerView.Adapter<SpeciesCatalog
 	}
 	
 	public void updateCursor(String searchCriterion) {
+		searchCriterion = searchCriterion.toLowerCase();
 		this.filteredSpeciesList = new ArrayList<>();
 		for (Species species : this.fullSpeciesList) {
-			if (species.getName().toLowerCase().startsWith(searchCriterion.toLowerCase())) {
+			String speciesName = species.getName().toLowerCase();
+			// 1st: search for string snippet within species name, 2nd: search for typos within full string
+			if (speciesName.contains(searchCriterion) || LevenshteinDistance.getDefaultInstance().apply(speciesName, searchCriterion) == 1)
 				this.filteredSpeciesList.add(species);
-			}
 		}
 	}
 	
