@@ -43,6 +43,7 @@ public abstract class AbstractSubjectCatalogueActivity extends AbstractBaseActiv
 		} else if (selectedSubject instanceof Species) {
 			Intent intent = new Intent(MainApplication.getContext(), SpeciesActivity.class);
 			intent.putExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, selectedSubject.getId());
+			intent.putIntegerArrayListExtra(MainApplication.INTENT_EXTRA_SPECIES_VIEWPAGER_FILTERED_LIST, subjectCatalogueAdapter.getSubjectListInContext());
 			startActivity(intent);
 		}
 	}

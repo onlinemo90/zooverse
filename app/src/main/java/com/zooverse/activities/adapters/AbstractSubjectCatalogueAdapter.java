@@ -14,6 +14,7 @@ import com.zooverse.model.Subject;
 import com.zooverse.model.Group;
 import com.zooverse.model.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractSubjectCatalogueAdapter extends RecyclerView.Adapter<AbstractSubjectCatalogueAdapter.AbstractSubjectCatalogueViewHolder> {
@@ -55,6 +56,8 @@ public abstract class AbstractSubjectCatalogueAdapter extends RecyclerView.Adapt
 	public abstract void updateCursor(Location userLocation);
 	
 	public abstract void updateCursor(Group group);
+	
+	public abstract ArrayList<Integer> getSubjectListInContext();
 	
 	public interface SubjectOnClickListener {
 		void onSubjectClick(int position);

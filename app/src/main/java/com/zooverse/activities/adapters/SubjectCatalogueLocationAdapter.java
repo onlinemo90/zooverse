@@ -90,6 +90,15 @@ public class SubjectCatalogueLocationAdapter extends AbstractSubjectCatalogueAda
 	@Override
 	public void updateCursor(Group group) { return; }
 	
+	@Override
+	public ArrayList<Integer> getSubjectListInContext() {
+		ArrayList<Integer> filterSpeciesListIntentExtra = new ArrayList<>();
+		for (Entry<Species, Integer> species : speciesWithDistanceSorted) {
+			filterSpeciesListIntentExtra.add(species.getKey().getId());
+		}
+		return filterSpeciesListIntentExtra;
+	}
+	
 	private void buildLocationBasedList(Location location) {
 		Map<Species, Integer> speciesWithDistance = new HashMap<>();
 		for (Subject subject : fullSubjectList) {

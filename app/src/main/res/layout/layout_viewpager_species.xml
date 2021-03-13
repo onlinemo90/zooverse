@@ -6,16 +6,70 @@
 	android:layout_height="match_parent"
 	tools:context=".activities.SpeciesActivity">
 
-	<ImageView
-		android:id="@+id/speciesImage"
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/speciesImageLayout"
 		android:layout_width="0dp"
 		android:layout_height="0dp"
-		android:contentDescription="@string/species_image"
-		android:scaleType="centerCrop"
 		app:layout_constraintBottom_toTopOf="@+id/speciesGuidelineTop"
-		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="@id/guidelineVertical"
 		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
+
+		<androidx.cardview.widget.CardView
+			android:id="@+id/cardViewSpeciesImage"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:layout_margin="10dp"
+			app:cardBackgroundColor="@android:color/white"
+			app:cardElevation="10dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintTop_toTopOf="parent">
+
+			<ImageView
+				android:id="@+id/speciesImage"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:contentDescription="@string/species_image"
+				android:scaleType="centerCrop" />
+
+		</androidx.cardview.widget.CardView>
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+	<TextView
+		android:id="@+id/speciesSizeTextView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="16dp"
+		android:layout_marginTop="10dp"
+		android:drawablePadding="8dp"
+		android:maxLines="1"
+
+		android:textSize="18sp"
+		app:drawableLeftCompat="@drawable/icon_size"
+		app:drawableTint="@color/colorForeground"
+		app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
 		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/speciesWeightTextView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="16dp"
+		android:drawablePadding="8dp"
+		android:maxLines="1"
+		android:textSize="18sp"
+
+
+		app:drawableLeftCompat="@drawable/icon_weight"
+		app:drawableTint="@color/colorForeground"
+		app:layout_constraintStart_toStartOf="@+id/speciesSizeTextView"
+		app:layout_constraintTop_toBottomOf="@+id/speciesSizeTextView" />
 
 	<androidx.constraintlayout.widget.Guideline
 		android:id="@+id/speciesGuidelineTop"
@@ -100,7 +154,7 @@
 		app:layout_constraintBottom_toBottomOf="@+id/individualsImageView"
 		app:layout_constraintEnd_toEndOf="@+id/individualsImageView"
 		app:layout_constraintStart_toStartOf="@+id/individualsImageView" />
-	
+
 	<androidx.recyclerview.widget.RecyclerView
 		android:id="@+id/speciesAttributesRecyclerView"
 		android:layout_width="0dp"
@@ -109,7 +163,7 @@
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="@+id/speciesGuidelineMiddle" />
-	
+
 	<com.google.android.exoplayer2.ui.PlayerControlView
 		android:id="@+id/exoAudioPlayer"
 		android:layout_width="match_parent"

@@ -58,6 +58,8 @@ public class SpeciesViewPagerAdapter extends RecyclerView.Adapter<SpeciesViewPag
 		ImageView locationImageView = itemView.findViewById(R.id.locationImageView);
 		ImageView audioImageView = itemView.findViewById(R.id.audioImageView);
 		TextView individualsCountTextView = itemView.findViewById(R.id.individualsCountTextView);
+		TextView speciesWeightTextView = itemView.findViewById(R.id.speciesWeightTextView);
+		TextView speciesSizeTextView = itemView.findViewById(R.id.speciesSizeTextView);
 		RecyclerView customAttributesRecyclerView = itemView.findViewById(R.id.speciesAttributesRecyclerView);
 		
 		PlayerControlView playerView = itemView.findViewById(R.id.exoAudioPlayer);
@@ -139,6 +141,16 @@ public class SpeciesViewPagerAdapter extends RecyclerView.Adapter<SpeciesViewPag
 					viewHolder.playerView.hide();
 			}
 		});
+		
+		if (viewHolder.species.getSize() != null)
+			viewHolder.speciesSizeTextView.setText(viewHolder.species.getSize());
+		else
+			viewHolder.speciesSizeTextView.setVisibility(View.GONE);
+		
+		if (viewHolder.species.getWeight() != null)
+			viewHolder.speciesWeightTextView.setText(viewHolder.species.getWeight());
+		else
+			viewHolder.speciesWeightTextView.setVisibility(View.GONE);
 		
 		// Loading RecyclerView with custom attributes
 		CustomAttributesAdapter customAttributesAdapter = new CustomAttributesAdapter(viewHolder.species.getAttributes());

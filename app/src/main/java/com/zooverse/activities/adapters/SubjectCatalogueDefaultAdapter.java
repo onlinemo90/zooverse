@@ -9,8 +9,11 @@ import androidx.annotation.NonNull;
 
 import com.zooverse.MainApplication;
 import com.zooverse.R;
+import com.zooverse.model.Species;
 import com.zooverse.model.Subject;
 import com.zooverse.model.Group;
+
+import org.apache.commons.text.similarity.LevenshteinDistance;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,11 +54,13 @@ public class SubjectCatalogueDefaultAdapter extends AbstractSubjectCatalogueAdap
 	
 	@Override
 	public void updateCursor(String searchCriterion) {
+		searchCriterion = searchCriterion.toLowerCase();
 		this.filteredSubjectList = new ArrayList<>();
 		for (Subject subject : this.fullSubjectList) {
-			if (subject.getName().toLowerCase().startsWith(searchCriterion.toLowerCase())) {
+			String speciesName = subject.getName().toLowerCase();
+			// 1st: search for string snippet within species name, 2nd: search for typos within full string
+			if (speciesName.contains(searchCriterion) || LevenshteinDistance.getDefaultInstance().apply(speciesName, searchCriterion) == 1)
 				this.filteredSubjectList.add(subject);
-			}
 		}
 	}
 	
@@ -70,5 +75,15 @@ public class SubjectCatalogueDefaultAdapter extends AbstractSubjectCatalogueAdap
 	@Override
 	public void updateCursor(Group group) {
 		this.filteredSubjectList = group.getMembers();
+	}
+	
+	@Override
+	public ArrayList<Integer> getSubjectListInContext() {
+		ArrayList<Integer> filterSpeciesListIntentExtra = new ArrayList<>();
+		for (Subject subject : filteredSubjectList) {
+			if (subject instanceof Species)
+				filterSpeciesListIntentExtra.add(subject.getId());
+		}
+		return filterSpeciesListIntentExtra;
 	}
 }
