@@ -10,6 +10,7 @@ import android.util.Pair;
 import com.zooverse.AssetManager;
 import com.zooverse.MainApplication;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
+import com.zooverse.model.Group;
 import com.zooverse.model.Individual;
 import com.zooverse.model.Species;
 import com.zooverse.model.Ticket;
@@ -23,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DatabaseHandler extends SQLiteAssetHelper {
-	private static final int DATABASE_VERSION = 48;
+	private static final int DATABASE_VERSION = 60;
 	
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat(DatabaseContract.DATE_FORMAT);
 	
@@ -97,6 +98,70 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		);
 	}
 	
+	// Groups----------------------------------------------------------
+	public Map<Integer, Group> getAllGroups() {
+		Cursor cursor = database.query(
+				DatabaseContract.GroupEntry.TABLE_NAME,
+				new String[]{
+						DatabaseContract.GroupEntry._ID,
+						DatabaseContract.GroupEntry.COLUMN_NAME,
+						DatabaseContract.GroupEntry.COLUMN_IMAGE
+				},
+				null, null, null, null,
+				DatabaseContract.GroupEntry.COLUMN_NAME + " ASC"
+		);
+		
+		Map<Integer, Group> groupMap = new HashMap<>();
+		int id;
+		String name;
+		byte[] imageBlob;
+		
+		Group tmpGroup;
+		while (cursor.moveToNext()) {
+			id = cursor.getInt(cursor.getColumnIndex(DatabaseContract.GroupEntry._ID));
+			name = cursor.getString(cursor.getColumnIndex(DatabaseContract.GroupEntry.COLUMN_NAME));
+			imageBlob = cursor.getBlob(cursor.getColumnIndex(DatabaseContract.GroupEntry.COLUMN_IMAGE));
+			if (imageBlob != null)
+				tmpGroup = new Group(id, name, BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length), getGroupAttributes(id));
+			else
+				tmpGroup = new Group(id, name, null, getGroupAttributes(id));
+			
+			groupMap.put(id, tmpGroup);
+		}
+		cursor.close();
+		return groupMap;
+	}
+	
+	private List<Pair<String,String>> getGroupAttributes(int groupID){
+		return getAttributes(groupID, DatabaseContract.GroupAttributesEntry.TABLE_NAME);
+	}
+	
+	public Map<Integer, List<Integer>> getGroupsSpeciesIdsMap(){
+		Map<Integer, List<Integer>> groupsSpeciesMap = new HashMap<>();
+		
+		Cursor cursor = database.query(
+				DatabaseContract.GroupsSpeciesEntry.TABLE_NAME,
+				new String[]{
+						DatabaseContract.GroupsSpeciesEntry._ID,
+						DatabaseContract.GroupsSpeciesEntry.COLUMN_GROUP_ID,
+						DatabaseContract.GroupsSpeciesEntry.COLUMN_SPECIES_ID
+				},
+				null, null, null, null, null
+		);
+		int groupId, speciesId;
+		while (cursor.moveToNext()) {
+			groupId = cursor.getInt(cursor.getColumnIndex(DatabaseContract.GroupsSpeciesEntry.COLUMN_GROUP_ID));
+			speciesId = cursor.getInt(cursor.getColumnIndex(DatabaseContract.GroupsSpeciesEntry.COLUMN_SPECIES_ID));
+			if (!groupsSpeciesMap.containsKey(groupId)){
+				groupsSpeciesMap.put(groupId, new ArrayList<>());
+				
+			}
+			groupsSpeciesMap.get(groupId).add(speciesId);
+		}
+		cursor.close();
+		return groupsSpeciesMap;
+	}
+	
 	// Species----------------------------------------------------------
 	public Map<Integer, Species> getAllSpecies() {
 		Cursor cursor = database.query(
@@ -105,14 +170,16 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 						DatabaseContract.SpeciesEntry._ID,
 						DatabaseContract.SpeciesEntry.COLUMN_NAME,
 						DatabaseContract.SpeciesEntry.COLUMN_IMAGE,
-						DatabaseContract.SpeciesEntry.COLUMN_LOCATION_ID
+						DatabaseContract.SpeciesEntry.COLUMN_LOCATION_ID,
+						DatabaseContract.SpeciesEntry.COLUMN_WEIGHT,
+						DatabaseContract.SpeciesEntry.COLUMN_SIZE
 				},
 				null, null, null, null,
 				DatabaseContract.SpeciesEntry.COLUMN_NAME + " ASC"
 		);
 		Map<Integer, Species> speciesMap = new HashMap<>();
 		int id;
-		String name;
+		String name, weight, size;
 		byte[] imageBlob;
 		Pair<Double, Double> location;
 		List<Pair<String, String>> attributes;
@@ -122,11 +189,13 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 			name = cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_NAME));
 			imageBlob = cursor.getBlob(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_IMAGE));
 			location = this.getLocation(cursor.getInt(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_LOCATION_ID)));
+			weight = cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_WEIGHT));
+			size = cursor.getString(cursor.getColumnIndex(DatabaseContract.SpeciesEntry.COLUMN_SIZE));
 			attributes = this.getSpeciesAttributes(id);
 			if (imageBlob != null)
-				tmpSpecies = new Species(id, name, BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length), attributes, location);
+				tmpSpecies = new Species(id, name, BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length), weight, size, attributes, location);
 			else
-				tmpSpecies = new Species(id, name, null, attributes, location);
+				tmpSpecies = new Species(id, name, null, weight, size, attributes, location);
 			tmpSpecies.setIndividuals(this.getSpeciesIndividuals(tmpSpecies));
 			speciesMap.put(id, tmpSpecies);
 		}
@@ -162,8 +231,6 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 						DatabaseContract.IndividualEntry.COLUMN_DOB,
 						DatabaseContract.IndividualEntry.COLUMN_PLACE_OF_BIRTH,
 						DatabaseContract.IndividualEntry.COLUMN_GENDER,
-						DatabaseContract.IndividualEntry.COLUMN_WEIGHT,
-						DatabaseContract.IndividualEntry.COLUMN_SIZE
 				},
 				DatabaseContract.IndividualEntry.COLUMN_SPECIES_ID + " = ?",
 				new String[]{Integer.toString(species.getId())},
@@ -173,7 +240,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		
 		List<Individual> individualList = new ArrayList<>();
 		int id;
-		String name, placeOfBirth, gender, weight, size;
+		String name, placeOfBirth, gender;
 		Date dob = new Date();
 		while (cursor.moveToNext()) {
 			id = cursor.getInt(cursor.getColumnIndex(DatabaseContract.IndividualEntry._ID));
@@ -185,10 +252,8 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 			}
 			placeOfBirth = cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_PLACE_OF_BIRTH));
 			gender = cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_GENDER));
-			weight = cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_WEIGHT));
-			size = cursor.getString(cursor.getColumnIndex(DatabaseContract.IndividualEntry.COLUMN_SIZE));
 			
-			individualList.add(new Individual(id, species, name, dob, placeOfBirth, gender, weight, size, getIndividualAttributes(id)));
+			individualList.add(new Individual(id, species, name, dob, placeOfBirth, gender, getIndividualAttributes(id)));
 		}
 		cursor.close();
 		return individualList;
@@ -247,7 +312,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 						" from " + tableName + " as subjectAttributes inner join " + DatabaseContract.AttributeCategoryEntry.TABLE_NAME + " as attributeCategories on " +
 						" subjectAttributes." + DatabaseContract.AttributesColumns.COLUMN_CATEGORY_ID + " = attributeCategories." + DatabaseContract.AttributeCategoryEntry._ID +
 						" where subjectAttributes." + DatabaseContract.AttributesColumns.COLUMN_SUBJECT_ID + "=? " +
-						"order by attributeCategories." + DatabaseContract.AttributeCategoryEntry.COLUMN_PRIORITY + " desc ",
+						"order by attributeCategories." + DatabaseContract.AttributeCategoryEntry.COLUMN_POSITION + " asc ",
 				new String[]{Integer.toString(subjectID)}
 		);
 		while (cursor.moveToNext()) {

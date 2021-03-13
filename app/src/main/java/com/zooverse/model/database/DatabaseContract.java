@@ -13,6 +13,20 @@ public final class DatabaseContract {
 		public static final String COLUMN_DATE = "date";
 	}
 	
+	public static final class GroupEntry implements BaseColumns {
+		public static final String TABLE_NAME = "_GROUP_";
+		
+		public static final String COLUMN_NAME = "name";
+		public static final String COLUMN_IMAGE = "image";
+	}
+	
+	public static final class GroupsSpeciesEntry implements BaseColumns {
+		public static final String TABLE_NAME = "GROUPS_SPECIES";
+		
+		public static final String COLUMN_GROUP_ID = "group_id";
+		public static final String COLUMN_SPECIES_ID = "species_id";
+	}
+	
 	public static final class SpeciesEntry implements BaseColumns {
 		public static final String TABLE_NAME = "SPECIES";
 		
@@ -20,6 +34,8 @@ public final class DatabaseContract {
 		public static final String COLUMN_IMAGE = "image";
 		public static final String COLUMN_AUDIO = "audio";
 		public static final String COLUMN_LOCATION_ID = "location_id";
+		public static final String COLUMN_WEIGHT = "weight";
+		public static final String COLUMN_SIZE = "size";
 	}
 	
 	public static final class IndividualEntry implements BaseColumns {
@@ -30,8 +46,6 @@ public final class DatabaseContract {
 		public static final String COLUMN_DOB = "dob";
 		public static final String COLUMN_PLACE_OF_BIRTH = "place_of_birth";
 		public static final String COLUMN_GENDER = "gender";
-		public static final String COLUMN_WEIGHT = "weight";
-		public static final String COLUMN_SIZE = "size";
 		public static final String COLUMN_IMAGE = "image";
 	}
 	
@@ -39,7 +53,7 @@ public final class DatabaseContract {
 		public static final String TABLE_NAME = "ATTRIBUTE_CATEGORY";
 		
 		public static final String COLUMN_NAME = "name";
-		public static final String COLUMN_PRIORITY = "priority";
+		public static final String COLUMN_POSITION = "position";
 	}
 	
 	public interface AttributesColumns extends BaseColumns{
@@ -48,12 +62,17 @@ public final class DatabaseContract {
 		String COLUMN_ATTRIBUTE = "attribute";
 	}
 	
-	public static final class IndividualAttributesEntry implements AttributesColumns {
-		public static final String TABLE_NAME = "INDIVIDUALS_ATTRIBUTES";
+	public static final class GroupAttributesEntry implements AttributesColumns {
+		public static final String TABLE_NAME = "GROUPS_ATTRIBUTES";
 	}
 	
 	public static final class SpeciesAttributesEntry implements AttributesColumns {
 		public static final String TABLE_NAME = "SPECIES_ATTRIBUTES";
+	}
+	
+	public static final class IndividualAttributesEntry implements AttributesColumns {
+		public static final String TABLE_NAME = "INDIVIDUALS_ATTRIBUTES";
+	
 	}
 	
 	public static final class LocationEntry implements BaseColumns{

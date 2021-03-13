@@ -1,11 +1,173 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:orientation="vertical">
 
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/speciesImageLayout"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		app:layout_constraintBottom_toTopOf="@+id/speciesGuidelineTop"
+		app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="@id/guidelineVertical"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
 
+		<androidx.cardview.widget.CardView
+			android:id="@+id/cardViewSpeciesImage"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:layout_margin="10dp"
+			app:cardBackgroundColor="@android:color/white"
+			app:cardElevation="10dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintRight_toRightOf="parent"
+			app:layout_constraintTop_toTopOf="parent">
+
+		<ImageView
+			android:id="@+id/speciesImage"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:contentDescription="@string/species_image"
+			android:scaleType="centerCrop" />
+
+		</androidx.cardview.widget.CardView>
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+	<TextView
+		android:id="@+id/speciesSizeTextView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="16dp"
+		android:layout_marginTop="10dp"
+		android:drawablePadding="8dp"
+		android:maxLines="1"
+
+		android:textSize="18sp"
+		app:drawableLeftCompat="@drawable/icon_size"
+		app:drawableTint="@color/colorForeground"
+		app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/speciesWeightTextView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="16dp"
+		android:drawablePadding="8dp"
+		android:maxLines="1"
+		android:textSize="18sp"
+
+
+		app:drawableLeftCompat="@drawable/icon_weight"
+		app:drawableTint="@color/colorForeground"
+		app:layout_constraintStart_toStartOf="@+id/speciesSizeTextView"
+		app:layout_constraintTop_toBottomOf="@+id/speciesSizeTextView" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/speciesGuidelineTop"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		app:layout_constraintGuide_percent="0.3" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/speciesGuidelineMiddle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		app:layout_constraintGuide_percent="0.4" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/speciesGuidelineBottom"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		app:layout_constraintGuide_percent="0.85" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/guidelineVertical"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintGuide_percent="0.5" />
+	
+	
+	<ImageView
+		android:id="@+id/locationImageView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:clickable="true"
+		android:contentDescription="@string/location_image_view"
+		android:focusable="true"
+		android:onClick="openSpeciesLocation"
+		app:layout_constraintBottom_toTopOf="@+id/speciesGuidelineMiddle"
+		app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="@+id/speciesGuidelineTop"
+		app:srcCompat="@drawable/icon_location"
+		app:tint="?attr/themeColorForeground" />
+
+	<ImageView
+		android:id="@+id/audioImageView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:clickable="true"
+		android:contentDescription="@string/audio_image_view"
+		android:focusable="true"
+		android:onClick="playAudio"
+		app:layout_constraintBottom_toTopOf="@+id/speciesGuidelineMiddle"
+		app:layout_constraintEnd_toStartOf="@+id/individualsImageView"
+		app:layout_constraintStart_toEndOf="@+id/locationImageView"
+		app:layout_constraintTop_toTopOf="@+id/speciesGuidelineTop"
+		app:srcCompat="@drawable/icon_audio"
+		app:tint="?attr/themeColorForeground" />
+
+	<ImageView
+		android:id="@+id/individualsImageView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:clickable="true"
+		android:contentDescription="@string/individuals_image_view"
+		android:focusable="true"
+		android:onClick="openSpeciesIndividuals"
+		app:layout_constraintBottom_toTopOf="@+id/speciesGuidelineMiddle"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
+		app:layout_constraintTop_toTopOf="@+id/speciesGuidelineTop"
+		app:srcCompat="@drawable/icon_individuals"
+		app:tint="?attr/themeColorForeground" />
+
+	<TextView
+		android:id="@+id/individualsCountTextView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="4dp"
+		android:textAlignment="center"
+		android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+		android:textColor="@color/colorBackground"
+		android:textStyle="bold"
+		app:layout_constraintBottom_toBottomOf="@+id/individualsImageView"
+		app:layout_constraintEnd_toEndOf="@+id/individualsImageView"
+		app:layout_constraintStart_toStartOf="@+id/individualsImageView" />
+	
+	<androidx.recyclerview.widget.RecyclerView
+		android:id="@+id/speciesAttributesRecyclerView"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="@+id/speciesGuidelineMiddle" />
+	
+	<com.google.android.exoplayer2.ui.PlayerControlView
+		android:id="@+id/exoAudioPlayer"
 	<androidx.viewpager2.widget.ViewPager2
 		android:id="@+id/speciesViewPager"
 		android:layout_width="match_parent"

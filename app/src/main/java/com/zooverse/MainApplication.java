@@ -14,8 +14,8 @@ public class MainApplication extends Application {
 	private static SharedPreferences appPreferences;
 	
 	//Intent Extras
+	public static final String INTENT_EXTRA_GROUP_ID = "group_id";
 	public static final String INTENT_EXTRA_SPECIES_ID = "species_id";
-	public static final String INTENT_EXTRA_SPECIES_CATALOGUE_MODE = "species_catalogue_mode";
 	public static final String INTENT_EXTRA_SPECIES_VIEWPAGER_FILTERED_LIST = "species_filtered_list";
 	public static final String INTENT_EXTRA_TICKET_DATE = "ticket_date";
 	

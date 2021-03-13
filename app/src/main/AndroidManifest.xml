@@ -15,6 +15,7 @@
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme.Light">
+		<activity android:name=".activities.GroupActivity"></activity>
 
 		<receiver
 			android:name=".notifications.TicketNotificationHandler"
@@ -68,7 +69,10 @@
 			android:launchMode="singleTop"
 			android:screenOrientation="portrait" />
 		<activity
-			android:name=".activities.SpeciesCatalogueActivity"
+			android:name=".activities.SubjectCatalogueSearchActivity"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".activities.SubjectCatalogueLocationActivity"
 			android:screenOrientation="portrait" />
 		<activity
 			android:name=".activities.SpeciesActivity"

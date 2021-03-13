@@ -27,15 +27,11 @@ public class ZooMenuActivity extends AbstractBaseActivity {
 	}
 	
 	public void openAroundMe(View view) {
-		Intent intent = new Intent(MainApplication.getContext(), SpeciesCatalogueActivity.class);
-		intent.putExtra(MainApplication.INTENT_EXTRA_SPECIES_CATALOGUE_MODE, SpeciesCatalogueActivity.CATALOGUE_MODE_AROUND_ME);
-		startActivity(intent);
+		startActivity(new Intent(MainApplication.getContext(), SubjectCatalogueLocationActivity.class));
 	}
 	
 	public void openSpeciesSearch(View view) {
-		Intent intent = new Intent(MainApplication.getContext(), SpeciesCatalogueActivity.class);
-		intent.putExtra(MainApplication.INTENT_EXTRA_SPECIES_CATALOGUE_MODE, SpeciesCatalogueActivity.CATALOGUE_MODE_SEARCH);
-		startActivity(intent);
+		startActivity(new Intent(MainApplication.getContext(), SubjectCatalogueSearchActivity.class));
 	}
 	
 	public void openInfoPointScan(View view) {
