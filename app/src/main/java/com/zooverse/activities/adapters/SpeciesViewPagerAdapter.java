@@ -53,14 +53,14 @@ public class SpeciesViewPagerAdapter extends RecyclerView.Adapter<SpeciesViewPag
 	public static class SpeciesViewHolder extends RecyclerView.ViewHolder {
 		Species species;
 		
-		ImageView speciesImage = itemView.findViewById(R.id.speciesImage);
-		ImageView individualsImageView = itemView.findViewById(R.id.individualsImageView);
+		ImageView subjectImage = itemView.findViewById(R.id.subjectImage);
+		ImageView childImageView = itemView.findViewById(R.id.childImageView);
 		ImageView locationImageView = itemView.findViewById(R.id.locationImageView);
 		ImageView audioImageView = itemView.findViewById(R.id.audioImageView);
-		TextView individualsCountTextView = itemView.findViewById(R.id.individualsCountTextView);
-		TextView speciesWeightTextView = itemView.findViewById(R.id.speciesWeightTextView);
-		TextView speciesSizeTextView = itemView.findViewById(R.id.speciesSizeTextView);
-		RecyclerView customAttributesRecyclerView = itemView.findViewById(R.id.speciesAttributesRecyclerView);
+		TextView childCountTextView = itemView.findViewById(R.id.childCountTextView);
+		TextView speciesWeightTextView = itemView.findViewById(R.id.mainAttribute2TextView);
+		TextView speciesSizeTextView = itemView.findViewById(R.id.mainAttribute1TextView);
+		RecyclerView subjectRecyclerView = itemView.findViewById(R.id.subjectRecyclerView);
 		
 		PlayerControlView playerView = itemView.findViewById(R.id.exoAudioPlayer);
 		SimpleExoPlayer simplePlayer;
@@ -75,7 +75,7 @@ public class SpeciesViewPagerAdapter extends RecyclerView.Adapter<SpeciesViewPag
 	@NonNull
 	@Override
 	public SpeciesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View individualViewPagerLayout = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_viewpager_species, parent, false);
+		View individualViewPagerLayout = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_subject, parent, false);
 		return new SpeciesViewHolder(individualViewPagerLayout);
 	}
 	
@@ -86,34 +86,34 @@ public class SpeciesViewPagerAdapter extends RecyclerView.Adapter<SpeciesViewPag
 		viewHolder.species = speciesList.get(position);
 		initExoPlayer(viewHolder, viewHolder.species);
 		
-		viewHolder.speciesImage.setImageBitmap(viewHolder.species.getImage());
-		
+		viewHolder.subjectImage.setImageBitmap(viewHolder.species.getImage());
+		viewHolder.childCountTextView.setVisibility(View.VISIBLE);
+		viewHolder.childImageView.setVisibility(View.VISIBLE);
+		viewHolder.audioImageView.setVisibility(View.VISIBLE);
+		viewHolder.locationImageView.setVisibility(View.VISIBLE);
 		// show numbers of individuals, if 0 fade icon
 		
 		if (viewHolder.species.getIndividuals().size() > 0){
-			viewHolder.individualsCountTextView.setVisibility(View.VISIBLE);
-			viewHolder.individualsCountTextView.setText(Integer.toString(viewHolder.species.getIndividuals().size()));
-			viewHolder.individualsCountTextView.setTextColor(Theme.getColor(R.attr.themeColorBackground));
-			viewHolder.individualsImageView.setColorFilter(Theme.getColor(R.attr.themeColorForeground));
-		} else {
-			viewHolder.individualsCountTextView.setVisibility(View.INVISIBLE);
-			viewHolder.individualsImageView.setColorFilter(Theme.getColor(R.attr.themeColorForegroundFaded));
-		}
-		viewHolder.individualsImageView.setOnClickListener(view -> {
-			if (viewHolder.species.getIndividuals().size() > 0) {
+			viewHolder.childCountTextView.setVisibility(View.VISIBLE);
+			viewHolder.childCountTextView.setText(Integer.toString(viewHolder.species.getIndividuals().size()));
+			viewHolder.childCountTextView.setTextColor(Theme.getColor(R.attr.themeColorBackground));
+			viewHolder.childImageView.setColorFilter(Theme.getColor(R.attr.themeColorPrimary));
+			viewHolder.childImageView.setOnClickListener(view -> {
 				Intent intent = new Intent(view.getContext(), IndividualsActivity.class);
 				intent.putExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, viewHolder.species.getId());
 				view.getContext().startActivity(intent);
-			}
-		});
-		
+			});
+		} else {
+			viewHolder.childCountTextView.setVisibility(View.INVISIBLE);
+			viewHolder.childImageView.setColorFilter(Theme.getColor(R.attr.themeColorForegroundFaded));
+		}
 		
 		// fade location button if no location available
 		
 		if (viewHolder.species.getLocation() == null)
 			viewHolder.locationImageView.setColorFilter(Theme.getColor(R.attr.themeColorForegroundFaded));
 		else
-			viewHolder.locationImageView.setColorFilter(Theme.getColor(R.attr.themeColorForeground));
+			viewHolder.locationImageView.setColorFilter(Theme.getColor(R.attr.themeColorPrimary));
 		
 		viewHolder.locationImageView.setOnClickListener(view -> {
 			if (viewHolder.species.getLocation() != null) {
@@ -129,7 +129,7 @@ public class SpeciesViewPagerAdapter extends RecyclerView.Adapter<SpeciesViewPag
 		if (speciesAudio == null)
 			viewHolder.audioImageView.setColorFilter(Theme.getColor(R.attr.themeColorForegroundFaded));
 		else
-			viewHolder.audioImageView.setColorFilter(Theme.getColor(R.attr.themeColorForeground));
+			viewHolder.audioImageView.setColorFilter(Theme.getColor(R.attr.themeColorPrimary));
 		
 		viewHolder.audioImageView.setOnClickListener(view -> {
 
@@ -142,21 +142,23 @@ public class SpeciesViewPagerAdapter extends RecyclerView.Adapter<SpeciesViewPag
 			}
 		});
 		
-		if (viewHolder.species.getSize() != null)
+		if (viewHolder.species.getSize() != null) {
 			viewHolder.speciesSizeTextView.setText(viewHolder.species.getSize());
-		else
+			viewHolder.speciesSizeTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_size, 0, 0, 0);
+		} else
 			viewHolder.speciesSizeTextView.setVisibility(View.GONE);
 		
-		if (viewHolder.species.getWeight() != null)
+		if (viewHolder.species.getWeight() != null) {
 			viewHolder.speciesWeightTextView.setText(viewHolder.species.getWeight());
-		else
+			viewHolder.speciesWeightTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icon_weight, 0, 0, 0);
+		} else
 			viewHolder.speciesWeightTextView.setVisibility(View.GONE);
 		
 		// Loading RecyclerView with custom attributes
 		CustomAttributesAdapter customAttributesAdapter = new CustomAttributesAdapter(viewHolder.species.getAttributes());
-		viewHolder.customAttributesRecyclerView.setAdapter(customAttributesAdapter);
-		viewHolder.customAttributesRecyclerView.setLayoutManager(new LinearLayoutManager(MainApplication.getContext()));
-		viewHolder.customAttributesRecyclerView.setOnTouchListener((v, event) -> {
+		viewHolder.subjectRecyclerView.setAdapter(customAttributesAdapter);
+		viewHolder.subjectRecyclerView.setLayoutManager(new LinearLayoutManager(MainApplication.getContext()));
+		viewHolder.subjectRecyclerView.setOnTouchListener((v, event) -> {
 			//handle only simple touch
 			if (event.getAction() == MotionEvent.ACTION_DOWN) {
 				viewHolder.playerView.hide();
