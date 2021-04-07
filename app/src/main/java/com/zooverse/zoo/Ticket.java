@@ -1,19 +1,12 @@
-package com.zooverse.model;
+package com.zooverse.zoo;
 
 import android.text.format.DateUtils;
-import android.util.Log;
 
 import com.zooverse.MainApplication;
 import com.zooverse.R;
-import com.zooverse.utils.EncryptionHelper;
 
-import org.mozilla.javascript.tools.jsc.Main;
-
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.regex.Pattern;
 
 public class Ticket {
 	private String zooID;

@@ -45,7 +45,6 @@
 		<item name="android:windowLightStatusBar">false</item>
 		<item name="android:navigationBarColor">@color/colorNavigationBar</item>
 		<item name="themeColorCardBackground">@color/colorCardBackground</item>
-		<item name="themeColorExoPlayerButtons">@color/colorBackground</item>
 	</style>
 	
 	<!-- Dark Theme -->
@@ -60,6 +59,5 @@
 		<item name="android:windowLightStatusBar">true</item>
 		<item name="android:navigationBarColor">@color/colorNavigationBar_dark</item>
 		<item name="themeColorCardBackground">@color/colorCardBackground_dark</item>
-		<item name="themeColorExoPlayerButtons">@color/colorForeground_dark</item>
 	</style>
 </resources>

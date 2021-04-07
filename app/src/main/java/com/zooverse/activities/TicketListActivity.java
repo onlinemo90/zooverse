@@ -1,38 +1,31 @@
 package com.zooverse.activities;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.zooverse.MainApplication;
 import com.zooverse.R;
-import com.zooverse.Theme;
-import com.zooverse.model.Model;
-import com.zooverse.model.Ticket;
+import com.zooverse.zoo.Zoo;
+import com.zooverse.zoo.Ticket;
 import com.zooverse.activities.adapters.TicketListAdapter;
 
 import java.util.List;
 
-public class MainActivity extends AbstractBaseActivity implements TicketListAdapter.TicketOnClickListener {
+public class TicketListActivity extends AbstractBaseActivity {
 	private TicketListAdapter ticketListAdapter;
 	
 	@Override
+	@SuppressLint("MissingSuperCall")
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		this.enableOptionsMenu();
+		super.onCreate(savedInstanceState, R.layout.activity_ticket_list, true);
 		
 		// Loading RecyclerView with stored tickets
-		ticketListAdapter = new TicketListAdapter(this);
+		ticketListAdapter = new TicketListAdapter();
 		RecyclerView ticketList = findViewById(R.id.ticketList);
 		ticketList.setAdapter(ticketListAdapter);
 		ticketList.setLayoutManager(new LinearLayoutManager(MainApplication.getContext()));
@@ -41,7 +34,7 @@ public class MainActivity extends AbstractBaseActivity implements TicketListAdap
 	@Override
 	protected void onResume() {
 		super.onResume();
-		List<Ticket> storedTickets = Model.getStoredTickets();
+		List<Ticket> storedTickets = Zoo.getStoredTickets();
 		
 		View noTicketLayoutView = findViewById(R.id.noTicketLayout);
 		View ticketListLayoutView = findViewById(R.id.ticketListLayout);
@@ -58,12 +51,5 @@ public class MainActivity extends AbstractBaseActivity implements TicketListAdap
 	
 	public void openScanTicket(View view) {
 		startActivity(new Intent(MainApplication.getContext(), ZooMenuActivity.class));
-	}
-	
-	@Override
-	public void onTicketClick(int position) {
-		if (Model.getStoredTickets().get(position).isForToday()) {
-			startActivity(new Intent(MainApplication.getContext(), ZooMenuActivity.class));
-		}
 	}
 }

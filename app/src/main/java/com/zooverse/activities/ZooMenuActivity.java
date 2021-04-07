@@ -1,5 +1,6 @@
 package com.zooverse.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,25 +14,24 @@ import com.zooverse.Theme;
 public class ZooMenuActivity extends AbstractBaseActivity {
 	
 	@Override
+	@SuppressLint("MissingSuperCall")
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_zoo_menu);
-		this.enableOptionsMenu();
+		super.onCreate(savedInstanceState, R.layout.activity_zoo_menu, true);
 		
-		Theme.apply(
+		Theme.applyDefault(
 				(CardView) findViewById(R.id.cardViewAroundMe),
-				(CardView) findViewById(R.id.cardViewScanInfoPoint),
-				(CardView) findViewById(R.id.cardViewSearchSpecies),
-				(CardView) findViewById(R.id.cardViewZooInfo)
+				findViewById(R.id.cardViewScanInfoPoint),
+				findViewById(R.id.cardViewSearchSpecies),
+				findViewById(R.id.cardViewZooInfo)
 		);
 	}
 	
 	public void openAroundMe(View view) {
-		startActivity(new Intent(MainApplication.getContext(), SubjectCatalogueLocationActivity.class));
+		startActivity(new Intent(MainApplication.getContext(), AroundMeActivity.class));
 	}
 	
 	public void openSpeciesSearch(View view) {
-		startActivity(new Intent(MainApplication.getContext(), SubjectCatalogueSearchActivity.class));
+		startActivity(new Intent(MainApplication.getContext(), SubjectSearchActivity.class));
 	}
 	
 	public void openInfoPointScan(View view) {

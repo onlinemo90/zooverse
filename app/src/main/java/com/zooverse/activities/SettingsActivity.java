@@ -1,6 +1,7 @@
 package com.zooverse.activities;
 
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -12,9 +13,10 @@ import com.zooverse.Theme;
 
 public class SettingsActivity extends AbstractBaseActivity {
 	@Override
+	@SuppressLint("MissingSuperCall")
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_settings);
+		super.onCreate(savedInstanceState, R.layout.activity_settings, false);
+		
 		getSupportFragmentManager()
 				.beginTransaction()
 				.replace(R.id.settings, new SettingsFragment())
@@ -23,7 +25,6 @@ public class SettingsActivity extends AbstractBaseActivity {
 	
 	public static class SettingsFragment extends PreferenceFragmentCompat {
 		private SharedPreferences.OnSharedPreferenceChangeListener preferenceChangeListener;
-		
 		
 		@Override
 		public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {

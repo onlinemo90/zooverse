@@ -6,13 +6,17 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.zooverse.activities.SpeciesActivity;
+import com.zooverse.activities.SubjectActivity;
 import com.zooverse.activities.ZooMenuActivity;
-import com.zooverse.model.Model;
-import com.zooverse.model.Species;
-import com.zooverse.model.Ticket;
+import com.zooverse.zoo.Group;
+import com.zooverse.zoo.Individual;
+import com.zooverse.zoo.Subject;
+import com.zooverse.zoo.Zoo;
+import com.zooverse.zoo.Species;
+import com.zooverse.zoo.Ticket;
 import com.zooverse.notifications.TicketNotificationHandler;
 import com.zooverse.utils.EncryptionHelper;
+
 import static com.zooverse.MainApplication.getContext;
 
 import java.text.ParseException;
@@ -23,12 +27,14 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class Servlet {
+	private static final String url =
+			getContext().getString(R.string.url_scheme) + "://" +
+					getContext().getString(R.string.url_host) +
+					getContext().getString(R.string.url_pathPrefix) + "?";
+	
+	// Delimiters
 	private static final String FIELD_SEPARATOR = "&";
 	private static final String KEY_VALUE_SEPARATOR = "=";
-	private static final String url =
-		getContext().getString(R.string.url_scheme) + "://" +
-		getContext().getString(R.string.url_host) +
-		getContext().getString(R.string.url_pathPrefix) + "?";
 	
 	// Common keys
 	private static final String TYPE_KEY = "type";
@@ -37,12 +43,14 @@ public class Servlet {
 	// Type values
 	private static final String TICKET_TYPE = "ticket";
 	private static final String SPECIES_TYPE = "species";
+	private static final String INDIVIDUAL_TYPE = "individual";
+	private static final String GROUP_TYPE = "group";
 	
 	// Ticket keys
 	private static final String TICKET_DATE_KEY = "date";
 	
-	// Species keys
-	private static final String SPECIES_ID_KEY = "id";
+	// Subject Keys
+	private static final String SUBJECT_ID_KEY = "id";
 	
 	private static SimpleDateFormat TICKET_DATE_FORMAT = new SimpleDateFormat("yyyyMMdd");
 	
@@ -70,10 +78,12 @@ public class Servlet {
 			if (TICKET_TYPE.equals(requestType)) {
 				processTicket(requestMap, activity);
 			} else if (activity.getString(R.string.zoo_id).equalsIgnoreCase(requestMap.get(ZOO_KEY))) {
-				switch (requestType) {
-					case SPECIES_TYPE:
-						processSpecies(requestMap, activity);
-					// add new request types here
+				if (SPECIES_TYPE.equals(requestType)) {
+					processSubject(requestMap, activity, Species.class);
+				} else if (INDIVIDUAL_TYPE.equals(requestType)) {
+					processSubject(requestMap, activity, Individual.class);
+				} else if (GROUP_TYPE.equals(requestType)) {
+					processSubject(requestMap, activity, Group.class);
 				}
 			} else
 				Toast.makeText(activity, R.string.scan_qr_code_error_invalid_qr, Toast.LENGTH_SHORT).show();
@@ -92,16 +102,16 @@ public class Servlet {
 					Toast.makeText(activity, R.string.scan_qr_code_error_past_ticket, Toast.LENGTH_SHORT).show();
 				} else {
 					if (ticket.isForToday()) {
-						if (!Model.getStoredTickets().contains(ticket)) {
-							Model.storeTicket(ticket);
+						if (!Zoo.getStoredTickets().contains(ticket)) {
+							Zoo.storeTicket(ticket);
 						}
 						activity.finish();
 						activity.startActivity(new Intent(activity, ZooMenuActivity.class));
 					} else { // Future Ticket
-						if (Model.getStoredTickets().contains(ticket)) {
+						if (Zoo.getStoredTickets().contains(ticket)) {
 							Toast.makeText(activity, R.string.scan_qr_code_error_already_stored, Toast.LENGTH_SHORT).show();
 						} else {
-							Model.storeTicket(ticket);
+							Zoo.storeTicket(ticket);
 							TicketNotificationHandler.setNotification(ticket.getDate(), ticket.getFormattedDate());
 							Toast.makeText(activity, R.string.scan_qr_code_future_ticket_stored, Toast.LENGTH_SHORT).show();
 						}
@@ -113,18 +123,21 @@ public class Servlet {
 		}
 	}
 	
-	private static void processSpecies(Map<String, String> requestMap, AppCompatActivity activity) {
-		int speciesId = Integer.parseInt(Objects.requireNonNull(requestMap.get(SPECIES_ID_KEY)));
-		if (Model.getSpecies().containsKey(speciesId)) {
-			Species species = Model.getSpecies().get(speciesId);
-			if (Model.hasTodayTicket()) {
-				Intent intent = new Intent(MainApplication.getContext(), SpeciesActivity.class);
-				intent.putExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, species.getId());
-				activity.startActivity(intent);
-			} else {
-				Toast.makeText(activity, R.string.scan_qr_code_species_search_without_ticket, Toast.LENGTH_SHORT).show();
+	private static void processSubject(Map<String, String> requestMap, AppCompatActivity activity, Class subjectClass) throws Exception {
+		int subjectId = Integer.parseInt(Objects.requireNonNull(requestMap.get(SUBJECT_ID_KEY)));
+		for (Subject subject : Zoo.getSubjectList(subjectClass)) {
+			if (subjectId == subject.getDatabaseID()) {
+				if (Zoo.hasTodayTicket()) {
+					Intent intent = new Intent(MainApplication.getContext(), SubjectActivity.class);
+					intent.putExtra(SubjectActivity.IntentExtras.SUBJECT_UUID_ARRAY.toString(), new String[]{subject.getUuid()});
+					activity.startActivity(intent);
+				} else {
+					Toast.makeText(activity, R.string.scan_qr_code_subject_search_without_ticket, Toast.LENGTH_SHORT).show();
+				}
+				return;
 			}
 		}
+		throw new Exception(); // subject not found - invalid QR code
 	}
 	
 }

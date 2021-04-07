@@ -15,7 +15,7 @@ public class SplashScreenActivity extends AbstractBaseActivity {
 			Log.d("entryPoint", "Browser");
 		} catch (NullPointerException npe) {
 			Log.d("entryPoint", "Launcher");
-			startActivity(new Intent(this, MainActivity.class));
+			startActivity(new Intent(this, TicketListActivity.class));
 		}
 		finish();
 	}

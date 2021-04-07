@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,22 +15,22 @@ import com.zooverse.MainApplication;
 import com.zooverse.R;
 import com.zooverse.Servlet;
 import com.zooverse.Theme;
-import com.zooverse.model.Model;
-import com.zooverse.model.Species;
-import com.zooverse.model.Ticket;
-
-import com.zooverse.notifications.TicketNotificationHandler;
 
 public abstract class AbstractBaseActivity extends AppCompatActivity {
 	private int themeResourceId;
 	private boolean isOptionsMenuEnabled = false;
 	protected int menuBarId = R.menu.menu_bar_main;
 	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreateCustom(Bundle savedInstanceState) {
 		this.themeResourceId = Theme.getResourceId();
 		setTheme(this.themeResourceId);
 		super.onCreate(savedInstanceState);
+	}
+	
+	protected void onCreate(Bundle savedInstanceState, int layoutResId, boolean enableOptionsMenu){
+		onCreateCustom(savedInstanceState);
+		setContentView(layoutResId);
+		this.isOptionsMenuEnabled = enableOptionsMenu;
 	}
 	
 	@Override
@@ -58,7 +57,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
 			for (int i = 0; i < menu.size(); i++) {
 				Drawable drawable = menu.getItem(i).getIcon();
 				if (drawable != null) {
-					drawable.mutate().setColorFilter(Theme.getColor(R.attr.themeColorBackground), PorterDuff.Mode.SRC_ATOP);
+					Theme.applyBackground(drawable.mutate());
 				}
 			}
 			return true;

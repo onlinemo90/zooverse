@@ -1,4 +1,4 @@
-package com.zooverse.model.database;
+package com.zooverse.zoo.database;
 
 import android.provider.BaseColumns;
 
@@ -56,7 +56,7 @@ public final class DatabaseContract {
 		public static final String COLUMN_POSITION = "position";
 	}
 	
-	public interface AttributesColumns extends BaseColumns{
+	public interface AttributesColumns extends BaseColumns {
 		String COLUMN_SUBJECT_ID = "subject_id";
 		String COLUMN_CATEGORY_ID = "category_id";
 		String COLUMN_ATTRIBUTE = "attribute";
@@ -72,10 +72,9 @@ public final class DatabaseContract {
 	
 	public static final class IndividualAttributesEntry implements AttributesColumns {
 		public static final String TABLE_NAME = "INDIVIDUALS_ATTRIBUTES";
-	
 	}
 	
-	public static final class LocationEntry implements BaseColumns{
+	public static final class LocationEntry implements BaseColumns {
 		public static final String TABLE_NAME = "LOCATION";
 		
 		public static final String COLUMN_LATITUDE = "latitude";

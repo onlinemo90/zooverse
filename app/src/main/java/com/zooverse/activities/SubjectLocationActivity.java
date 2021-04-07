@@ -1,5 +1,6 @@
 package com.zooverse.activities;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -21,18 +22,23 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.zooverse.MainApplication;
 import com.zooverse.R;
-import com.zooverse.model.Model;
-import com.zooverse.model.Species;
+import com.zooverse.zoo.Subject;
+import com.zooverse.zoo.Zoo;
+
+import java.util.Collections;
 
 
-public class SpeciesLocationActivity extends FragmentActivity implements OnMapReadyCallback {
+public class SubjectLocationActivity extends FragmentActivity implements OnMapReadyCallback {
+	public enum IntentExtras {
+		SUBJECT_UUID
+	}
 	
 	private GoogleMap zooMap;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_species_location);
+		setContentView(R.layout.activity_subject_location);
 		
 		// Obtain the SupportMapFragment and get notified when the map is ready to be used.
 		SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -42,17 +48,17 @@ public class SpeciesLocationActivity extends FragmentActivity implements OnMapRe
 	@Override
 	public void onMapReady(GoogleMap googleMap) {
 		zooMap = googleMap;
-		Species species = Model.getSpecies().get(getIntent().getIntExtra(MainApplication.INTENT_EXTRA_SPECIES_ID, 1));
+		Subject subject = Zoo.getSubjectList(Collections.singletonList(getIntent().getStringExtra(IntentExtras.SUBJECT_UUID.toString()))).get(0);
 		
-		Bitmap speciesBitmap = species.getImage();
-		LatLng speciesCoordinates = new LatLng(species.getLocation().first, species.getLocation().second);
+		Bitmap speciesBitmap = subject.getImage();
+		LatLng speciesCoordinates = new LatLng(subject.getLocation().first, subject.getLocation().second);
 		MarkerOptions markerOptions = new MarkerOptions();
 		markerOptions.position(speciesCoordinates);
-		markerOptions.title(species.getName());
+		markerOptions.title(subject.getName());
 		markerOptions.icon(BitmapDescriptorFactory.fromBitmap(buildMapsPin(speciesBitmap)));
 		
 		zooMap.addMarker(markerOptions);
-		zooMap.moveCamera(CameraUpdateFactory.newLatLngZoom(speciesCoordinates,this.getResources().getInteger(R.integer.initial_zoom_out)));
+		zooMap.moveCamera(CameraUpdateFactory.newLatLngZoom(speciesCoordinates, this.getResources().getInteger(R.integer.initial_zoom_out)));
 		zooMap.getUiSettings().setMyLocationButtonEnabled(true);
 		zooMap.getUiSettings().setZoomControlsEnabled(true);
 		zooMap.getUiSettings().setCompassEnabled(true);
@@ -62,34 +68,33 @@ public class SpeciesLocationActivity extends FragmentActivity implements OnMapRe
 			//Location Permission already granted
 			zooMap.setMyLocationEnabled(true);
 			
-		}else {
+		} else {
 			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MainApplication.PERMISSION_REQUEST_LOCATION);
 		}
 	}
 	
 	@Override
-	public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 		if (requestCode == MainApplication.PERMISSION_REQUEST_LOCATION) {
 			// If request is cancelled, the result arrays are empty.
 			if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 				if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
 					// Permission granted
 					zooMap.setMyLocationEnabled(true);
-			}
-			else
+			} else
 				// permission denied
 				Toast.makeText(this, getString(R.string.location_on_map_permission_denied), Toast.LENGTH_LONG).show();
 		}
 	}
 	
-	public Bitmap buildMapsPin (Bitmap speciesBitmap) {
+	public Bitmap buildMapsPin(Bitmap speciesBitmap) {
 		Bitmap pinBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.icon_pin);
 		pinBitmap = Bitmap.createScaledBitmap(pinBitmap, this.getResources().getInteger(R.integer.bitmap_dimensions_pin), this.getResources().getInteger(R.integer.bitmap_dimensions_pin), true);
 		
 		if (speciesBitmap.getWidth() >= speciesBitmap.getHeight()) {
-			speciesBitmap = Bitmap.createBitmap(speciesBitmap, speciesBitmap.getWidth()/2 - speciesBitmap.getHeight()/2, 0, speciesBitmap.getHeight(), speciesBitmap.getHeight());
+			speciesBitmap = Bitmap.createBitmap(speciesBitmap, speciesBitmap.getWidth() / 2 - speciesBitmap.getHeight() / 2, 0, speciesBitmap.getHeight(), speciesBitmap.getHeight());
 		} else {
-			speciesBitmap = Bitmap.createBitmap(speciesBitmap, 0, speciesBitmap.getHeight()/2 - speciesBitmap.getWidth()/2, speciesBitmap.getWidth(), speciesBitmap.getWidth());
+			speciesBitmap = Bitmap.createBitmap(speciesBitmap, 0, speciesBitmap.getHeight() / 2 - speciesBitmap.getWidth() / 2, speciesBitmap.getWidth(), speciesBitmap.getWidth());
 		}
 		speciesBitmap = Bitmap.createScaledBitmap(speciesBitmap, this.getResources().getInteger(R.integer.bitmap_dimensions_species), this.getResources().getInteger(R.integer.bitmap_dimensions_species), true);
 		

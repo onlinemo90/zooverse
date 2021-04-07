@@ -75,7 +75,7 @@
 	<string name="scan_qr_code_error_wrong_zoo">You have a ticket for a different zoo.</string>
 	<string name="scan_qr_code_error_past_ticket">Your ticket is expired.</string>
 	<string name="scan_qr_code_error_already_stored">You have already scanned that ticket.</string>
-	<string name="scan_qr_code_species_search_without_ticket">Register your zoo ticket to use the app!</string>
+	<string name="scan_qr_code_subject_search_without_ticket">Register your zoo ticket to use the app!</string>
 
 	<!--Settings Activity-->
 	<string name="title_activity_settings">Settings</string>

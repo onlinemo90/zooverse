@@ -1,11 +1,11 @@
-package com.zooverse.model;
+package com.zooverse.zoo;
 
 import android.graphics.Bitmap;
-import android.util.Pair;
 
 import static com.zooverse.MainApplication.getContext;
 
 import com.zooverse.R;
+import com.zooverse.zoo.database.DatabaseHandler;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -14,17 +14,31 @@ import java.util.Date;
 import java.util.List;
 
 public class Individual extends Subject {
+	public enum Gender {
+		MALE,
+		FEMALE,
+		OTHER
+	}
+	
 	private final Species species;
 	private final Date dob;
 	private final String placeOfBirth;
-	private final String gender;
+	private final Gender gender;
 	
-	public Individual(int id, Species species, String name, Date dob, String placeOfBirth, String gender, List<Pair<String, String>> attributes) {
-		super(id, name, null, attributes);
+	public Individual(int id, Species species, String name, Date dob, String placeOfBirth, String gender, List<Attribute> attributes) {
+		super(id, name, null, null, attributes);
 		this.species = species;
 		this.dob = dob;
 		this.placeOfBirth = placeOfBirth;
-		this.gender = gender;
+		this.members = null;
+		
+		if ("M".equals(gender)){
+			this.gender = Gender.MALE;
+		} else if ("F".equals(gender)){
+			this.gender = Gender.FEMALE;
+		} else {
+			this.gender = Gender.OTHER;
+		}
 	}
 	
 	public Species getSpecies() {
@@ -33,7 +47,7 @@ public class Individual extends Subject {
 	
 	@Override
 	public Bitmap getImage() {
-		return Model.getIndividualImage(id);
+		return DatabaseHandler.getInstance().getIndividualImage(this.databaseID);
 	}
 	
 	public Date getDOB() {
@@ -59,7 +73,12 @@ public class Individual extends Subject {
 		return placeOfBirth;
 	}
 	
-	public String getGender() {
+	public Gender getGender() {
 		return gender;
+	}
+	
+	@Override
+	public void setMembers(List<Subject> subjectList) {
+		throw new UnsupportedOperationException();
 	}
 }

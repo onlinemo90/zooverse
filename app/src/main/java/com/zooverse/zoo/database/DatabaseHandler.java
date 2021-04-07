@@ -1,4 +1,4 @@
-package com.zooverse.model.database;
+package com.zooverse.zoo.database;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -10,10 +10,12 @@ import android.util.Pair;
 import com.zooverse.AssetManager;
 import com.zooverse.MainApplication;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
-import com.zooverse.model.Group;
-import com.zooverse.model.Individual;
-import com.zooverse.model.Species;
-import com.zooverse.model.Ticket;
+import com.zooverse.zoo.Attribute;
+import com.zooverse.zoo.Group;
+import com.zooverse.zoo.Individual;
+import com.zooverse.zoo.Species;
+import com.zooverse.zoo.Subject;
+import com.zooverse.zoo.Ticket;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,17 +26,25 @@ import java.util.List;
 import java.util.Map;
 
 public class DatabaseHandler extends SQLiteAssetHelper {
-	private static final int DATABASE_VERSION = 60;
+	private static final int DATABASE_VERSION = 77;
+	private static DatabaseHandler instance = null;
 	
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat(DatabaseContract.DATE_FORMAT);
 	
 	private final SQLiteDatabase database;
 	
-	public DatabaseHandler() {
+	private DatabaseHandler() {
 		super(MainApplication.getContext(), AssetManager.DATABASE_NAME, null, DATABASE_VERSION);
 		this.setForcedUpgrade();
 		
 		this.database = getReadableDatabase();
+	}
+	
+	public static DatabaseHandler getInstance() {
+		if (instance == null) {
+			instance = new DatabaseHandler();
+		}
+		return instance;
 	}
 	
 	// Ticket-----------------------------------------------------------
@@ -73,7 +83,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		return ticketList;
 	}
 	
-	public boolean hasTodayTicket(){
+	public boolean hasTodayTicket() {
 		String todayDateStr = dateFormat.format(new Date());
 		Cursor cursor = database.query(
 				DatabaseContract.TicketEntry.TABLE_NAME,
@@ -132,11 +142,11 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		return groupMap;
 	}
 	
-	private List<Pair<String,String>> getGroupAttributes(int groupID){
+	private List<Attribute> getGroupAttributes(int groupID) {
 		return getAttributes(groupID, DatabaseContract.GroupAttributesEntry.TABLE_NAME);
 	}
 	
-	public Map<Integer, List<Integer>> getGroupsSpeciesIdsMap(){
+	public Map<Integer, List<Integer>> getGroupsSpeciesIdsMap() {
 		Map<Integer, List<Integer>> groupsSpeciesMap = new HashMap<>();
 		
 		Cursor cursor = database.query(
@@ -152,7 +162,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		while (cursor.moveToNext()) {
 			groupId = cursor.getInt(cursor.getColumnIndex(DatabaseContract.GroupsSpeciesEntry.COLUMN_GROUP_ID));
 			speciesId = cursor.getInt(cursor.getColumnIndex(DatabaseContract.GroupsSpeciesEntry.COLUMN_SPECIES_ID));
-			if (!groupsSpeciesMap.containsKey(groupId)){
+			if (!groupsSpeciesMap.containsKey(groupId)) {
 				groupsSpeciesMap.put(groupId, new ArrayList<>());
 				
 			}
@@ -182,7 +192,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		String name, weight, size;
 		byte[] imageBlob;
 		Pair<Double, Double> location;
-		List<Pair<String, String>> attributes;
+		List<Attribute> attributes;
 		Species tmpSpecies;
 		while (cursor.moveToNext()) {
 			id = cursor.getInt(cursor.getColumnIndex(DatabaseContract.SpeciesEntry._ID));
@@ -196,14 +206,17 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 				tmpSpecies = new Species(id, name, BitmapFactory.decodeByteArray(imageBlob, 0, imageBlob.length), weight, size, attributes, location);
 			else
 				tmpSpecies = new Species(id, name, null, weight, size, attributes, location);
-			tmpSpecies.setIndividuals(this.getSpeciesIndividuals(tmpSpecies));
+			try {
+				tmpSpecies.setMembers(this.getSpeciesIndividuals(tmpSpecies));
+			} catch (Exception ignored) {
+			}
 			speciesMap.put(id, tmpSpecies);
 		}
 		cursor.close();
 		return speciesMap;
 	}
 	
-	private List<Pair<String,String>> getSpeciesAttributes(int speciesID){
+	private List<Attribute> getSpeciesAttributes(int speciesID) {
 		return getAttributes(speciesID, DatabaseContract.SpeciesAttributesEntry.TABLE_NAME);
 	}
 	
@@ -222,7 +235,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 	}
 	
 	// Individuals----------------------------------------------------------
-	private List<Individual> getSpeciesIndividuals(Species species) {
+	private List<Subject> getSpeciesIndividuals(Species species) {
 		Cursor cursor = database.query(
 				DatabaseContract.IndividualEntry.TABLE_NAME,
 				new String[]{
@@ -233,12 +246,12 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 						DatabaseContract.IndividualEntry.COLUMN_GENDER,
 				},
 				DatabaseContract.IndividualEntry.COLUMN_SPECIES_ID + " = ?",
-				new String[]{Integer.toString(species.getId())},
+				new String[]{Integer.toString(species.getDatabaseID())},
 				null, null,
 				DatabaseContract.IndividualEntry.COLUMN_NAME + " ASC"
 		);
 		
-		List<Individual> individualList = new ArrayList<>();
+		List<Subject> individualList = new ArrayList<>();
 		int id;
 		String name, placeOfBirth, gender;
 		Date dob = new Date();
@@ -259,7 +272,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		return individualList;
 	}
 	
-	private List<Pair<String, String>> getIndividualAttributes(int individualID) {
+	private List<Attribute> getIndividualAttributes(int individualID) {
 		return getAttributes(individualID, DatabaseContract.IndividualAttributesEntry.TABLE_NAME);
 	}
 	
@@ -304,8 +317,8 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 		return location;
 	}
 	
-	private List<Pair<String, String>> getAttributes(int subjectID, String tableName) {
-		List<Pair<String, String>> attributes = new ArrayList<>();
+	private List<Attribute> getAttributes(int subjectID, String tableName) {
+		List<Attribute> attributes = new ArrayList<>();
 		Cursor cursor = database.rawQuery(
 				"select attributeCategories." + DatabaseContract.AttributeCategoryEntry.COLUMN_NAME + " , " +
 						" subjectAttributes." + DatabaseContract.AttributesColumns.COLUMN_ATTRIBUTE +
@@ -316,7 +329,7 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 				new String[]{Integer.toString(subjectID)}
 		);
 		while (cursor.moveToNext()) {
-			attributes.add(new Pair<>(
+			attributes.add(new Attribute(
 							cursor.getString(cursor.getColumnIndex(DatabaseContract.AttributeCategoryEntry.COLUMN_NAME)),
 							cursor.getString(cursor.getColumnIndex(DatabaseContract.AttributesColumns.COLUMN_ATTRIBUTE))
 					)

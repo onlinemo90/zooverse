@@ -14,7 +14,6 @@ import android.os.Build;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.zooverse.MainApplication;
 import com.zooverse.R;
 import com.zooverse.activities.ZooMenuActivity;
 
@@ -24,16 +23,19 @@ import static android.content.Context.ALARM_SERVICE;
 import static com.zooverse.MainApplication.getContext;
 
 public class TicketNotificationHandler extends BroadcastReceiver {
-	
-	@Override
-	public void onReceive(Context context, Intent intent) {
-		notify(intent.getStringExtra(MainApplication.INTENT_EXTRA_TICKET_DATE));
+	private enum IntentExtras {
+		TICKET_DATE
 	}
 	
 	private static final String CHANNEL_ID = "TICKET_NOTIFICATION_CHANNEL";
 	private static final int NOTIFICATION_ID = 1;
 	
-	public static void notify (String ticketDate) {
+	@Override
+	public void onReceive(Context context, Intent intent) {
+		notify(intent.getStringExtra(IntentExtras.TICKET_DATE.toString()));
+	}
+	
+	public static void notify(String ticketDate) {
 		Bitmap icon = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.logo_splash);
 		
 		Intent intent = new Intent(getContext(), ZooMenuActivity.class);
@@ -41,7 +43,7 @@ public class TicketNotificationHandler extends BroadcastReceiver {
 		PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 0, intent, 0);
 		
 		NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getContext(), CHANNEL_ID)
-				.setSmallIcon(R.drawable.icon_individuals)
+				.setSmallIcon(R.drawable.icon_subject_members)
 				.setContentTitle(getContext().getString(R.string.notification_title))
 				.setContentText(ticketDate)
 				.setLargeIcon(icon)
@@ -54,7 +56,7 @@ public class TicketNotificationHandler extends BroadcastReceiver {
 	
 	public static void setNotification(Date date, String formattedDate) {
 		Intent intent = new Intent(getContext(), TicketNotificationHandler.class);
-		intent.putExtra(MainApplication.INTENT_EXTRA_TICKET_DATE, formattedDate);
+		intent.putExtra(IntentExtras.TICKET_DATE.toString(), formattedDate);
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 		
 		AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(ALARM_SERVICE);

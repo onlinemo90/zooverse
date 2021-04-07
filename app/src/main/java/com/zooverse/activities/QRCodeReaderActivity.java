@@ -1,6 +1,7 @@
 package com.zooverse.activities;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -33,9 +34,9 @@ public class QRCodeReaderActivity extends AbstractBaseActivity implements Activi
 	private String newQRCodeDetection = null;
 	
 	@Override
+	@SuppressLint("MissingSuperCall")
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_scan_qr_code);
+		super.onCreate(savedInstanceState, R.layout.activity_qr_code_reader, false);
 		
 		SurfaceView surfaceCamera = findViewById(R.id.cameraSurface);
 		assignCamera(surfaceCamera, this);
@@ -81,13 +82,11 @@ public class QRCodeReaderActivity extends AbstractBaseActivity implements Activi
 				} else {
 					//permission not defined yet, then prompt popup to request user permission
 					ActivityCompat.requestPermissions(currentActivity, new String[]{Manifest.permission.CAMERA}, MainApplication.PERMISSION_REQUEST_CAMERA);
-					
 				}
 			}
 			
 			@Override
 			public void surfaceChanged(@NonNull SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-				//nothing to do
 			}
 			
 			@Override
@@ -102,7 +101,7 @@ public class QRCodeReaderActivity extends AbstractBaseActivity implements Activi
 			}
 			
 			@Override
-			public void receiveDetections(Detector.Detections<Barcode> detections) {
+			public void receiveDetections(@NonNull Detector.Detections<Barcode> detections) {
 				final SparseArray<Barcode> qrCodes = detections.getDetectedItems();
 				if (qrCodes.size() != 0) {
 					newQRCodeDetection = qrCodes.valueAt(0).displayValue;

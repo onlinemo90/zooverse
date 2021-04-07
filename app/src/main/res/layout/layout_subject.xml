@@ -4,65 +4,61 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	tools:context=".activities.SpeciesActivity">
-
-
+	tools:context=".activities.SubjectActivity">
+	
+	
 	<androidx.constraintlayout.widget.ConstraintLayout
-		android:id="@+id/subjectmageLayout"
+		android:id="@+id/subjectImageLayout"
 		android:layout_width="0dp"
 		android:layout_height="0dp"
 		app:layout_constraintBottom_toTopOf="@+id/subjectGuidelineTop"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintLeft_toLeftOf="parent"
-		app:layout_constraintRight_toRightOf="@id/subjectGuidelineVertical"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent">
-
+		
 		<ImageView
-			android:id="@+id/audioImageView"
+			android:id="@+id/audioIconImageView"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:clickable="true"
 			android:contentDescription="@string/audio_image_view"
 			android:focusable="true"
-			android:visibility="invisible"
-			app:layout_constraintBottom_toTopOf="@+id/locationImageView"
-			app:layout_constraintEnd_toEndOf="@+id/locationImageView"
+			app:layout_constraintBottom_toTopOf="@+id/locationIconImageView"
+			app:layout_constraintEnd_toEndOf="@+id/locationIconImageView"
 			app:layout_constraintTop_toTopOf="parent"
 			app:srcCompat="@drawable/icon_audio"
 			app:tint="?attr/themeColorForeground" />
-
+		
 		<ImageView
-			android:id="@+id/locationImageView"
+			android:id="@+id/locationIconImageView"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:clickable="true"
 			android:contentDescription="@string/location_image_view"
 			android:focusable="true"
-			android:visibility="invisible"
-			app:layout_constraintBottom_toTopOf="@+id/childImageView"
-			app:layout_constraintEnd_toEndOf="@+id/childImageView"
-			app:layout_constraintTop_toBottomOf="@+id/audioImageView"
+			app:layout_constraintBottom_toTopOf="@+id/membersIconImageView"
+			app:layout_constraintEnd_toEndOf="@+id/membersIconImageView"
+			app:layout_constraintTop_toBottomOf="@+id/audioIconImageView"
 			app:srcCompat="@drawable/icon_location"
 			app:tint="?attr/themeColorForeground" />
-
+		
 		<ImageView
-			android:id="@+id/childImageView"
+			android:id="@+id/membersIconImageView"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginEnd="10dp"
 			android:clickable="true"
 			android:contentDescription="@string/individuals_image_view"
 			android:focusable="true"
-			android:visibility="invisible"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/locationImageView"
-			app:srcCompat="@drawable/icon_individuals"
+			app:layout_constraintTop_toBottomOf="@+id/locationIconImageView"
+			app:srcCompat="@drawable/icon_subject_members"
 			app:tint="?attr/themeColorForeground" />
-
+		
 		<TextView
-			android:id="@+id/childCountTextView"
+			android:id="@+id/membersCountTextView"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="4dp"
@@ -70,10 +66,10 @@
 			android:textAppearance="@style/TextAppearance.AppCompat.Medium"
 			android:textColor="@color/colorBackground"
 			android:textStyle="bold"
-			app:layout_constraintBottom_toBottomOf="@+id/childImageView"
-			app:layout_constraintEnd_toEndOf="@+id/childImageView"
-			app:layout_constraintStart_toStartOf="@+id/childImageView" />
-
+			app:layout_constraintBottom_toBottomOf="@+id/membersIconImageView"
+			app:layout_constraintEnd_toEndOf="@+id/membersIconImageView"
+			app:layout_constraintStart_toStartOf="@+id/membersIconImageView" />
+		
 		<androidx.cardview.widget.CardView
 			android:id="@+id/cardViewSubjectImage"
 			android:layout_width="0dp"
@@ -82,90 +78,99 @@
 			app:cardBackgroundColor="@android:color/white"
 			app:cardElevation="10dp"
 			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintEnd_toStartOf="@+id/childImageView"
+			app:layout_constraintEnd_toStartOf="@+id/membersIconImageView"
 			app:layout_constraintLeft_toLeftOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent">
-
+			
 			<ImageView
 				android:id="@+id/subjectImage"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:contentDescription="@string/species_image"
 				android:scaleType="centerCrop" />
-
+		
 		</androidx.cardview.widget.CardView>
-
+		
 		<ImageView
-			android:id="@+id/subjectIconGender"
+			android:id="@+id/subjectGenderIcon"
 			android:layout_width="40dp"
 			android:layout_height="40dp"
 			android:contentDescription="@string/individual_gender_icon"
 			android:translationZ="10dp"
-			app:layout_constraintBottom_toBottomOf="@+id/childImageView"
-			app:layout_constraintEnd_toEndOf="@+id/childImageView"
-			app:layout_constraintStart_toStartOf="@+id/childImageView"
-			app:layout_constraintTop_toTopOf="@+id/childImageView" />
-
+			app:layout_constraintBottom_toBottomOf="@+id/membersIconImageView"
+			app:layout_constraintEnd_toEndOf="@+id/membersIconImageView"
+			app:layout_constraintStart_toStartOf="@+id/membersIconImageView"
+			app:layout_constraintTop_toTopOf="@+id/membersIconImageView" />
+	
 	</androidx.constraintlayout.widget.ConstraintLayout>
-
-	<TextView
-		android:id="@+id/mainAttribute1TextView"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginStart="10dp"
-		android:drawablePadding="8dp"
-		android:maxLines="1"
-		android:textSize="18sp"
-		app:drawableTint="@color/colorForeground"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="@+id/subjectGuidelineTop" />
-
-	<TextView
-		android:id="@+id/mainAttribute2TextView"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:drawablePadding="8dp"
-		android:maxLines="1"
-		android:textSize="18sp"
-		app:drawableTint="@color/colorForeground"
-		app:layout_constraintStart_toStartOf="@+id/subjectGuidelineVertical"
-		app:layout_constraintTop_toTopOf="@+id/mainAttribute1TextView" />
-
+	
 	<androidx.constraintlayout.widget.Guideline
 		android:id="@+id/subjectGuidelineTop"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
 		app:layout_constraintGuide_percent="0.3" />
-
+	
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/demographicsLayout"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/subjectImageLayout">
+		
+		<androidx.constraintlayout.widget.Guideline
+			android:id="@+id/subjectGuidelineVertical"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			app:layout_constraintGuide_percent="0.5" />
+		
+		<TextView
+			android:id="@+id/demographic1TextView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:drawablePadding="8dp"
+			android:maxLines="1"
+			android:textSize="18sp"
+			app:drawableTint="@color/colorForeground"
+			app:layout_constraintEnd_toStartOf="@id/subjectGuidelineVertical"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+		
+		<TextView
+			android:id="@+id/demographic2TextView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:drawablePadding="8dp"
+			android:maxLines="1"
+			android:textSize="18sp"
+			app:drawableTint="@color/colorForeground"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toEndOf="@id/subjectGuidelineVertical"
+			app:layout_constraintTop_toTopOf="parent" />
+	</androidx.constraintlayout.widget.ConstraintLayout>
+	
+	
 	<androidx.constraintlayout.widget.Guideline
-		android:id="@+id/subjectGuidelineBottom"
+		android:id="@+id/subjectGuidelineAudioPlayerTop"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:orientation="horizontal"
 		app:layout_constraintGuide_percent="0.85" />
-
-	<androidx.constraintlayout.widget.Guideline
-		android:id="@+id/subjectGuidelineVertical"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:orientation="vertical"
-		app:layout_constraintGuide_percent="0.5" />
-
-
+	
 	<androidx.recyclerview.widget.RecyclerView
-		android:id="@+id/subjectRecyclerView"
+		android:id="@+id/subjectInfoRecyclerView"
 		android:layout_width="0dp"
 		android:layout_height="0dp"
-		android:layout_marginTop="8dp"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/mainAttribute1TextView" />
-
+		app:layout_constraintTop_toBottomOf="@id/demographicsLayout" />
+	
 	<com.google.android.exoplayer2.ui.PlayerControlView
-		android:id="@+id/exoAudioPlayer"
+		android:id="@+id/audioPlayerControlView"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
 		android:visibility="invisible"
@@ -174,7 +179,7 @@
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/subjectGuidelineBottom"
+		app:layout_constraintTop_toBottomOf="@+id/subjectGuidelineAudioPlayerTop"
 		app:played_color="?attr/themeColorPrimary"
 		app:scrubber_color="?attr/themeColorPrimary"
 		app:show_buffering="always"
