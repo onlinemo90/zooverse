@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-public class Servlet {
+public class InfoPointProcessor {
 	private static final String url =
 			getContext().getString(R.string.url_scheme) + "://" +
 					getContext().getString(R.string.url_host) +
@@ -52,14 +52,14 @@ public class Servlet {
 	// Subject Keys
 	private static final String SUBJECT_ID_KEY = "id";
 	
-	private static SimpleDateFormat TICKET_DATE_FORMAT = new SimpleDateFormat("yyyyMMdd");
+	private static final SimpleDateFormat TICKET_DATE_FORMAT = new SimpleDateFormat("yyyyMMdd");
 	
 	static {
 		TICKET_DATE_FORMAT.setLenient(false);
 	}
 	
 	
-	private Servlet() {
+	private InfoPointProcessor() {
 		// prevent instantiation
 	}
 	
@@ -92,7 +92,7 @@ public class Servlet {
 		}
 	}
 	
-	private static void processTicket(Map<String, String> requestMap, AppCompatActivity activity) throws ParseException {
+	private static void processTicket(Map<String, String> requestMap, AppCompatActivity activity) throws Exception {
 		String zooID = requestMap.get(ZOO_KEY);
 		String dateString = requestMap.get(TICKET_DATE_KEY);
 		if (zooID != null && dateString.length() == TICKET_DATE_FORMAT.toPattern().length()) {
@@ -120,7 +120,9 @@ public class Servlet {
 			} else {
 				Toast.makeText(MainApplication.getContext(), R.string.scan_qr_code_error_wrong_zoo, Toast.LENGTH_SHORT).show();
 			}
+			return;
 		}
+		throw new Exception();
 	}
 	
 	private static void processSubject(Map<String, String> requestMap, AppCompatActivity activity, Class subjectClass) throws Exception {

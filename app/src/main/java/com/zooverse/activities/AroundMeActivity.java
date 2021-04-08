@@ -21,14 +21,14 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.zooverse.MainApplication;
 import com.zooverse.R;
-import com.zooverse.activities.adapters.SubjectLocationRecyclerViewAdapter;
+import com.zooverse.activities.adapters.SubjectLocationCatalogAdapter;
 import com.zooverse.zoo.Zoo;
 import com.zooverse.zoo.Subject;
 
 import java.util.TreeMap;
 
 public class AroundMeActivity extends AbstractBaseActivity {
-	private final SubjectLocationRecyclerViewAdapter subjectRecyclerViewAdapter = new SubjectLocationRecyclerViewAdapter();
+	private final SubjectLocationCatalogAdapter subjectRecyclerViewAdapter = new SubjectLocationCatalogAdapter();
 	
 	private static final int SEARCH_RADIUS = 99999999; //TODO: decide on sensible value (perhaps configurable per client?)
 	private FusedLocationProviderClient locationProviderClient;

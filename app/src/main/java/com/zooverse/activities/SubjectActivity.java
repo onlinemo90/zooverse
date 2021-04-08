@@ -9,7 +9,7 @@ import android.os.Bundle;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.zooverse.R;
-import com.zooverse.activities.adapters.SubjectViewPagerAdapter;
+import com.zooverse.activities.adapters.SubjectPageAdapter;
 import com.zooverse.zoo.Subject;
 import com.zooverse.zoo.Zoo;
 
@@ -35,7 +35,7 @@ public class SubjectActivity extends AbstractBaseActivity {
 		}
 		
 		ViewPager2 viewPager = findViewById(R.id.speciesViewPager);
-		viewPager.setAdapter(new SubjectViewPagerAdapter(this, subjectList));
+		viewPager.setAdapter(new SubjectPageAdapter(this, subjectList));
 		viewPager.setCurrentItem(startingSubjectIndex, false);
 	}
 }

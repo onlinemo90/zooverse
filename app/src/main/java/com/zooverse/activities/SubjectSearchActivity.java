@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zooverse.R;
-import com.zooverse.activities.adapters.SubjectRecyclerViewAdapter;
+import com.zooverse.activities.adapters.SubjectCatalogAdapter;
 import com.zooverse.zoo.Zoo;
 import com.zooverse.zoo.Subject;
 
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SubjectSearchActivity extends AbstractBaseActivity {
-	private final SubjectRecyclerViewAdapter subjectRecyclerViewAdapter = new SubjectRecyclerViewAdapter(Zoo.getSearchableSubjectsList());
+	private final SubjectCatalogAdapter subjectRecyclerViewAdapter = new SubjectCatalogAdapter(Zoo.getSearchableSubjectsList());
 	
 	@Override
 	@SuppressLint("MissingSuperCall")

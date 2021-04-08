@@ -36,11 +36,11 @@ import com.zooverse.zoo.Subject;
 
 import java.util.List;
 
-public class SubjectViewPagerAdapter extends RecyclerView.Adapter<SubjectViewPagerAdapter.SubjectPageViewHolder> {
+public class SubjectPageAdapter extends RecyclerView.Adapter<SubjectPageAdapter.SubjectPageViewHolder> {
 	Activity hostActivity;
 	List<Subject> subjectList;
 	
-	public SubjectViewPagerAdapter(Activity hostActivity, List<Subject> subjectList) {
+	public SubjectPageAdapter(Activity hostActivity, List<Subject> subjectList) {
 		this.hostActivity = hostActivity;
 		this.subjectList = subjectList;
 	}
@@ -148,7 +148,7 @@ public class SubjectViewPagerAdapter extends RecyclerView.Adapter<SubjectViewPag
 				subjectInfoRecyclerView.setAdapter(new SubjectAttributesAdapter(subject));
 			} else {
 				Theme.applyActive(membersIconImageView);
-				subjectInfoRecyclerView.setAdapter(new SubjectRecyclerViewAdapter(subject.getMembers()));
+				subjectInfoRecyclerView.setAdapter(new SubjectCatalogAdapter(subject.getMembers()));
 			}
 		}
 		
@@ -206,6 +206,10 @@ public class SubjectViewPagerAdapter extends RecyclerView.Adapter<SubjectViewPag
 			);
 			playerNotificationManager.setPlayer(this.audioPlayer);
 		}
+		
+		private void pauseAudio(){
+			this.audioPlayer.pause();
+		}
 	}
 	
 	@NonNull
@@ -224,6 +228,12 @@ public class SubjectViewPagerAdapter extends RecyclerView.Adapter<SubjectViewPag
 	@Override
 	public void onViewAttachedToWindow(@NonNull SubjectPageViewHolder viewHolder) {
 		this.hostActivity.setTitle(viewHolder.subject.getName());
+		super.onViewAttachedToWindow(viewHolder);
+	}
+	
+	@Override
+	public void onViewDetachedFromWindow(@NonNull SubjectPageViewHolder viewHolder){
+		viewHolder.pauseAudio();
 	}
 	
 	@Override

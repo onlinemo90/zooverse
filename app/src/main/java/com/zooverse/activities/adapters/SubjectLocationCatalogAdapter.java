@@ -19,14 +19,13 @@ import com.zooverse.activities.SubjectLocationActivity;
 import com.zooverse.activities.SubjectActivity;
 import com.zooverse.zoo.Subject;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
 
-public class SubjectLocationRecyclerViewAdapter extends RecyclerView.Adapter<SubjectLocationRecyclerViewAdapter.SubjectLocationViewHolder> {
+public class SubjectLocationCatalogAdapter extends RecyclerView.Adapter<SubjectLocationCatalogAdapter.SubjectLocationViewHolder> {
 	List<Entry<Integer, Subject>> subjectListByDistance = new ArrayList<>();
 	
 	protected class SubjectLocationViewHolder extends RecyclerView.ViewHolder {
@@ -71,10 +70,10 @@ public class SubjectLocationRecyclerViewAdapter extends RecyclerView.Adapter<Sub
 		}
 	}
 	
-	public SubjectLocationRecyclerViewAdapter() {
+	public SubjectLocationCatalogAdapter() {
 	}
 	
-	public SubjectLocationRecyclerViewAdapter(TreeMap<Integer, Subject> subjectsByDistance) {
+	public SubjectLocationCatalogAdapter(TreeMap<Integer, Subject> subjectsByDistance) {
 		this.setSubjectListByDistance(subjectsByDistance);
 	}
 	

@@ -2,7 +2,6 @@ package com.zooverse.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.zooverse.MainApplication;
 import com.zooverse.R;
-import com.zooverse.Servlet;
+import com.zooverse.InfoPointProcessor;
 import com.zooverse.Theme;
 
 public abstract class AbstractBaseActivity extends AppCompatActivity {
@@ -80,6 +79,6 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
 	}
 	
 	protected void processExternalRequest(String requestURL) {
-		Servlet.process(requestURL, this);
+		InfoPointProcessor.process(requestURL, this);
 	}
 }

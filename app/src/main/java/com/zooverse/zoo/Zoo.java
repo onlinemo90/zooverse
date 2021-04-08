@@ -1,8 +1,6 @@
 package com.zooverse.zoo;
 
 
-import android.graphics.Bitmap;
-
 import com.zooverse.zoo.database.DatabaseHandler;
 
 import java.io.InvalidObjectException;
@@ -91,7 +89,6 @@ public class Zoo {
 	public static void storeTicket(Ticket ticket) {
 		dbHandler.storeTicket(ticket);
 	}
-	
 	
 	// Subjects-------------------------------------------------------------------------------------
 	public static List<Subject> getSubjectList() {

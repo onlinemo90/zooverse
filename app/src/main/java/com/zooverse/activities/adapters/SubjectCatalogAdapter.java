@@ -18,7 +18,7 @@ import com.zooverse.zoo.Subject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecyclerViewAdapter.SubjectViewHolder> {
+public class SubjectCatalogAdapter extends RecyclerView.Adapter<SubjectCatalogAdapter.SubjectViewHolder> {
 	private List<Subject> subjectList;
 	
 	protected class SubjectViewHolder extends RecyclerView.ViewHolder {
@@ -44,11 +44,11 @@ public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecy
 		}
 	}
 	
-	public SubjectRecyclerViewAdapter() {
+	public SubjectCatalogAdapter() {
 		this.subjectList = new ArrayList<>();
 	}
 	
-	public SubjectRecyclerViewAdapter(List<Subject> subjectList) {
+	public SubjectCatalogAdapter(List<Subject> subjectList) {
 		this.setSubjectList(subjectList);
 	}
 	
