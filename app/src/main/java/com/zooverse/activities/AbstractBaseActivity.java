@@ -18,7 +18,7 @@ import com.zooverse.Theme;
 public abstract class AbstractBaseActivity extends AppCompatActivity {
 	private int themeResourceId;
 	private boolean isOptionsMenuEnabled = false;
-	protected int menuBarId = R.menu.menu_bar_main;
+	protected int menuBarId = R.menu.menu_bar_default;
 	
 	protected void onCreateCustom(Bundle savedInstanceState) {
 		this.themeResourceId = Theme.getResourceId();
