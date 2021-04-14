@@ -45,7 +45,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
 			if (Zoo.getStoredTickets().get(position).isForToday()) { // highlight if it is a ticket for today
 				Theme.applyActive(this.cardView);
 				Theme.applyBackground(this.ticketLabelTextView);
-				ticketLabelTextView.setText(getContext().getString(R.string.main_ticket_today));
+				ticketLabelTextView.setText(getContext().getString(R.string.ticket_list_ticket_today));
 				this.ticketDateTextView.setText("");
 				this.ticketIcon.setImageDrawable(ContextCompat.getDrawable(MainApplication.getContext(), R.drawable.icon_walking));
 				Theme.applyBackground(this.ticketIcon);

@@ -3,72 +3,56 @@
 	<string name="zoo_id">ZSL</string>
 	<string name="encryption_key">k3byWoG3plPow3FuvZ5p1IWlZv1g3uob</string>
 	<string name="local_date_format">dd/MM/yyyy</string>
-
-	<!-- URL-->
+	
+	<!-- URL -->
 	<string name="url_host">zooverse.org</string>
 	<string name="url_pathPrefix">/android</string>
 	<string name="url_scheme">https</string>
-
-	<!--Ticket Notifications-->
+	
+	<!-- Ticket Notifications -->
 	<string name="notification_channel_name">Ticket Notifications</string>
 	<string name="notification_channel_description">The app sends you a reminder on the day you have a ticket to the zoo.</string>
 	<string name="notification_title">You have a zoo ticket for today!</string>
-
-	<!--menu_bar-->
+	
+	<!-- Menu bar -->
 	<string name="menu_bar_ticket_scan">Scan ticket</string>
 	<string name="menu_bar_settings">@string/title_activity_settings</string>
-	<string name="menu_bar_species_page_left">previous species</string>
-	<string name="menu_bar_species_page_right">next species</string>
-
-	<!--activity_main-->
+	
+	<!-- TicketListActivity -->
 	<string name="logoImageView">Zoo Logo</string>
-	<string name="qrCodeImageView">Example QR Code"</string>
-	<string name="main_start_visit">Start your visit</string>
-	<string name="main_ticket_date">Ticket Date:</string>
-	<string name="main_ticket_today">You have a ticket for today!</string>
-	<string name="main_upcoming_tickets">Your upcoming tickets:</string>
-	<string name="main_no_tickets">You currently have no tickets to this zoo</string>
-	<string name="main_scan_ticket_instructions">Scan your ticket QR code to register it and use the app</string>
-
-	<!--activity_qr_code_scanner-->
-	<string name="qr_scanner_title">Please scan a QR code</string>
-
-	<!--activity_group-->
-	<string name="group_image">Group Image</string>
-	<string name="group_tab1">Animals</string>
-	<string name="group_tab2">Learn more</string>
-
-	<!--activity_species-->
-	<string name="species_image">Species Image</string>
-	<string name="individuals_image_view">species individuals icon</string>
-	<string name="audio_image_view">species audio icon</string>
-	<string name="location_image_view">species location icon</string>
-
-	<!--activity_species_catalogue-->
-	<string name="species_search_criterion_hint">Search for an animal…</string>
-	<string name="speciesImageView">Species Image</string>
-	<string name="speciesLocationIcon">Species Location</string>
-
-	<!--SpeciesCatalogueActivity.class-->
+	<string name="qrCodeImageView">Example QR Code</string>
+	<string name="ticket_list_ticket_date">Ticket Date:</string>
+	<string name="ticket_list_ticket_today">You have a ticket for today!</string>
+	<string name="ticket_list_upcoming_tickets">Your upcoming tickets:</string>
+	<string name="ticket_list_no_tickets">You currently have no tickets to this zoo</string>
+	<string name="ticket_list_scan_ticket_instructions">Scan your ticket QR code to register it and use the app</string>
+	
+	<!-- SubjectSearchActivity -->
+	<string name="subject_search_criterion_hint">Search for an animal…</string>
+	<string name="subjectImageView">Species Image</string>
+	<string name="subjectLocationIcon">Species Location</string>
+	
+	<!-- SubjectLocationCatalogAdapter -->
 	<string name="meter_abbreviation">m</string>
 	<string name="kilometer_abbreviation">km</string>
 	<string name="no_location">unknown</string>
 	<string name="location_permission_denied">Around me can only be used with shared location</string>
-
-	<!--SpeciesLocationActivity.class-->
+	
+	<!-- SubjectLocationActivity -->
 	<string name="location_on_map_permission_denied">own location not visible</string>
-
-	<!--activity_zoo_menu-->
+	
+	<!-- ZooMenuActivity -->
 	<string name="zoo_menu_around_me_button">Around me</string>
 	<string name="zoo_menu_species_search">Animal Search</string>
 	<string name="zoo_menu_scan_infopoint_button">Scan\nInfo point</string>
 	<string name="zoo_menu_zoo_information_button">More Information</string>
-
-	<!--activity_zoo_information-->
+	
+	<!-- ZooInformationActivity -->
 	<string name="zoo_information_title">Welcome to our website</string>
 	<string name="zoo_information_url">https://www.zsl.org</string>
-
+	
 	<!--QRCodeReaderActivity.class-->
+	<string name="qr_scanner_title">Please scan a QR code</string>
 	<string name="scan_qr_code_future_ticket_stored">Your ticket has been stored.</string>
 	<string name="scan_qr_code_error_camera_access_denied">Camera is required to scan zoo ticket.</string>
 	<string name="scan_qr_code_error_invalid_qr">Invalid QR code</string>
@@ -76,34 +60,25 @@
 	<string name="scan_qr_code_error_past_ticket">Your ticket is expired.</string>
 	<string name="scan_qr_code_error_already_stored">You have already scanned that ticket.</string>
 	<string name="scan_qr_code_subject_search_without_ticket">Register your zoo ticket to use the app!</string>
-
-	<!--Settings Activity-->
+	
+	<!-- SettingsActivity -->
 	<string name="title_activity_settings">Settings</string>
 	<string name="theme_title">Theme</string>
 	<string name="theme_dialog">Choose your Theme</string>
 	<string name="theme_light">Light</string>
 	<string name="theme_dark">Dark</string>
-
+	
 	<string name="theme_pref_key">theme_pref_key</string>
 	<string name="theme_default">@string/theme_light</string>
-
-	<!--Individuals Activity-->
-	<string name="individual_image">Individual Image</string>
-	<string name="our_species_title_prefix">Our</string>
+	
+	<!-- SubjectActivity -->
+	<string name="subject_image_view">Image</string>
+	<string name="audio_image_view">Audio</string>
+	<string name="location_image_view">Location</string>
 	<string name="individual_gender_icon">Gender</string>
+	<string name="members_image_view">Members</string>
 	<string name="individual_age_icon">Age</string>
-	<string name="individual_size_icon">Size</string>
-	<string name="individual_origin_icon">Place of origin</string>
-	<string name="individual_weight_icon">Weight</string>
-
-	<!--IndividualsViewPagerAdapter.class-->
-	<string name="unknown_individual_name">unknown</string>
-
-	<!--Individual.class-->
 	<string name="year_abbreviation">y</string>
 	<string name="month_abbreviation">mon</string>
 	<string name="day_abbreviation">d</string>
-
-	<!--Species.class-->
-	<string name="species_title_suffix">s</string>
 </resources>

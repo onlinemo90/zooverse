@@ -28,7 +28,7 @@
 			android:id="@+id/ticketLabelTextView"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="@string/main_ticket_date"
+			android:text="@string/ticket_list_ticket_date"
 			android:textAlignment="textStart"
 			android:textSize="20sp"
 			card_view:layout_constraintBottom_toBottomOf="parent"

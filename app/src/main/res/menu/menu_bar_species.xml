@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto">
-
-	<item
-		android:id="@+id/previousSpeciesMenuItem"
-		android:icon="@drawable/icon_arrow_left"
-		android:title="@string/menu_bar_species_page_left"
-		app:showAsAction="always" />
-	<item
-		android:id="@+id/nextSpeciesMenuItem"
-		android:icon="@drawable/icon_arrow_right"
-		android:title="@string/menu_bar_species_page_right"
-		app:showAsAction="always" />
+	
 	<item
 		android:id="@+id/scanTicketMenuItem"
 		android:icon="@drawable/icon_scan_qr_code"

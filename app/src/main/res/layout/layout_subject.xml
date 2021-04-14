@@ -49,7 +49,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginEnd="10dp"
 			android:clickable="true"
-			android:contentDescription="@string/individuals_image_view"
+			android:contentDescription="@string/members_image_view"
 			android:focusable="true"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
@@ -87,7 +87,7 @@
 				android:id="@+id/subjectImage"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				android:contentDescription="@string/species_image"
+				android:contentDescription="@string/subject_image_view"
 				android:scaleType="centerCrop" />
 		
 		</androidx.cardview.widget.CardView>
