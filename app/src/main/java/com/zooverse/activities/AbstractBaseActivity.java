@@ -40,15 +40,6 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
 		}
 	}
 	
-	protected void enableOptionsMenu() {
-		this.isOptionsMenuEnabled = true;
-	}
-	
-	protected void enableOptionsMenu(int menuBarId) {
-		this.menuBarId = menuBarId;
-		this.isOptionsMenuEnabled = true;
-	}
-	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		if (this.isOptionsMenuEnabled) {
@@ -64,8 +55,8 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
 		return false;
 	}
 	
-	@SuppressLint("NonConstantResourceId")
 	@Override
+	@SuppressLint("NonConstantResourceId")
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.settingsMenuItem:
