@@ -58,6 +58,10 @@ public class Theme {
 		apply(R.attr.themeColorPrimary, imageViews);
 	}
 	
+	public static void applyDisabled(ImageView... imageViews){
+		apply(R.attr.themeColorForegroundFaded, imageViews);
+	}
+	
 	public static void applyActive(CardView... cards) {
 		apply(R.attr.themeColorPrimary, cards);
 	}

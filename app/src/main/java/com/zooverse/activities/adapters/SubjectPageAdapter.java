@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -30,6 +31,7 @@ import com.zooverse.R;
 import com.zooverse.Theme;
 import com.zooverse.activities.SubjectActivity;
 import com.zooverse.activities.SubjectLocationActivity;
+import com.zooverse.zoo.Group;
 import com.zooverse.zoo.Individual;
 import com.zooverse.zoo.Species;
 import com.zooverse.zoo.Subject;
@@ -84,23 +86,46 @@ public class SubjectPageAdapter extends RecyclerView.Adapter<SubjectPageAdapter.
 			
 			// Subject Info RecyclerView
 			subjectInfoRecyclerView.setLayoutManager(new LinearLayoutManager(MainApplication.getContext()));
+			subjectInfoRecyclerView.setOnTouchListener((v, event) -> {
+				if (event.getAction() == MotionEvent.ACTION_DOWN && audioPlayerView.isVisible()) {
+					audioPlayerView.hide();
+					Theme.applyDefault(this.audioIconImageView);
+					return true;
+				}
+				return false;
+			});
 			bindSubjectInfoAdapter(subject);
 			
 			// Members
-			membersIconImageView.setVisibility(View.INVISIBLE);
-			membersCountTextView.setVisibility(View.INVISIBLE);
-			if (subject.getMembers() != null && subject.getMembers().size() > 0) {
+			
+			if (subject instanceof Species || subject instanceof Group) {
 				membersIconImageView.setVisibility(View.VISIBLE);
-				membersIconImageView.setOnClickListener(view -> {
-					isDisplayingAttributes = !isDisplayingAttributes;
-					bindSubjectInfoAdapter(subject);
-				});
-				membersCountTextView.setVisibility(View.VISIBLE);
-				membersCountTextView.setText(String.valueOf(subject.getMembers().size()));
+				if (subject.getMembers() != null && subject.getMembers().size() > 0) {
+					Theme.applyDefault(membersIconImageView);
+					membersIconImageView.setOnClickListener(view -> {
+						isDisplayingAttributes = !isDisplayingAttributes;
+						bindSubjectInfoAdapter(subject);
+					});
+					membersCountTextView.setVisibility(View.VISIBLE);
+					membersCountTextView.setText(String.valueOf(subject.getMembers().size()));
+				} else {
+					membersCountTextView.setVisibility(View.INVISIBLE);
+					Theme.applyDisabled(membersIconImageView);
+				}
+			} else {
+				membersIconImageView.setVisibility(View.INVISIBLE);
+				membersCountTextView.setVisibility(View.INVISIBLE);
 			}
 			
 			// Location
-			locationIconImageView.setVisibility(subject.getLocation() != null ? View.VISIBLE : View.INVISIBLE);
+			if (subject instanceof Species) {
+				locationIconImageView.setVisibility(View.VISIBLE);
+				if (subject.getLocation() != null)
+					Theme.applyDefault(locationIconImageView);
+				else
+					Theme.applyDisabled(locationIconImageView);
+			} else
+				locationIconImageView.setVisibility(View.INVISIBLE);
 			locationIconImageView.setOnClickListener(view -> {
 				Intent intent = new Intent(MainApplication.getContext(), SubjectLocationActivity.class);
 				intent.putExtra(SubjectLocationActivity.IntentExtras.SUBJECT_UUID.toString(), subject.getUuid());
@@ -109,7 +134,14 @@ public class SubjectPageAdapter extends RecyclerView.Adapter<SubjectPageAdapter.
 			
 			// Audio
 			bindAudioPlayer(subject);
-			audioIconImageView.setVisibility(subject.getAudio() != null ? View.VISIBLE : View.INVISIBLE);
+			if (subject instanceof Species) {
+				audioIconImageView.setVisibility(View.VISIBLE);
+				if (subject.getAudio() != null)
+					Theme.applyDefault(audioIconImageView);
+				else
+					Theme.applyDisabled(audioIconImageView);
+			} else
+				audioIconImageView.setVisibility(View.INVISIBLE);
 			if (subject.getAudio() != null) {
 				this.audioPlayer.setMediaSource(new ProgressiveMediaSource.Factory(() -> new ByteArrayDataSource(subject.getAudio())).createMediaSource(MediaItem.fromUri(Uri.EMPTY)));
 				this.audioPlayer.prepare();
