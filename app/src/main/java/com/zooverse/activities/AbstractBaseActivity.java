@@ -47,7 +47,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity {
 			for (int i = 0; i < menu.size(); i++) {
 				Drawable drawable = menu.getItem(i).getIcon();
 				if (drawable != null) {
-					Theme.apply(Theme.THEME_COLOR_BACKGROUND, drawable.mutate());
+					Theme.apply(Theme.Mode.BACKGROUND, drawable.mutate());
 				}
 			}
 			return true;

@@ -89,7 +89,7 @@ public class SubjectPageAdapter extends RecyclerView.Adapter<SubjectPageAdapter.
 			subjectInfoRecyclerView.setOnTouchListener((v, event) -> {
 				if (event.getAction() == MotionEvent.ACTION_DOWN && audioPlayerView.isVisible()) {
 					audioPlayerView.hide();
-					Theme.apply(Theme.THEME_COLOR_DEFAULT, this.audioIconImageView);
+					Theme.apply(Theme.Mode.DEFAULT, this.audioIconImageView);
 					return true;
 				}
 				return false;
@@ -101,17 +101,17 @@ public class SubjectPageAdapter extends RecyclerView.Adapter<SubjectPageAdapter.
 			if (subject instanceof Species || subject instanceof Group) {
 				membersIconImageView.setVisibility(View.VISIBLE);
 				if (subject.getMembers() != null && subject.getMembers().size() > 0) {
-					Theme.apply(Theme.THEME_COLOR_DEFAULT, membersIconImageView);
+					Theme.apply(Theme.Mode.DEFAULT, membersIconImageView);
 					membersIconImageView.setOnClickListener(view -> {
 						isDisplayingAttributes = !isDisplayingAttributes;
 						bindSubjectInfoAdapter(subject);
 					});
 					membersCountTextView.setVisibility(View.VISIBLE);
 					membersCountTextView.setText(String.valueOf(subject.getMembers().size()));
-					Theme.apply(Theme.THEME_COLOR_BACKGROUND, membersCountTextView);
+					Theme.apply(Theme.Mode.BACKGROUND, membersCountTextView);
 				} else {
 					membersCountTextView.setVisibility(View.INVISIBLE);
-					Theme.apply(Theme.THEME_COLOR_DISABLED, membersIconImageView);
+					Theme.apply(Theme.Mode.DISABLED, membersIconImageView);
 				}
 			} else {
 				membersIconImageView.setVisibility(View.INVISIBLE);
@@ -122,9 +122,9 @@ public class SubjectPageAdapter extends RecyclerView.Adapter<SubjectPageAdapter.
 			if (subject instanceof Species) {
 				locationIconImageView.setVisibility(View.VISIBLE);
 				if (subject.getLocation() != null)
-					Theme.apply(Theme.THEME_COLOR_DEFAULT, locationIconImageView);
+					Theme.apply(Theme.Mode.DEFAULT, locationIconImageView);
 				else
-					Theme.apply(Theme.THEME_COLOR_DISABLED, locationIconImageView);
+					Theme.apply(Theme.Mode.DISABLED, locationIconImageView);
 			} else
 				locationIconImageView.setVisibility(View.INVISIBLE);
 			locationIconImageView.setOnClickListener(view -> {
@@ -138,9 +138,9 @@ public class SubjectPageAdapter extends RecyclerView.Adapter<SubjectPageAdapter.
 			if (subject instanceof Species) {
 				audioIconImageView.setVisibility(View.VISIBLE);
 				if (subject.getAudio() != null)
-					Theme.apply(Theme.THEME_COLOR_DEFAULT, audioIconImageView);
+					Theme.apply(Theme.Mode.DEFAULT, audioIconImageView);
 				else
-					Theme.apply(Theme.THEME_COLOR_DISABLED, audioIconImageView);
+					Theme.apply(Theme.Mode.DISABLED, audioIconImageView);
 			} else
 				audioIconImageView.setVisibility(View.INVISIBLE);
 			if (subject.getAudio() != null) {
@@ -148,11 +148,11 @@ public class SubjectPageAdapter extends RecyclerView.Adapter<SubjectPageAdapter.
 				this.audioPlayer.prepare();
 				audioIconImageView.setOnClickListener(view -> {
 					if (!this.audioPlayerView.isVisible()) {
-						Theme.apply(Theme.THEME_COLOR_ACTIVE, audioIconImageView);
+						Theme.apply(Theme.Mode.ACTIVE, audioIconImageView);
 						this.audioPlayer.play();
 						this.audioPlayerView.show();
 					} else {
-						Theme.apply(Theme.THEME_COLOR_DEFAULT, audioIconImageView);
+						Theme.apply(Theme.Mode.DEFAULT, audioIconImageView);
 						this.audioPlayerView.hide();
 					}
 				});
@@ -177,10 +177,10 @@ public class SubjectPageAdapter extends RecyclerView.Adapter<SubjectPageAdapter.
 		
 		private void bindSubjectInfoAdapter(Subject subject) {
 			if (isDisplayingAttributes) {
-				Theme.apply(Theme.THEME_COLOR_DEFAULT, membersIconImageView);
+				Theme.apply(Theme.Mode.DEFAULT, membersIconImageView);
 				subjectInfoRecyclerView.setAdapter(new SubjectAttributesAdapter(subject));
 			} else {
-				Theme.apply(Theme.THEME_COLOR_ACTIVE, membersIconImageView);
+				Theme.apply(Theme.Mode.ACTIVE, membersIconImageView);
 				subjectInfoRecyclerView.setAdapter(new SubjectCatalogAdapter(subject.getMembers()));
 			}
 		}
@@ -201,7 +201,7 @@ public class SubjectPageAdapter extends RecyclerView.Adapter<SubjectPageAdapter.
 			this.audioPlayerView.setPlayer(this.audioPlayer);
 			
 			// Set Theme
-			Theme.apply(Theme.THEME_COLOR_DEFAULT, this.playButton, this.pauseButton, this.backButton);
+			Theme.apply(Theme.Mode.DEFAULT, this.playButton, this.pauseButton, this.backButton);
 			
 			// Set notification
 			PlayerNotificationManager playerNotificationManager = PlayerNotificationManager.createWithNotificationChannel(

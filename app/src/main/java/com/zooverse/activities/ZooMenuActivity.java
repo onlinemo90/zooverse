@@ -18,7 +18,7 @@ public class ZooMenuActivity extends AbstractBaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState, R.layout.activity_zoo_menu, true);
 		
-		Theme.apply(Theme.THEME_COLOR_DEFAULT,
+		Theme.apply(Theme.Mode.DEFAULT,
 				(CardView) findViewById(R.id.cardViewAroundMe),
 				findViewById(R.id.cardViewScanInfoPoint),
 				findViewById(R.id.cardViewSearchSpecies),

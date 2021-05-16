@@ -13,11 +13,15 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class Theme {
-	public static final String THEME_COLOR_DEFAULT = "THEME_COLOR_DEFAULT";
-	public static final String THEME_COLOR_ACTIVE = "THEME_COLOR_ACTIVE";
-	public static final String THEME_COLOR_DISABLED = "THEME_COLOR_DISABLED";
-	public static final String THEME_COLOR_BACKGROUND = "THEME_COLOR_BACKGROUND";
+	
 	private static int resourceId;
+	
+	public enum Mode {
+		DEFAULT,
+		ACTIVE,
+		DISABLED,
+		BACKGROUND
+	}
 	
 	private Theme() {
 		// prevent initialisation
@@ -52,16 +56,16 @@ public class Theme {
 		return typedValue.data;
 	}
 	
-	public static void apply (String themeMode, CardView... cards) {
+	public static void apply (Mode themeMode, CardView... cards) {
 		for (CardView card : cards) {
 			switch (themeMode) {
-				case THEME_COLOR_DEFAULT:
+				case DEFAULT:
 					card.setCardBackgroundColor(getColor(R.attr.themeColorCardBackground));
 					break;
-				case THEME_COLOR_ACTIVE:
+				case ACTIVE:
 					card.setCardBackgroundColor(getColor(R.attr.themeColorPrimary));
 					break;
-				case THEME_COLOR_DISABLED:
+				case DISABLED:
 					card.setCardBackgroundColor(getColor(R.attr.themeColorForegroundFaded));
 					break;
 				default:
@@ -84,19 +88,19 @@ public class Theme {
 		}
 	}
 	
-	public static void apply (String themeMode, ImageView... imageViews) {
+	public static void apply (Mode themeMode, ImageView... imageViews) {
 		for (ImageView imageView : imageViews){
 			switch (themeMode) {
-				case THEME_COLOR_DEFAULT:
+				case DEFAULT:
 					imageView.setColorFilter(getColor(R.attr.themeColorForeground), PorterDuff.Mode.SRC_ATOP);
 					break;
-				case THEME_COLOR_ACTIVE:
+				case ACTIVE:
 					imageView.setColorFilter(getColor(R.attr.themeColorPrimary), PorterDuff.Mode.SRC_ATOP);
 					break;
-				case THEME_COLOR_DISABLED:
+				case DISABLED:
 					imageView.setColorFilter(getColor(R.attr.themeColorForegroundFaded), PorterDuff.Mode.SRC_ATOP);
 					break;
-				case THEME_COLOR_BACKGROUND:
+				case BACKGROUND:
 					imageView.setColorFilter(getColor(R.attr.themeColorBackground), PorterDuff.Mode.SRC_ATOP);
 					break;
 				default:
@@ -105,19 +109,19 @@ public class Theme {
 		}
 	}
 	
-	public static void apply (String themeMode, TextView... textViews) {
+	public static void apply (Mode themeMode, TextView... textViews) {
 		for (TextView textView : textViews){
 			switch (themeMode) {
-				case THEME_COLOR_DEFAULT:
+				case DEFAULT:
 					textView.setTextColor(getColor(R.attr.themeColorForeground));
 					break;
-				case THEME_COLOR_ACTIVE:
+				case ACTIVE:
 					textView.setTextColor(getColor(R.attr.themeColorPrimary));
 					break;
-				case THEME_COLOR_DISABLED:
+				case DISABLED:
 					textView.setTextColor(getColor(R.attr.themeColorForegroundFaded));
 					break;
-				case THEME_COLOR_BACKGROUND:
+				case BACKGROUND:
 					textView.setTextColor(getColor(R.attr.themeColorBackground));
 					break;
 				default:
@@ -126,19 +130,19 @@ public class Theme {
 		}
 	}
 	
-	public static void apply (String themeMode, Drawable... drawables){
+	public static void apply (Mode themeMode, Drawable... drawables){
 		for (Drawable drawable : drawables) {
 			switch (themeMode) {
-				case THEME_COLOR_DEFAULT:
+				case DEFAULT:
 					drawable.setColorFilter(getColor(R.attr.themeColorForeground), PorterDuff.Mode.SRC_ATOP);
 					break;
-				case THEME_COLOR_ACTIVE:
+				case ACTIVE:
 					drawable.setColorFilter(getColor(R.attr.themeColorPrimary), PorterDuff.Mode.SRC_ATOP);
 					break;
-				case THEME_COLOR_DISABLED:
+				case DISABLED:
 					drawable.setColorFilter(getColor(R.attr.themeColorForegroundFaded), PorterDuff.Mode.SRC_ATOP);
 					break;
-				case THEME_COLOR_BACKGROUND:
+				case BACKGROUND:
 					drawable.setColorFilter(getColor(R.attr.themeColorBackground), PorterDuff.Mode.SRC_ATOP);
 					break;
 				default:

@@ -52,7 +52,7 @@ public class SubjectLocationCatalogAdapter extends RecyclerView.Adapter<SubjectL
 		public void bind(Subject subject, int distance) {
 			speciesNameTextView.setText(subject.getName());
 			speciesImageView.setImageBitmap(subject.getImage());
-			Theme.apply(Theme.THEME_COLOR_DEFAULT, speciesLocationImageView);
+			Theme.apply(Theme.Mode.DEFAULT, speciesLocationImageView);
 			
 			// Format distance string
 			if (distance > 999) {
