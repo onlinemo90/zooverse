@@ -64,7 +64,7 @@
 			android:layout_marginBottom="4dp"
 			android:textAlignment="center"
 			android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-			android:textColor="@color/colorBackground"
+			android:textColor="?attr/themeColorBackground"
 			android:textStyle="bold"
 			app:layout_constraintBottom_toBottomOf="@+id/membersIconImageView"
 			app:layout_constraintEnd_toEndOf="@+id/membersIconImageView"

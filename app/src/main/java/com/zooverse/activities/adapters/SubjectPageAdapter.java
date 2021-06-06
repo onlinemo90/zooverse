@@ -1,5 +1,6 @@
 package com.zooverse.activities.adapters;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -80,69 +81,44 @@ public class SubjectPageAdapter extends RecyclerView.Adapter<SubjectPageAdapter.
 			super(itemView);
 		}
 		
+		@SuppressLint("ClickableViewAccessibility")
 		public void bind(Subject subject) {
 			this.subject = subject;
 			subjectImage.setImageBitmap(subject.getImage());
 			
 			// Subject Info RecyclerView
 			subjectInfoRecyclerView.setLayoutManager(new LinearLayoutManager(MainApplication.getContext()));
-			subjectInfoRecyclerView.setOnTouchListener((v, event) -> {
-				if (event.getAction() == MotionEvent.ACTION_DOWN && audioPlayerView.isVisible()) {
-					audioPlayerView.hide();
-					Theme.apply(Theme.Mode.DEFAULT, this.audioIconImageView);
-					return true;
-				}
-				return false;
-			});
 			bindSubjectInfoAdapter(subject);
 			
 			// Members
-			
-			if (subject instanceof Species || subject instanceof Group) {
+			membersIconImageView.setVisibility(View.INVISIBLE);
+			if (subject.getMembers() != null) {
 				membersIconImageView.setVisibility(View.VISIBLE);
-				if (subject.getMembers() != null && subject.getMembers().size() > 0) {
-					Theme.apply(Theme.Mode.DEFAULT, membersIconImageView);
+				if (subject.getMembers().size() > 0) {
+					membersCountTextView.setVisibility(View.VISIBLE);
+					membersCountTextView.setText(String.valueOf(subject.getMembers().size()));
 					membersIconImageView.setOnClickListener(view -> {
 						isDisplayingAttributes = !isDisplayingAttributes;
 						bindSubjectInfoAdapter(subject);
 					});
-					membersCountTextView.setVisibility(View.VISIBLE);
-					membersCountTextView.setText(String.valueOf(subject.getMembers().size()));
-					Theme.apply(Theme.Mode.BACKGROUND, membersCountTextView);
 				} else {
-					membersCountTextView.setVisibility(View.INVISIBLE);
 					Theme.apply(Theme.Mode.DISABLED, membersIconImageView);
 				}
-			} else {
-				membersIconImageView.setVisibility(View.INVISIBLE);
-				membersCountTextView.setVisibility(View.INVISIBLE);
 			}
 			
 			// Location
-			if (subject instanceof Species) {
-				locationIconImageView.setVisibility(View.VISIBLE);
-				if (subject.getLocation() != null)
-					Theme.apply(Theme.Mode.DEFAULT, locationIconImageView);
-				else
-					Theme.apply(Theme.Mode.DISABLED, locationIconImageView);
-			} else
-				locationIconImageView.setVisibility(View.INVISIBLE);
-			locationIconImageView.setOnClickListener(view -> {
-				Intent intent = new Intent(MainApplication.getContext(), SubjectLocationActivity.class);
-				intent.putExtra(SubjectLocationActivity.IntentExtras.SUBJECT_UUID.toString(), subject.getUuid());
-				MainApplication.getContext().startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-			});
+			Theme.apply(subject.getLocation() == null ? Theme.Mode.DISABLED : Theme.Mode.DEFAULT, locationIconImageView);
+			if (subject.getLocation() != null) {
+				locationIconImageView.setOnClickListener(view -> {
+					Intent intent = new Intent(MainApplication.getContext(), SubjectLocationActivity.class);
+					intent.putExtra(SubjectLocationActivity.IntentExtras.SUBJECT_UUID.toString(), subject.getUuid());
+					MainApplication.getContext().startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+				});
+			}
 			
 			// Audio
 			bindAudioPlayer(subject);
-			if (subject instanceof Species) {
-				audioIconImageView.setVisibility(View.VISIBLE);
-				if (subject.getAudio() != null)
-					Theme.apply(Theme.Mode.DEFAULT, audioIconImageView);
-				else
-					Theme.apply(Theme.Mode.DISABLED, audioIconImageView);
-			} else
-				audioIconImageView.setVisibility(View.INVISIBLE);
+			Theme.apply(subject.getAudio() == null ? Theme.Mode.DISABLED : Theme.Mode.DEFAULT, audioIconImageView);
 			if (subject.getAudio() != null) {
 				this.audioPlayer.setMediaSource(new ProgressiveMediaSource.Factory(() -> new ByteArrayDataSource(subject.getAudio())).createMediaSource(MediaItem.fromUri(Uri.EMPTY)));
 				this.audioPlayer.prepare();
@@ -155,6 +131,15 @@ public class SubjectPageAdapter extends RecyclerView.Adapter<SubjectPageAdapter.
 						Theme.apply(Theme.Mode.DEFAULT, audioIconImageView);
 						this.audioPlayerView.hide();
 					}
+				});
+				// Hide audio player when user clicks elsewhere
+				subjectInfoRecyclerView.setOnTouchListener((v, event) -> {
+					if (event.getAction() == MotionEvent.ACTION_DOWN && audioPlayerView.isVisible()) {
+						audioPlayerView.hide();
+						Theme.apply(Theme.Mode.DEFAULT, this.audioIconImageView);
+						return true;
+					}
+					return false;
 				});
 			}
 			
