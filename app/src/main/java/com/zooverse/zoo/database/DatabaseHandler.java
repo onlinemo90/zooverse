@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DatabaseHandler extends SQLiteAssetHelper {
-	private static final int DATABASE_VERSION = 77;
+	private static final int DATABASE_VERSION = 86;
 	private static DatabaseHandler instance = null;
 	
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat(DatabaseContract.DATE_FORMAT);
@@ -299,19 +299,16 @@ public class DatabaseHandler extends SQLiteAssetHelper {
 	private Pair<Double, Double> getLocation(int locationID) {
 		Cursor cursor = database.query(
 				DatabaseContract.LocationEntry.TABLE_NAME,
-				new String[]{
-						DatabaseContract.LocationEntry.COLUMN_LATITUDE,
-						DatabaseContract.LocationEntry.COLUMN_LONGITUDE,
-				},
+				new String[]{ DatabaseContract.LocationEntry.COLUMN_COORDINATES },
 				DatabaseContract.SpeciesEntry._ID + "= ?", new String[]{Integer.toString(locationID)},
 				null, null, null
 		);
 		Pair<Double, Double> location = null;
 		if (cursor.moveToNext()) {
-			location = new Pair<>(
-					cursor.getDouble(cursor.getColumnIndex(DatabaseContract.LocationEntry.COLUMN_LATITUDE)),
-					cursor.getDouble(cursor.getColumnIndex(DatabaseContract.LocationEntry.COLUMN_LONGITUDE))
-			);
+			try {
+				String[] coordinates = cursor.getString(cursor.getColumnIndex(DatabaseContract.LocationEntry.COLUMN_COORDINATES)).split(",");
+				location = new Pair<>(Double.parseDouble(coordinates[0]), Double.parseDouble(coordinates[1]));
+			} catch(Exception ignored){}
 		}
 		cursor.close();
 		return location;
