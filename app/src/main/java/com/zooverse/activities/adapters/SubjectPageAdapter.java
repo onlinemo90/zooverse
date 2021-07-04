@@ -81,7 +81,6 @@ public class SubjectPageAdapter extends RecyclerView.Adapter<SubjectPageAdapter.
 			super(itemView);
 		}
 		
-		@SuppressLint("ClickableViewAccessibility")
 		public void bind(Subject subject) {
 			this.subject = subject;
 			subjectImage.setImageBitmap(subject.getImage());
@@ -106,43 +105,6 @@ public class SubjectPageAdapter extends RecyclerView.Adapter<SubjectPageAdapter.
 				}
 			}
 			
-			// Location
-			Theme.apply(subject.getLocation() == null ? Theme.Mode.DISABLED : Theme.Mode.DEFAULT, locationIconImageView);
-			if (subject.getLocation() != null) {
-				locationIconImageView.setOnClickListener(view -> {
-					Intent intent = new Intent(MainApplication.getContext(), SubjectLocationActivity.class);
-					intent.putExtra(SubjectLocationActivity.IntentExtras.SUBJECT_UUID.toString(), subject.getUuid());
-					MainApplication.getContext().startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-				});
-			}
-			
-			// Audio
-			bindAudioPlayer(subject);
-			Theme.apply(subject.getAudio() == null ? Theme.Mode.DISABLED : Theme.Mode.DEFAULT, audioIconImageView);
-			if (subject.getAudio() != null) {
-				this.audioPlayer.setMediaSource(new ProgressiveMediaSource.Factory(() -> new ByteArrayDataSource(subject.getAudio())).createMediaSource(MediaItem.fromUri(Uri.EMPTY)));
-				this.audioPlayer.prepare();
-				audioIconImageView.setOnClickListener(view -> {
-					if (!this.audioPlayerView.isVisible()) {
-						Theme.apply(Theme.Mode.ACTIVE, audioIconImageView);
-						this.audioPlayer.play();
-						this.audioPlayerView.show();
-					} else {
-						Theme.apply(Theme.Mode.DEFAULT, audioIconImageView);
-						this.audioPlayerView.hide();
-					}
-				});
-				// Hide audio player when user clicks elsewhere
-				subjectInfoRecyclerView.setOnTouchListener((v, event) -> {
-					if (event.getAction() == MotionEvent.ACTION_DOWN && audioPlayerView.isVisible()) {
-						audioPlayerView.hide();
-						Theme.apply(Theme.Mode.DEFAULT, this.audioIconImageView);
-						return true;
-					}
-					return false;
-				});
-			}
-			
 			// Demographics
 			demographicsLayout.setVisibility(View.GONE);
 			if (subject instanceof Species) {
@@ -157,6 +119,50 @@ public class SubjectPageAdapter extends RecyclerView.Adapter<SubjectPageAdapter.
 				} else if (individual.getGender() == Individual.Gender.FEMALE) {
 					subjectGenderIcon.setImageDrawable(ContextCompat.getDrawable(MainApplication.getContext(), R.drawable.icon_gender_female));
 				}
+			}
+			
+			// Location & Audio currently only supported for Species
+			if (subject instanceof Species) {
+				
+				// Location
+				Theme.apply(subject.getLocation() == null ? Theme.Mode.DISABLED : Theme.Mode.DEFAULT, locationIconImageView);
+				if (subject.getLocation() != null) {
+					locationIconImageView.setOnClickListener(view -> {
+						Intent intent = new Intent(MainApplication.getContext(), SubjectLocationActivity.class);
+						intent.putExtra(SubjectLocationActivity.IntentExtras.SUBJECT_UUID.toString(), subject.getUuid());
+						MainApplication.getContext().startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+					});
+				}
+				
+				// Audio
+				bindAudioPlayer(subject);
+				Theme.apply(subject.getAudio() == null ? Theme.Mode.DISABLED : Theme.Mode.DEFAULT, audioIconImageView);
+				if (subject.getAudio() != null) {
+					this.audioPlayer.setMediaSource(new ProgressiveMediaSource.Factory(() -> new ByteArrayDataSource(subject.getAudio())).createMediaSource(MediaItem.fromUri(Uri.EMPTY)));
+					this.audioPlayer.prepare();
+					audioIconImageView.setOnClickListener(view -> {
+						if (!this.audioPlayerView.isVisible()) {
+							Theme.apply(Theme.Mode.ACTIVE, audioIconImageView);
+							this.audioPlayer.play();
+							this.audioPlayerView.show();
+						} else {
+							Theme.apply(Theme.Mode.DEFAULT, audioIconImageView);
+							this.audioPlayerView.hide();
+						}
+					});
+					// Hide audio player when user clicks elsewhere
+					subjectInfoRecyclerView.setOnTouchListener((v, event) -> {
+						if (event.getAction() == MotionEvent.ACTION_DOWN && audioPlayerView.isVisible()) {
+							audioPlayerView.hide();
+							Theme.apply(Theme.Mode.DEFAULT, this.audioIconImageView);
+							return true;
+						}
+						return false;
+					});
+				}
+			} else {
+				locationIconImageView.setVisibility(View.INVISIBLE);
+				audioIconImageView.setVisibility(View.INVISIBLE);
 			}
 		}
 		
@@ -226,7 +232,8 @@ public class SubjectPageAdapter extends RecyclerView.Adapter<SubjectPageAdapter.
 		}
 		
 		private void pauseAudio(){
-			this.audioPlayer.pause();
+			if (this.audioPlayer != null)
+				this.audioPlayer.pause();
 		}
 	}
 	
